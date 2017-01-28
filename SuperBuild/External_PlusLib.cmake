@@ -283,6 +283,7 @@ ExternalProject_Add(PlusLib
   #--Configure step-------------
   CMAKE_ARGS
     ${ep_common_args}
+    -DGIT_EXECUTABLE:PATH=${GIT_EXECUTABLE}
     -DCMAKE_MODULE_PATH:PATH=${CMAKE_MODULE_PATH}
     -DVTK_DIR:PATH=${PLUS_VTK_DIR}
     -DITK_DIR:PATH=${PLUS_ITK_DIR}
