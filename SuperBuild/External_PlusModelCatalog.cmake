@@ -1,11 +1,5 @@
 # --------------------------------------------------------------------------
-# PlusApp
-SET(PLUSBUILD_SVN_REVISION_ARGS)
-IF ( NOT PLUS_SVN_REVISION STREQUAL "0" )
-  SET(PLUSBUILD_SVN_REVISION_ARGS 
-    SVN_REVISION -r "${PLUS_SVN_REVISION}"
-    )
-ENDIF()
+# PlusModelCatalog
 
 SET (PLUS_PLUSMODELCATALOG_DIR ${CMAKE_BINARY_DIR}/PlusModelCatalog CACHE INTERNAL "Path to store Plus Model Catalog.")
 ExternalProject_Add(PlusModelCatalog
@@ -15,8 +9,7 @@ ExternalProject_Add(PlusModelCatalog
   #--Download step--------------
   SVN_USERNAME ${PLUSBUILD_ASSEMBLA_USERNAME}
   SVN_PASSWORD ${PLUSBUILD_ASSEMBLA_PASSWORD}
-  SVN_REPOSITORY https://subversion.assembla.com/svn/plus/${PLUSBUILD_SVN_BRANCH}/PlusModelCatalog
-  ${PLUSBUILD_SVN_REVISION_ARGS}
+  SVN_REPOSITORY https://subversion.assembla.com/svn/plus/trunk/PlusModelCatalog
   #--Configure step-------------
   CMAKE_ARGS 
     ${ep_common_args}
