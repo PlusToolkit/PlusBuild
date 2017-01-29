@@ -1,9 +1,9 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.3.0)
+
 PROJECT(PlusBuild)
 
 # Configure the build to work (although with limited functionalities) if only
 # src directory of the repository is available
-
-CMAKE_MINIMUM_REQUIRED(VERSION 3.3.0)
 
 SET(CMAKE_CXX_STANDARD 11 CACHE INTERNAL "Use C++11 standard")
 MARK_AS_ADVANCED(CMAKE_CXX_STANDARD)
