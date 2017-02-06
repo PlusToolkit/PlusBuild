@@ -54,6 +54,8 @@ ELSE()
     
     IF(_cuda)
       LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DWITH_CUDA:BOOL=ON)
+    ELSE()
+      LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DWITH_CUDA:BOOL=OFF)
     ENDIF()
     
     SET(_generations "Fermi" "Kepler" "Maxwell")
