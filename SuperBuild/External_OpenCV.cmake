@@ -97,18 +97,19 @@ ELSE()
     BINARY_DIR "${PLUS_OpenCV_DIR}"
     #--Download step--------------
     GIT_REPOSITORY ${OpenCV_REPOSITORY}
-    GIT_TAG 6c12533160bc5e6de1f09847d9cd6dd548667a55 # 3.1.0 with many fixes
+    GIT_TAG 3.2.0
     #--Configure step-------------
     CMAKE_ARGS
       ${ep_common_args}
       ${OpenCV_PLATFORM_SPECIFIC_ARGS}
       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${PLUS_EXECUTABLE_OUTPUT_PATH}
-      -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${PLUS_EXECUTABLE_OUTPUT_PATH}
-      -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${PLUS_EXECUTABLE_OUTPUT_PATH}
+      -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${PLUS_LIBRARY_OUTPUT_PATH}
+      -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${PLUS_ARCHIVE_OUTPUT_PATH}
+      -DOpenCV_INSTALL_BINARIES_PREFIX:STRING="" # Install to prefix directly, not arch/compiler/etc...
       -DCMAKE_CXX_FLAGS:STRING=${ep_common_cxx_flags}
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
-      #-DVTK_DIR:PATH=${PLUS_VTK_DIR} re-enable OpenCV-VTK7 support
-      -DWITH_VTK:BOOL=OFF
+      -DVTK_DIR:PATH=${PLUS_VTK_DIR}
+      -DWITH_VTK:BOOL=ON
       -DBUILD_TESTS:BOOL=OFF
       -DBUILD_PERF_TESTS:BOOL=OFF
       -DBUILD_SHARED_LIBS:BOOL=${PLUSBUILD_BUILD_SHARED_LIBS}
@@ -117,6 +118,6 @@ ELSE()
     #--Install step-----------------
     INSTALL_COMMAND "" # Do not install, we have access to ${PLUS_OpenCV_DIR}/OpenCVConfig.cmake
     #--Dependencies-----------------
-    #DEPENDS vtk RE-ADD with OpenCV-VTK7 support
+    DEPENDS vtk
     )
 ENDIF()
