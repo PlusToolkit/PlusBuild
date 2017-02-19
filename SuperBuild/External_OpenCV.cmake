@@ -105,7 +105,7 @@ ELSE()
       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${PLUS_EXECUTABLE_OUTPUT_PATH}
       -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${PLUS_LIBRARY_OUTPUT_PATH}
       -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${PLUS_ARCHIVE_OUTPUT_PATH}
-      -DOpenCV_INSTALL_BINARIES_PREFIX:STRING="" # Install to prefix directly, not arch/compiler/etc...
+      -DOpenCV_INSTALL_BINARIES_PREFIX:STRING= # Install to prefix directly, not arch/compiler/etc...
       -DCMAKE_CXX_FLAGS:STRING=${ep_common_cxx_flags}
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
       -DVTK_DIR:PATH=${PLUS_VTK_DIR}
