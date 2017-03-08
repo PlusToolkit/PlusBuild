@@ -409,6 +409,10 @@ IF(PLUSBUILD_USE_OpenIGTLink)
   INCLUDE(SuperBuild/External_OpenIGTLinkIO.cmake)
 ENDIF()
 
+IF(PLUS_USE_NDI OR PLUS_USE_NDI_CERTUS)
+  INCLUDE(SuperBuild/External_ndicapi.cmake)
+ENDIF()
+
 IF(PLUS_USE_BKPROFOCUS_VIDEO)
   INCLUDE(SuperBuild/External_GrabbieLib.cmake)
 ENDIF()
