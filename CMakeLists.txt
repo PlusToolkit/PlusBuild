@@ -211,6 +211,7 @@ OPTION(PLUS_USE_CAPISTRANO_VIDEO "Provide support for the Capistrano Labs USB ul
 OPTION(PLUS_USE_INTERSON_VIDEO "Provide support for the Interson USB ultrasound probes" OFF)
 OPTION(PLUS_USE_INTERSONSDKCXX_VIDEO "Provide support for the Interson SDK 1.X with C++ Wrapper USB ultrasound probes" OFF)
 OPTION(PLUS_USE_TELEMED_VIDEO "Provide support for the Telemed ultrasound probes" OFF)
+OPTION(PLUS_USE_AGILENT "Provide support for the Agilent digitizer device" OFF) 
 IF(PLUS_USE_TELEMED_VIDEO)
   OPTION(PLUS_TEST_TELEMED "Enable testing of acquisition from Telemed ultrasound systems. Enable this only if a Telemed device is connected to this computer. " OFF)
 ENDIF (PLUS_USE_TELEMED_VIDEO)
@@ -354,7 +355,7 @@ IF(PLUSBUILD_USE_3DSlicer)
   IF(NOT Slicer_FOUND)
     MESSAGE(FATAL_ERROR "Unable to find Slicer at ${PLUSBUILD_SLICER_BIN_DIRECTORY} directory. Please verify configuration")
   ENDIF()
-  
+
   UNSET(QT_QMAKE_EXECUTABLE CACHE) # Slicer's Qt requirements and PLUS's are different
   UNSET(QT_BINARY_DIR CACHE)
   UNSET(OpenIGTLink_DIR CACHE) # Slicer's OpenIGTLink and PLUS's are different
@@ -401,7 +402,7 @@ INCLUDE(SuperBuild/External_ITK.cmake)
 IF(PLUSBUILD_USE_OpenIGTLink)
   SET(OpenIGTLink_DEPENDENCIES)
   INCLUDE(SuperBuild/External_OpenIGTLink.cmake)
-  
+
   SET(OpenIGTLinkIO_DEPENDENCIES OpenIGTLink)
   IF(TARGET vtk)
     LIST(APPEND OpenIGTLinkIO_DEPENDENCIES vtk)
