@@ -410,7 +410,7 @@ IF(PLUSBUILD_USE_OpenIGTLink)
   INCLUDE(SuperBuild/External_OpenIGTLinkIO.cmake)
 ENDIF()
 
-IF(PLUS_USE_NDI OR PLUS_USE_NDI_CERTUS)
+IF(PLUS_USE_NDI)
   INCLUDE(SuperBuild/External_ndicapi.cmake)
 ENDIF()
 
@@ -583,7 +583,7 @@ IF(PLUSBUILD_USE_Tesseract)
   LIST(APPEND PlusLib_DEPENDENCIES tesseract)
 ENDIF()
 
-IF(PLUS_USE_NDI)
+IF(PLUS_USE_NDI AND NOT ndicapi_DIR)
   LIST(APPEND PlusLib_DEPENDENCIES ndicapi)
 ENDIF()
 
