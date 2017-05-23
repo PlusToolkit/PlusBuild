@@ -263,6 +263,8 @@ IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
   ENDIF()
 ENDIF()
 
+OPTION(PLUS_USE_OPTICAL_MARKER_TRACKING "Provide support of fiducial marker tracking using Intel RealSense camera." OFF)
+
 OPTION(PLUS_USE_NVIDIA_DVP "Provide support for the NVidia Digital Video Pipeline" OFF)
 IF (PLUS_USE_NVIDIA_DVP)
   FIND_PACKAGE(QuadroSDI REQUIRED)
@@ -542,6 +544,15 @@ IF (PLUS_USE_PHILIPS_3D_ULTRASOUND)
       MESSAGE(STATUS "To use the Philips devices you must:")
       MESSAGE(STATUS "1. Register '${CMAKE_CURRENT_BINARY_DIR}/bin/Debug|Release/Stream3d.dll'. If you are using a 32-bit OS, this can be done by running 'regsvr32 Stream3d.dll' in command line. If you are using a 64-bit OS, this can be done by the following procedure. Open the command line in administrator mode (Right click on cmd, choose 'Run as administrator'). Go to directory 'C:/Windows/SysWow64'. Run the regsvr32 command in SysWow64.")
   ENDIF()
+ENDIF()
+
+IF(PLUS_USE_OPTICAL_MARKER_TRACKING)
+  FIND_PACKAGE(RSSDK)
+  IF(NOT RSSDK_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires Intel RealSense SDK for supporting the Intel RealSense device. One of the components is missing. Please verify configuration or turn off PLUS_USE_INTELREALSENSE.")
+  ENDIF()
+  INCLUDE(SuperBuild/External_OpenCV.cmake)
+  INCLUDE(SuperBuild/External_aruco.cmake)
 ENDIF()
 
 #------------------------------------------------------------------------------
