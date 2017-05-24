@@ -1,18 +1,20 @@
 # Find the Claron MicronTracker SDK 
 # This module defines
-# MICRONTRACKER_FOUND - MicronTracker SDK has been found on this system
-# MICRONTRACKER_INCLUDE_DIR - where to find the header files
-# MICRONTRACKER_LIBRARY - libraries to be linked
-# MICRONTRACKER_BINARY_DIR - shared libraries to be installed
+# MicronTracker_FOUND - MicronTracker SDK has been found on this system
+# MicronTracker_INCLUDE_DIR - where to find the header files
+# MicronTracker_LIBRARY - MTC library to be linked
+# MicronTracker_BINARY_DIR - location of shared libraries
+#
+# INSTALL_MicronTracker - Macro to install all MicronTracker DLLs to a location
 
 # By default prefer MTC_3.6 as MTC_3.7 requires installation of VS2013 redistributable package
-OPTION(PLUSBUILD_PREFER_MICRONTRACKER_36 "Plus prefers MicronTracker SDK version MTC_3.6 instead of MTC_3.7" ON)
-MARK_AS_ADVANCED(PLUSBUILD_PREFER_MICRONTRACKER_36)
+OPTION(PLUSBUILD_PREFER_MicronTracker_36 "Plus prefers MicronTracker SDK version MTC_3.6 instead of MTC_3.7" ON)
+MARK_AS_ADVANCED(PLUSBUILD_PREFER_MicronTracker_36)
 
-# If PLUSBUILD_PREFER_MICRONTRACKER_36 is defined: try to find MTC_3.6 first and fall back to MTC_3.7,
+# If PLUSBUILD_PREFER_MicronTracker_36 is defined: try to find MTC_3.6 first and fall back to MTC_3.7,
 # otherwise try to find MTC_3.7 and fall back to MTC_3.6.
-IF (PLUSBUILD_PREFER_MICRONTRACKER_36)
-  SET( MicronTracker_PATH_HINTS
+IF(PLUSBUILD_PREFER_MicronTracker_36)
+  SET(MicronTracker_PATH_HINTS
     ../Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../../PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
@@ -28,9 +30,10 @@ IF (PLUSBUILD_PREFER_MICRONTRACKER_36)
     ../../PLTools/Claron/MTC_3.7.6.8_x86_win/MicronTracker
     ../trunk/PLTools/Claron/MTC_3.7.6.8_x86_win/MicronTracker
     ${CMAKE_CURRENT_BINARY_DIR}/PLTools/Claron/MTC_3.7.6.8_x86_win/MicronTracker
+    ${CMAKE_CURRENT_BINARY_DIR}/../../../../../PLTools/Claron/MTC_3.7.6.8_x86_win/MicronTracker
     )
 ELSE()
-  SET( MicronTracker_PATH_HINTS
+  SET(MicronTracker_PATH_HINTS
     ../Claron/MTC_3.7.6.8_x86_win/MicronTracker
     ../PLTools/Claron/MTC_3.7.6.8_x86_win/MicronTracker
     ../../PLTools/Claron/MTC_3.7.6.8_x86_win/MicronTracker
@@ -46,10 +49,11 @@ ELSE()
     ../../PLTools/Claron/MTC_3.6.1.6_x86_win/MicronTracker
     ../trunk/PLTools/Claron/MTC_3.6.1.6_x86_win/MicronTracker
     ${CMAKE_CURRENT_BINARY_DIR}/PLTools/Claron/MTC_3.6.1.6_x86_win/MicronTracker
+    ${CMAKE_CURRENT_BINARY_DIR}/../../../../../PLTools/Claron/MTC_3.6.1.6_x86_win/MicronTracker
     )
 ENDIF()
 
-SET( MicronTracker_PATH_HINTS ${MicronTracker_PATH_HINTS}
+LIST(APPEND MicronTracker_PATH_HINTS
   "c:/Program Files (x86)/Claron Technology/MicronTracker"
   "c:/Program Files/Claron Technology/MicronTracker"
   )
@@ -59,16 +63,16 @@ SET( MicronTracker_PATH_HINTS ${MicronTracker_PATH_HINTS}
   ELSE()
     SET(PLATFORM_SUFFIX "")
   ENDIF()
-  
-FIND_PATH(MicronTracker_BASE_INCLUDE_DIR MTC.h 
+
+FIND_PATH(MicronTracker_INCLUDE_DIR MTC.h 
   PATH_SUFFIXES
     Dist${PLATFORM_SUFFIX}
     inc	
   DOC "MicronTracker include directory (contains MTC.h)"
-  PATHS ${MicronTracker_PATH_HINTS} 
+  PATHS ${MicronTracker_PATH_HINTS}
   )
 
-FIND_LIBRARY(MicronTracker_BASE_LIBRARY 
+FIND_LIBRARY(MicronTracker_LIBRARY 
   NAMES MTC${CMAKE_STATIC_LIBRARY_SUFFIX}
   PATH_SUFFIXES
     Dist${PLATFORM_SUFFIX}
@@ -77,7 +81,7 @@ FIND_LIBRARY(MicronTracker_BASE_LIBRARY
   PATHS ${MicronTracker_PATH_HINTS} 
   )
 
-FIND_PATH(MicronTracker_BASE_BINARY_DIR MTC${CMAKE_SHARED_LIBRARY_SUFFIX}
+FIND_PATH(MicronTracker_BINARY_DIR MTC${CMAKE_SHARED_LIBRARY_SUFFIX}
   PATH_SUFFIXES 
     Dist${PLATFORM_SUFFIX}
     bin
@@ -90,13 +94,46 @@ FIND_PATH(MicronTracker_BASE_BINARY_DIR MTC${CMAKE_SHARED_LIBRARY_SUFFIX}
 # all listed variables are TRUE
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(MicronTracker DEFAULT_MSG 
-  MicronTracker_BASE_LIBRARY
-  MicronTracker_BASE_INCLUDE_DIR
-  MicronTracker_BASE_BINARY_DIR
+  MicronTracker_LIBRARY
+  MicronTracker_INCLUDE_DIR
+  MicronTracker_BINARY_DIR
   )
 
-IF(MICRONTRACKER_FOUND)
-  SET( MICRONTRACKER_LIBRARY ${MicronTracker_BASE_LIBRARY} )
-  SET( MICRONTRACKER_INCLUDE_DIR ${MicronTracker_BASE_INCLUDE_DIR} )
-  SET( MICRONTRACKER_BINARY_DIR ${MicronTracker_BASE_BINARY_DIR} )
-ENDIF()
+ADD_LIBRARY(MicronTracker SHARED IMPORTED)
+SET_TARGET_PROPERTIES(MicronTracker PROPERTIES
+  INTERFACE_INCLUDE_DIRECTORIES "${MicronTracker_INCLUDE_DIR}"
+  IMPORTED_IMPLIB "${MicronTracker_LIBRARY}"
+  IMPORTED_LOCATION "${MicronTracker_BINARY_DIR}/MTC${CMAKE_SHARED_LIBRARY_SUFFIX}"
+)
+
+MACRO(MicronTrackerInstall _include_location _binary_location _library_location _archive_location _package)
+  # --------------------------------------------------------------------------
+  # Install
+  #
+  IF(EXISTS "${MicronTracker_BINARY_DIR}/FlyCapture2${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    # MicronTracker 3.7.x
+    INSTALL(FILES
+      ${MicronTracker_BINARY_DIR}/MTC${CMAKE_SHARED_LIBRARY_SUFFIX}
+      ${MicronTracker_BINARY_DIR}/digiclops${CMAKE_SHARED_LIBRARY_SUFFIX}
+      ${MicronTracker_BINARY_DIR}/FlyCapture2${CMAKE_SHARED_LIBRARY_SUFFIX}
+      ${MicronTracker_BINARY_DIR}/FlyCapture2_C${CMAKE_SHARED_LIBRARY_SUFFIX}
+      ${MicronTracker_BINARY_DIR}/libiomp5md${CMAKE_SHARED_LIBRARY_SUFFIX}
+      ${MicronTracker_BINARY_DIR}/PGRFlyCapture${CMAKE_SHARED_LIBRARY_SUFFIX}
+      ${MicronTracker_BINARY_DIR}/triclops${CMAKE_SHARED_LIBRARY_SUFFIX} 
+      DESTINATION "${_binary_location}" COMPONENT RuntimeLibraries
+      )
+  ELSE()
+    # MicronTracker 3.6.x
+    INSTALL(FILES
+      ${MicronTracker_BINARY_DIR}/MTC${CMAKE_SHARED_LIBRARY_SUFFIX}
+      ${MicronTracker_BINARY_DIR}/Windist/digiclops${CMAKE_SHARED_LIBRARY_SUFFIX}
+      ${MicronTracker_BINARY_DIR}/Windist/PGRFlyCapture${CMAKE_SHARED_LIBRARY_SUFFIX}
+      ${MicronTracker_BINARY_DIR}/Windist/triclops${CMAKE_SHARED_LIBRARY_SUFFIX}
+      DESTINATION "${_binary_location}" COMPONENT RuntimeLibraries
+      )
+  ENDIF()
+
+  INSTALL(FILES ${MicronTracker_INCLUDE_DIR}/MTC.h
+    DESTINATION "${_include_location}" COMPONENT Development
+    )
+ENDMACRO()
