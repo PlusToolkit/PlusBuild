@@ -32,6 +32,11 @@ IF(OpenCV_DIR)
   ENDFOREACH()
 
   SET(PLUS_OpenCV_DIR ${OpenCV_DIR} CACHE INTERNAL "Path to store OpenCV binaries")
+ 
+  # dummy target
+  ADD_CUSTOM_TARGET( OpenCV
+  )
+
 ELSE()
   # No OpenCV is specified, so download and build
   SET(OpenCV_REPOSITORY https://github.com/opencv/opencv.git)

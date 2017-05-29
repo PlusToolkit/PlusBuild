@@ -242,6 +242,7 @@ ENDIF()
 
 OPTION(PLUS_USE_MICRONTRACKER "Provide support for the Claron MicronTracker" OFF)
 OPTION(PLUS_USE_INTELREALSENSE "Provide support for Intel RealSense cameras" OFF)
+OPTION(PLUS_USE_OPTICAL_MARKER_TRACKER "Provide support of fiducial marker tracking using Intel RealSense camera." OFF)
 OPTION(PLUS_USE_BRACHY_TRACKER "Provide support for the Brachy Steppers" ${ENABLED_BY_DEFAULT_ON_WINDOWS32_ONLY})
 OPTION(PLUS_USE_USDIGITALENCODERS_TRACKER "Provide support for multiple USDigital encoders tracking device" ${ENABLED_BY_DEFAULT_ON_WINDOWS32_ONLY})
 OPTION(PLUS_USE_Ascension3DG "Provide support for the Ascension 3DG Tracker" ${ENABLED_BY_DEFAULT_ON_WINDOWS32_ONLY})
@@ -542,6 +543,11 @@ IF (PLUS_USE_PHILIPS_3D_ULTRASOUND)
       MESSAGE(STATUS "To use the Philips devices you must:")
       MESSAGE(STATUS "1. Register '${CMAKE_CURRENT_BINARY_DIR}/bin/Debug|Release/Stream3d.dll'. If you are using a 32-bit OS, this can be done by running 'regsvr32 Stream3d.dll' in command line. If you are using a 64-bit OS, this can be done by the following procedure. Open the command line in administrator mode (Right click on cmd, choose 'Run as administrator'). Go to directory 'C:/Windows/SysWow64'. Run the regsvr32 command in SysWow64.")
   ENDIF()
+ENDIF()
+
+IF(PLUS_USE_OPTICAL_MARKER_TRACKER)
+  INCLUDE(SuperBuild/External_OpenCV.cmake)
+  INCLUDE(SuperBuild/External_aruco.cmake)
 ENDIF()
 
 #------------------------------------------------------------------------------
