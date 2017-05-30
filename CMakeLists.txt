@@ -242,7 +242,7 @@ ENDIF()
 
 OPTION(PLUS_USE_MICRONTRACKER "Provide support for the Claron MicronTracker" OFF)
 OPTION(PLUS_USE_INTELREALSENSE "Provide support for Intel RealSense cameras" OFF)
-OPTION(PLUS_USE_OPTICAL_MARKER_TRACKER "Provide support of fiducial marker tracking using Intel RealSense camera." OFF)
+OPTION(PLUS_USE_OPTICAL_MARKER_TRACKER "Provide support of tracking of markers (2D barcodes) in image streams using ArUco and OpenCV." OFF)
 OPTION(PLUS_USE_BRACHY_TRACKER "Provide support for the Brachy Steppers" ${ENABLED_BY_DEFAULT_ON_WINDOWS32_ONLY})
 OPTION(PLUS_USE_USDIGITALENCODERS_TRACKER "Provide support for multiple USDigital encoders tracking device" ${ENABLED_BY_DEFAULT_ON_WINDOWS32_ONLY})
 OPTION(PLUS_USE_Ascension3DG "Provide support for the Ascension 3DG Tracker" ${ENABLED_BY_DEFAULT_ON_WINDOWS32_ONLY})
@@ -370,7 +370,7 @@ ENDIF()
 #-----------------------------------------------------------------------------
 SET(ep_qt_args) # Arguments that will have to be passed to external projects that use Qt
 IF(PLUSBUILD_BUILD_PLUSAPP OR PLUSBUILD_BUILD_PLUSLIB_WIDGETS)
-  FIND_PACKAGE(Qt5 COMPONENTS Core Widgets Designer OpenGL Sql Test Xml QUIET)
+  FIND_PACKAGE(Qt5 COMPONENTS Core Widgets Designer OpenGL Sql Test Xml Concurrent QUIET)
 
   IF(NOT Qt5_FOUND)
     MESSAGE(FATAL_ERROR "This project requires Qt5 for building PlusApp but Qt was not found. Please specify Qt5_DIR or turn off PLUSBUILD_BUILD_PLUSAPP/PLUSBUILD_BUILD_PLUSLIB_WIDGETS options.")
@@ -383,11 +383,13 @@ IF(PLUSBUILD_BUILD_PLUSAPP OR PLUSBUILD_BUILD_PLUSLIB_WIDGETS)
   GET_FILENAME_COMPONENT(QT_BINARY_DIR ${QT_MOC_EXECUTABLE} DIRECTORY)
   SET(ep_qt_args
     -DQt5_DIR:PATH=${Qt5_DIR}
+    -DQt5Core_DIR:PATH=${Qt5Core_DIR}
     -DQt5Widgets_DIR:PATH=${Qt5Widgets_DIR}
     -DQt5Designer_DIR:PATH=${Qt5Designer_DIR}
     -DQt5OpenGL_DIR:PATH=${Qt5OpenGL_DIR}
     -DQt5Sql_DIR:PATH=${Qt5Sql_DIR}
     -DQt5Test_DIR:PATH=${Qt5Test_DIR}
+    -DQt5Concurrent_DIR:PATH=${Qt5Concurrent_DIR}
     )
   # WebKitWidgets is deprecated in Qt 5.3 and removed in 5.6.0
   FIND_PACKAGE(Qt5 COMPONENTS WebKitWidgets QUIET)
@@ -668,16 +670,7 @@ ELSEIF(MINGW)
 ENDIF()
 
 IF(WIN32)
-  # Build nice windows system name
-  EXECUTE_PROCESS(COMMAND systeminfo OUTPUT_VARIABLE SYSTEM_NAME_FULL)
-  IF ("${SYSTEM_NAME_FULL}" STREQUAL "")
-    # On WindowsXP systeminfo does not exist, command output is empty
-    SET(SYSTEM_NAME "win")
-  ELSE()
-    STRING(REGEX MATCH "OS Name: *Microsoft Windows ([0-9]+)" WIN_VERSION ${SYSTEM_NAME_FULL})
-    SET(SYSTEM_NAME "win${CMAKE_MATCH_1}")
-  ENDIF()
-
+  SET(SYSTEM_NAME "${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}")
   IF(NOT ${CMAKE_GENERATOR} MATCHES "Win64")
     SET(BUILD_ARCHITECTURE "x86")
   ENDIF()
