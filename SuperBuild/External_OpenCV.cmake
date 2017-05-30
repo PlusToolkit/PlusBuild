@@ -33,10 +33,9 @@ IF(OpenCV_DIR)
 
   SET(PLUS_OpenCV_DIR ${OpenCV_DIR} CACHE INTERNAL "Path to store OpenCV binaries")
  
-  # dummy target
-  ADD_CUSTOM_TARGET( OpenCV
-  )
-
+  # Superbuild relies on existence of OpenCV target for dependency graph
+  # Create a dummy target
+  ADD_CUSTOM_TARGET(OpenCV)
 ELSE()
   # No OpenCV is specified, so download and build
   SET(OpenCV_REPOSITORY https://github.com/opencv/opencv.git)

@@ -33,7 +33,6 @@ IF(aruco_DIR)
   ENDFOREACH()
   
   SET (PLUS_aruco_DIR ${aruco_DIR} CACHE INTERNAL "Path to store aruco binaries")
-  
 ELSE()
   # aruco has not been built yet, so download and build it as an external project
   SET(aruco_GIT_REPOSITORY https://github.com/PlusToolkit/aruco.git)
@@ -41,7 +40,6 @@ ELSE()
   MESSAGE(STATUS "Downloading aruco from: ${aruco_GIT_REPOSITORY}")
   
   SET (PLUS_aruco_src_DIR ${CMAKE_BINARY_DIR}/Deps/aruco CACHE INTERNAL "Path to store aruco contents")
-  #SET (PLUS_aruco_LIBS_DIR ${CMAKE_BINARY_DIR}/Deps/aruco CACHE INTERNAL "Path to store aruco contents")
   SET (PLUS_aruco_prefix_DIR ${CMAKE_BINARY_DIR}/Deps/aruco-prefix CACHE INTERNAL "Path to store aruco prefix data.")
   SET (PLUS_aruco_DIR ${CMAKE_BINARY_DIR}/Deps/aruco-bin CACHE INTERNAL "Path to store aruco binaries.")
 
