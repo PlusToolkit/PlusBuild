@@ -548,7 +548,9 @@ IF (PLUS_USE_PHILIPS_3D_ULTRASOUND)
 ENDIF()
 
 IF(PLUS_USE_OPTICAL_MARKER_TRACKER)
-  INCLUDE(SuperBuild/External_OpenCV.cmake)
+  IF(NOT PLUS_USE_OvrvisionPro)
+    INCLUDE(SuperBuild/External_OpenCV.cmake)
+  ENDIF()
   INCLUDE(SuperBuild/External_aruco.cmake)
 ENDIF()
 
