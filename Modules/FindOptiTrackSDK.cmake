@@ -5,17 +5,17 @@
 #
 # Variables defined by this module:
 #
-#  OPTITRACKSDK_FOUND                 True if OptiTrack NatNet SDK was found
-#  OPTITRACKSDK_VERSION               The version of NatNet SDK
-#  OPTITRACKSDK_INCLUDE_DIRS          The location(s) of NatNet SDK headers
-#  OPTITRACKSDK_LIBRARIES             Libraries needed to use NatNet SDK
+#  OPTITRACKSDK_FOUND                True if OptiTrack NatNet SDK was found
+#  OPTITRACKSDK_VERSION              The version of NatNet SDK
+#  OPTITRACKSDK_INCLUDE_DIR          The location(s) of NatNet SDK headers
+#  OPTITRACKSDK_LIBRARY_DIR          Libraries needed to use NatNet SDK
+#  OPTITRACKSDK_BINARY_DIR           Binaries needed to use NatNet SDK
 
 SET(OPTITRACKSDK_PATH_HINTS
-  "$ENV{RSSDK_DIR}"
-  "$ENV{PROGRAMFILES}/Intel/RSSDK"
-  "$ENV{PROGRAMW6432}/Intel/RSSDK"
-  "c:/Program Files/OptiTrack/NatNetSDK" 
-  "c:/Program Files (x86)/OptiTrack/NatNetSDK")
+  "$ENV{PROGRAMFILES}/OptiTrack/NatNetSDK" 
+  "$ENV{PROGRAMW6432}/OptiTrack/NatNetSDK"
+  "C:/Program Files (x86)/OptiTrack/NatNetSDK"
+  "C:/Program Files/OptiTrack/NatNetSDK")
   
 find_path(OPTITRACKSDK_DIR Readme-NatNet.txt
   PATHS ${OPTITRACKSDK_PATH_HINTS}
@@ -47,8 +47,6 @@ if (OPTITRACKSDK_DIR)
   mark_as_advanced(OptiTrackSDK_LIBRARY_DIR)
   mark_as_advanced(OptiTrackSDK_BINARY_DIR)
   
-  message(${OPTITRACKSDK_LIBRARY_DIR})
-  message(${OPTITRACKSDK_BINARY_DIR})
   #Version
   #TODO: properly set SDK version using REGEX from NatNetTypes.h
   set(OPTITRACKSDK_VERSION "2.10.0")
