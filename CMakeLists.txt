@@ -219,6 +219,7 @@ IF(PLUS_USE_TELEMED_VIDEO)
   OPTION(PLUS_TEST_TELEMED "Enable testing of acquisition from Telemed ultrasound systems. Enable this only if a Telemed device is connected to this computer. " OFF)
 ENDIF (PLUS_USE_TELEMED_VIDEO)
 OPTION(PLUS_USE_THORLABS_VIDEO "Provide support for the ThorLabs Compact Spectrometers" OFF)
+OPTION(PLUS_USE_RTSP_VIDEO "Provide support for capturing an RTSP stream" OFF)
 
 # Tracking hardware
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
@@ -578,6 +579,10 @@ IF (PLUS_USE_PHILIPS_3D_ULTRASOUND)
       MESSAGE(STATUS "To use the Philips devices you must:")
       MESSAGE(STATUS "1. Register '${CMAKE_CURRENT_BINARY_DIR}/bin/Debug|Release/Stream3d.dll'. If you are using a 32-bit OS, this can be done by running 'regsvr32 Stream3d.dll' in command line. If you are using a 64-bit OS, this can be done by the following procedure. Open the command line in administrator mode (Right click on cmd, choose 'Run as administrator'). Go to directory 'C:/Windows/SysWow64'. Run the regsvr32 command in SysWow64.")
   ENDIF()
+ENDIF()
+
+IF(PLUS_USE_RTSP_VIDEO)
+  FIND_PACKAGE(FFMPEG REQUIRED)
 ENDIF()
 
 #------------------------------------------------------------------------------
