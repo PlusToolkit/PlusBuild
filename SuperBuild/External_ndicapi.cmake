@@ -56,6 +56,8 @@ ELSE()
       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${PLUS_EXECUTABLE_OUTPUT_PATH}
       -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${PLUS_LIBRARY_OUTPUT_PATH}
       -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${PLUS_ARCHIVE_OUTPUT_PATH}
+    #--Build step-----------------
+    BUILD_ALWAYS 1
     #--Override install step-----------------
     INSTALL_COMMAND "" # Do not install
     #--Dependencies-----------------
