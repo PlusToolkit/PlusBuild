@@ -301,9 +301,17 @@ SET(PLUSAPP_GIT_REVISION "master" CACHE STRING "Set PlusApp desired git hash (ma
 #-----------------------------------------------------------------------------
 # Plus executable output path
 #-----------------------------------------------------------------------------
-SET(PLUS_EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
-SET(PLUS_LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
-SET(PLUS_ARCHIVE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
+IF(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+  SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+ENDIF()
+
+IF(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
+  SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+ENDIF()
+
+IF(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
+  SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+ENDIF()
 
 #-----------------------------------------------------------------------------
 # Specify common external project properties
