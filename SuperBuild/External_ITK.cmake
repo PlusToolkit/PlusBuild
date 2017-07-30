@@ -39,8 +39,7 @@ ELSE()
   # ITK has not been built yet, so download and build it as an external project
   SET (ITKv4_REPOSITORY ${GIT_PROTOCOL}://itk.org/ITK.git)
   SET (ITKv4_GIT_TAG v4.10.0)
-  
-  SET(itk_common_cxx_flags "${ep_common_cxx_flags} -std=c++11")
+
   IF(MSVC)
     SET(itk_common_cxx_flags "${itk_common_cxx_flags} /MP ")
   ENDIF()

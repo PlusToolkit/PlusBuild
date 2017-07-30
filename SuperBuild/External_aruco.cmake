@@ -1,16 +1,16 @@
 IF(aruco_DIR)
   FIND_PACKAGE(aruco 2.0.19 REQUIRED NO_MODULE)
-  
+
   MESSAGE(STATUS "Using aruco available at: ${aruco_DIR}")
 
   FOREACH(lib ${aruco_LIBS})
-	IF(NOT TARGET ${lib})
-		continue()
-	ENDIF()
+    IF(NOT TARGET ${lib})
+      continue()
+    ENDIF()
 
     GET_TARGET_PROPERTY(DEBUG_FILE ${lib} IMPORTED_LOCATION_DEBUG)
     GET_TARGET_PROPERTY(RELEASE_FILE ${lib} IMPORTED_LOCATION_RELEASE)
-	
+
     IF(MSVC OR ${CMAKE_GENERATOR} MATCHES "Xcode")
       IF(EXISTS ${RELEASE_FILE})
         FILE(COPY ${RELEASE_FILE} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release)
@@ -31,14 +31,14 @@ IF(aruco_DIR)
       ENDIF()
     ENDIF()
   ENDFOREACH()
-  
+
   SET (PLUS_aruco_DIR ${aruco_DIR} CACHE INTERNAL "Path to store aruco binaries")
 ELSE()
   # aruco has not been built yet, so download and build it as an external project
   SET(aruco_GIT_REPOSITORY https://github.com/PlusToolkit/aruco.git)
- 
+
   MESSAGE(STATUS "Downloading aruco from: ${aruco_GIT_REPOSITORY}")
-  
+
   SET (PLUS_aruco_src_DIR ${CMAKE_BINARY_DIR}/Deps/aruco CACHE INTERNAL "Path to store aruco contents")
   SET (PLUS_aruco_prefix_DIR ${CMAKE_BINARY_DIR}/Deps/aruco-prefix CACHE INTERNAL "Path to store aruco prefix data.")
   SET (PLUS_aruco_DIR ${CMAKE_BINARY_DIR}/Deps/aruco-bin CACHE INTERNAL "Path to store aruco binaries.")
