@@ -124,6 +124,6 @@ ELSE()
     #--Install step-----------------
     INSTALL_COMMAND "" # Do not install, we have access to ${PLUS_OpenCV_DIR}/OpenCVConfig.cmake
     #--Dependencies-----------------
-    DEPENDS vtk
+    DEPENDS ${VTK_BUILD_DEPENDENCY_TARGET}
     )
 ENDIF()

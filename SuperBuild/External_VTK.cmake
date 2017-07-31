@@ -48,6 +48,9 @@ IF(VTK_DIR)
   IF(PLUSBUILD_BUILD_PLUSAPP AND NOT TARGET vtkGUISupportQt)
     MESSAGE(SEND_ERROR "You have to build VTK with VTK_USE_QT flag ON if you need to use PLUSBUILD_BUILD_PLUSAPP.")
   ENDIF()
+
+  # No target necessary, VTK is provided
+  SET(VTK_BUILD_DEPENDENCY_TARGET CACHE INTERNAL "The name of the target to list as a dependency to ensure build order correctness.")
 ELSE()
   # VTK has not been built yet, so download and build it as an external project
   SET(VTK_GIT_PROTOCOL https)
@@ -114,4 +117,6 @@ ELSE()
     INSTALL_COMMAND ""
     DEPENDS ${VTK_DEPENDENCIES}
     )
+
+  SET(VTK_BUILD_DEPENDENCY_TARGET vtk CACHE INTERNAL "The name of the target to list as a dependency to ensure build order correctness.")
 ENDIF()
