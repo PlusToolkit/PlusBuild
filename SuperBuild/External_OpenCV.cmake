@@ -119,6 +119,7 @@ ELSE()
       -DBUILD_TESTS:BOOL=OFF
       -DBUILD_PERF_TESTS:BOOL=OFF
       -DBUILD_SHARED_LIBS:BOOL=${PLUSBUILD_BUILD_SHARED_LIBS}
+      -DBUILD_DOCS:BOOL=OFF
     #--Build step-----------------
     BUILD_ALWAYS 1
     #--Install step-----------------
