@@ -498,9 +498,9 @@ IF(PLUS_USE_ICCAPTURING_VIDEO)
 ENDIF()
 
 IF(PLUS_USE_OPTITRACK)
-  FIND_PACKAGE(OPTITRACKSDK)
-  IF(NOT OPTITRACKSDK_FOUND)
-    MESSAGE(FATAL_ERROR "This project requires OptiTrack NatNet SDK for supporting OptiTrack devices.")
+  FIND_PACKAGE(MotiveAPI)
+  IF(NOT MOTIVE_API_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires OptiTrack Motive API for supporting OptiTrack devices.")
   ENDIF()
 ENDIF()
 
