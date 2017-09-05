@@ -130,6 +130,8 @@ OPTION(PLUSBUILD_BUILD_PLUSLIB_WIDGETS "Build PlusLib widgets (required Qt)" ON)
 OPTION(PLUSBUILD_BUILD_PlusLib_TOOLS "Build the PlusLib tools (PlusServer, PlusServerRemoteControl...)" ON)
 OPTION(PLUSBUILD_BUILD_PLUSMODELCATALOG "Build Plus 3D printable model catalog" OFF)
 OPTION(PLUSBUILD_USE_Tesseract "Use OCR in PlusLib for recognizing ultrasound imaging parameters by reading text from grabbed images." OFF)
+OPTION(PLUSBUILD_USE_OpenCV "Use OpenCV for optical marker tracking and other features." OFF)
+OPTION(PLUSBUILD_USE_aruco "Use aruco for optical marker tracking." OFF)
 OPTION(PLUSBUILD_DOWNLOAD_PlusDATA "Download sample and test data. Required for automatic tests." ON)
 IF(PLUSBUILD_DOWNLOAD_PlusDATA)
   SET(PLUSBUILD_PlusDATA_SVNREVISION "HEAD" CACHE STRING "Revision of data to download." FORCE)
@@ -177,10 +179,10 @@ ELSE()
 ENDIF()
 
 OPTION(PLUS_USE_ULTRASONIX_VIDEO "Provide support for the Ultrasonix ultrasound systems" OFF)
-SET(PLUS_ULTRASONIX_SDK_MAJOR_VERSION 5 CACHE STRING "Set Ultrasonix SDK major version (version: [major].[minor].[patch])")
-SET(PLUS_ULTRASONIX_SDK_MINOR_VERSION 7 CACHE STRING "Set Ultrasonix SDK minor version (version: [major].[minor].[patch])")
-SET(PLUS_ULTRASONIX_SDK_PATCH_VERSION 4 CACHE STRING "Set Ultrasonix SDK patch version (version: [major].[minor].[patch])")
 IF(PLUS_USE_ULTRASONIX_VIDEO)
+  SET(PLUS_ULTRASONIX_SDK_MAJOR_VERSION 5 CACHE STRING "Set Ultrasonix SDK major version (version: [major].[minor].[patch])")
+  SET(PLUS_ULTRASONIX_SDK_MINOR_VERSION 7 CACHE STRING "Set Ultrasonix SDK minor version (version: [major].[minor].[patch])")
+  SET(PLUS_ULTRASONIX_SDK_PATCH_VERSION 4 CACHE STRING "Set Ultrasonix SDK patch version (version: [major].[minor].[patch])")
   OPTION(PLUS_TEST_ULTRASONIX "Enable testing of acquisition from Ultrasonix ultrasound systems. Enable this only if an Ultrasonix device accessible from this computer. " OFF)
   IF(PLUS_TEST_ULTRASONIX)
     SET(PLUS_TEST_ULTRASONIX_IP_ADDRESS "130.15.7.24" CACHE STRING "IP address of the Ultrasonix scanner that is used during testing")
@@ -217,6 +219,7 @@ IF(PLUS_USE_TELEMED_VIDEO)
   OPTION(PLUS_TEST_TELEMED "Enable testing of acquisition from Telemed ultrasound systems. Enable this only if a Telemed device is connected to this computer. " OFF)
 ENDIF (PLUS_USE_TELEMED_VIDEO)
 OPTION(PLUS_USE_THORLABS_VIDEO "Provide support for the ThorLabs Compact Spectrometers" OFF)
+OPTION(PLUS_USE_OpenCV_VIDEO "Provide support for capturing an OpenCV capture stream" OFF)
 
 # Tracking hardware
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
@@ -298,9 +301,17 @@ SET(PLUSAPP_GIT_REVISION "master" CACHE STRING "Set PlusApp desired git hash (ma
 #-----------------------------------------------------------------------------
 # Plus executable output path
 #-----------------------------------------------------------------------------
-SET(PLUS_EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
-SET(PLUS_LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
-SET(PLUS_ARCHIVE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
+IF(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+  SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+ENDIF()
+
+IF(NOT CMAKE_LIBRARY_OUTPUT_DIRECTORY)
+  SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+ENDIF()
+
+IF(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
+  SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+ENDIF()
 
 #-----------------------------------------------------------------------------
 # Specify common external project properties
@@ -422,14 +433,42 @@ IF(PLUS_USE_BKPROFOCUS_CAMERALINK)
   INCLUDE(SuperBuild/External_GrabbieLib.cmake)
 ENDIF()
 
-IF(PLUS_USE_OPTITRACK)
-  INCLUDE(SuperBuild/External_BiiGOptitrack.cmake)
+#-- OvrvisionPro/OPTICAL_TRACKER dependency verification ----------------------------------------------
+IF(PLUS_USE_OvrvisionPro AND NOT PLUSBUILD_USE_OpenCV)
+  MESSAGE("PLUS_USE_OvrvisionPro requires PLUSBUILD_USE_OpenCV option enabled, enabling.")
+  SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
+ENDIF()
+IF(PLUS_USE_OpenCV_VIDEO AND NOT PLUSBUILD_USE_OpenCV)
+  MESSAGE("PLUS_USE_OpenCV_VIDEO requires PLUSBUILD_USE_OpenCV option enabled, enabling.")
+  SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
+ENDIF()
+IF(PLUS_USE_OPTICAL_MARKER_TRACKER)
+  IF (NOT PLUSBUILD_USE_aruco)
+    MESSAGE("PLUS_USE_OPTICAL_MARKER_TRACKER requires PLUSBUILD_USE_aruco option enabled, enabling.")
+    SET(PLUSBUILD_USE_aruco ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
+  ENDIF()
+  IF (NOT PLUSBUILD_USE_OpenCV)
+    MESSAGE("PLUS_USE_OPTICAL_MARKER_TRACKER requires PLUSBUILD_USE_OpenCV option enabled, enabling.")
+    SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
+  ENDIF()
+ENDIF()
+#-- END OvrvisionPro/OPTICAL_TRACKER dependency verification ------------------------------------------
+
+IF(PLUSBUILD_USE_OpenCV)
+  MESSAGE(STATUS "")
+  MESSAGE(STATUS "------")
+  INCLUDE(SuperBuild/External_OpenCV.cmake)
+  MESSAGE(STATUS "If building OpenCV with GPU code enabled, consider setting PLUSBUILD_OpenCV_CUDA_GENERATION as it will significantly reduce build time.")
+  MESSAGE(STATUS "------")
+  MESSAGE(STATUS "")
+ENDIF()
+IF(PLUSBUILD_USE_aruco)
+  INCLUDE(SuperBuild/External_aruco.cmake)
 ENDIF()
 
 IF(PLUS_USE_OvrvisionPro)
   FIND_PACKAGE(OpenGL REQUIRED)
   FIND_PACKAGE(OpenCL REQUIRED)
-  INCLUDE(SuperBuild/External_OpenCV.cmake)
   INCLUDE(SuperBuild/External_OvrvisionPro.cmake)
 ENDIF()
 
@@ -472,6 +511,13 @@ IF(PLUS_USE_ICCAPTURING_VIDEO)
  FIND_PACKAGE(ICCAPTURING)
   IF(NOT ICCAPTURING_FOUND)
     MESSAGE(FATAL_ERROR "This project requires IC Capturing SDK for supporting the Imaging Source USB frame grabber. One of the components is missing. Please verify configuration or turn off PLUS_USE_ICCAPTURING_VIDEO.")
+  ENDIF()
+ENDIF()
+
+IF(PLUS_USE_OPTITRACK)
+  FIND_PACKAGE(OPTITRACKSDK)
+  IF(NOT OPTITRACKSDK_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires OptiTrack NatNet SDK for supporting OptiTrack devices.")
   ENDIF()
 ENDIF()
 
@@ -547,13 +593,6 @@ IF (PLUS_USE_PHILIPS_3D_ULTRASOUND)
   ENDIF()
 ENDIF()
 
-IF(PLUS_USE_OPTICAL_MARKER_TRACKER)
-  IF(NOT PLUS_USE_OvrvisionPro)
-    INCLUDE(SuperBuild/External_OpenCV.cmake)
-  ENDIF()
-  INCLUDE(SuperBuild/External_aruco.cmake)
-ENDIF()
-
 #------------------------------------------------------------------------------
 # Specify target dependencies
 #------------------------------------------------------------------------------
@@ -588,21 +627,20 @@ IF(PLUS_USE_INTERSONSDKCXX_VIDEO AND NOT IntersonSDKCxx_DIR)
   INCLUDE(SuperBuild/External_IntersonSDKCxx.cmake)
 ENDIF()
 
-IF(PLUS_USE_OPTITRACK AND PLUS_BiiGOptitrack_DIR AND NOT BiiGOptitrack_DIR)
-  SET(BiiGOptitrack_DEPENDENCIES itk OpenIGTLink)
-  LIST(APPEND PlusLib_DEPENDENCIES BiiGOptitrack)
-ENDIF()
-
 IF(PLUS_USE_OvrvisionPro AND NOT OvrvisionPro_DIR)
   LIST(APPEND PlusLib_DEPENDENCIES OvrvisionPro)
 ENDIF()
 
-IF(PLUS_USE_OPTICAL_MARKER_TRACKER AND NOT aruco_DIR)
+IF(PLUSBUILD_USE_aruco AND NOT aruco_DIR)
   LIST(APPEND PlusLib_DEPENDENCIES aruco)
 ENDIF()
 
 IF(PLUSBUILD_USE_Tesseract)
   LIST(APPEND PlusLib_DEPENDENCIES tesseract)
+ENDIF()
+
+IF(PLUSBUILD_USE_OpenCV AND NOT OpenCV_DIR)
+  LIST(APPEND PlusLib_DEPENDENCIES OpenCV)
 ENDIF()
 
 IF(PLUS_USE_NDI AND NOT ndicapi_DIR)

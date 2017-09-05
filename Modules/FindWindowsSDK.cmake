@@ -64,7 +64,7 @@ macro(_winsdk_announce)
   endif()
 endmacro()
 
-set(_winsdk_win10vers 10.0.10056.0 10.0.10240.0 10.0.10586.0 10.0.14393.0)
+set(_winsdk_win10vers 10.0.10056.0 10.0.10240.0 10.0.10586.0 10.0.14393.0 10.0.15063.0)
 
 if(WindowsSDK_FIND_COMPONENTS MATCHES "tools")
   set(_WINDOWSSDK_IGNOREMSVC ON)
