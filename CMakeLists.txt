@@ -132,10 +132,10 @@ OPTION(PLUSBUILD_BUILD_PLUSMODELCATALOG "Build Plus 3D printable model catalog" 
 OPTION(PLUSBUILD_USE_Tesseract "Use OCR in PlusLib for recognizing ultrasound imaging parameters by reading text from grabbed images." OFF)
 OPTION(PLUSBUILD_USE_OpenCV "Use OpenCV for optical marker tracking and other features." OFF)
 OPTION(PLUSBUILD_USE_aruco "Use aruco for optical marker tracking." OFF)
-OPTION(PLUSBUILD_DOWNLOAD_PlusDATA "Download sample and test data. Required for automatic tests." ON)
-IF(PLUSBUILD_DOWNLOAD_PlusDATA)
-  SET(PLUSBUILD_PlusDATA_SVNREVISION "HEAD" CACHE STRING "Revision of data to download." FORCE)
-  MARK_AS_ADVANCED(PLUSBUILD_PlusDATA_SVNREVISION)
+OPTION(PLUSBUILD_DOWNLOAD_PLUSLIBDATA "Download sample and test data. Required for automatic tests." ON)
+IF(PLUSBUILD_DOWNLOAD_PLUSLIBDATA)
+  SET(PLUSBUILD_PLUSLIBDATA_GIT_REVISION "master" CACHE STRING "Set PlusLibData desired git hash (master means latest)." FORCE)
+  MARK_AS_ADVANCED(PLUSBUILD_PLUSLIBDATA_GIT_REVISION)
 ENDIF()
 
 # Documentation
@@ -736,7 +736,7 @@ MARK_AS_ADVANCED(BUILDNAME)
 #------------------------------------------------------------------------------
 INCLUDE(CTest)
 
-IF(PLUSBUILD_DOWNLOAD_PlusDATA AND NOT PLUSBUILD_OFFLINE_BUILD)
+IF(PLUSBUILD_DOWNLOAD_PLUSLIBDATA AND NOT PLUSBUILD_OFFLINE_BUILD)
   INCLUDE(SuperBuild/External_PlusLibData.cmake)
 ENDIF()
 
