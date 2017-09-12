@@ -114,9 +114,6 @@ Troubleshooting
   - Root cause: Plus should be built using a 32 bit compiler, since the hardware devices do not support 32-bit applications
   - Solution: Go "File-&gt;Delete Cache", click Configure, then specify the version of Visual Studio 9 2008 without "Win64"
   - Alternative: If you really did mean to have a 64 bit PLUS build, double check that the Win64 C++ compilers were checked during the Visual Studio 2008 install. They are not by default.
-- Could NOT find Subversion (missing: Subversion_SVN_EXECUTABLE)
-  - Root cause (if using Tortoise SVN): The "Command-line tools" feature was not enabled when the SVN was installed.
-  - Solution: Double click the setup executable, and select the "Modify" option. Make sure the command line tools are enabled (the option should not have a red "X" next to it). Click next and install the new feature.
 - Error during building:<br />
   > Generating moc_PlusCaptureControlWidget.cpp
   > No command
