@@ -18,15 +18,15 @@ Required:
 - **Qt framework** - download binaries for your specific configuration:
   - Building stable branch: Qt 4.8 and Qt 5.5, 5.7 are tested, download from http://www.qt.io/download/ or https://sourceforge.net/projects/qt64ng/files/qt/
   - Building master branch: Qt 5.5+ is supported. Download from [Qt website](http://www.qt.io/download). Make sure the Visual Studio version (e.g. 2013) and configuration (e.g. x64) you use is selected during installation.
+- **Device SDKs**: The SDK of some devices are not publicly available. These SDKs has to be obtained from the device manufacturer.
+  - Developers at Queen, UBC, Robarts, and other collaborators: Request access to the PLTools repository from <a href="https://www.assembla.com/profile/lassoan">lassoan</a>, which contains the SDKs for Ultrasonix, BK, NDI, etc. and clone the repository in the same directory where PlusBuild folder is located. During the build process, required SDK files will be loaded automatically from the PLTools directory. Example: C:\Users\Joe\devel\PLTools and C:\Users\Joe\devel\PlusBuild.
 
 Required for packaging and documentation generation:
   
-  - [**NSIS**](http://sourceforge.net/projects/nsis/files/NSIS%202/2.46/nsis-2.46-setup.exe/download): required for building installation packages.
+- [**NSIS**](http://sourceforge.net/projects/nsis/files/NSIS%202/2.46/nsis-2.46-setup.exe/download): required for building installation packages.
 - [**Doxygen**](http://www.stack.nl/~dimitri/doxygen/download.html): required for building documentation. Version 1.8.7 is currently used and detected automatically. Other versions may work as well.
 - [**Graphviz**](http://www.graphviz.org/Download_windows.php): required for building documentation. Version 2.38 is currently used and detected automatically. Other versions may work as well, if not them update PlusLib/src/CMakeLists.txt to add support for other versions.
 - [**Microsoft HTML Help 1.4**](http://go.microsoft.com/fwlink/p/?linkid=154968): required for building documentation in .chm Windows Help file format. Documentation is available [here](https://msdn.microsoft.com/en-us/library/windows/desktop/ms670169(v=vs.85).aspx).
-- **Device SDKs**: The SDK of some devices are not publicly available. These SDKs has to be obtained from the device manufacturer.
-  - Developers at Queen, UBC, Robarts, and other collaborators: Request access to the PLTools repository from <a href="https://www.assembla.com/profile/lassoan">lassoan</a>, which contains the SDKs for Ultrasonix, BK, NDI, etc. and clone the repository in the same directory where PlusBuild folder is located. During the build process, required SDK files will be loaded automatically from the PLTools directory. Example: C:\Users\Joe\devel\PLTools and C:\Users\Joe\devel\PlusBuild.
 
 Recommended tools:
 
@@ -36,7 +36,7 @@ Recommended tools:
   - [Visual Assist X](http://www.wholetomato.com/): Add extra functionality to Visual Studio. Not free.
   - [DoxygenComments](https://visualstudiogallery.msdn.microsoft.com/11a30c1c-593b-4399-a702-f23a56dd8548): Syntax highlighting of doxygen comments.
     - **WARNING:** It may not work with other extensions that changes syntax highlighting (Visual Assist, etc).
-    - If syntax highlighting doesn&#39;t show up when you open a .dox file, try [this solution](http://stackoverflow.com/questions/21499143/how-to-get-syntax-highlighting-for-alternate-file-extension-for-visual-studio-20): Go to Tools / Options / Text Editor / File Extension and type your alternative extension and then associate it with your editor (e.g. Microsoft Visual C++)"
+    - If syntax highlighting doesn't show up when you open a .dox file, try [this solution](http://stackoverflow.com/questions/21499143/how-to-get-syntax-highlighting-for-alternate-file-extension-for-visual-studio-20): Go to Tools / Options / Text Editor / File Extension and type your alternative extension and then associate it with your editor (e.g. Microsoft Visual C++)"
 
 Build Process
 =============
