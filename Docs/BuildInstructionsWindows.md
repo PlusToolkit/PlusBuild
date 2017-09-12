@@ -117,8 +117,10 @@ Troubleshooting
 - Could NOT find Subversion (missing: Subversion_SVN_EXECUTABLE)
   - Root cause (if using Tortoise SVN): The "Command-line tools" feature was not enabled when the SVN was installed.
   - Solution: Double click the setup executable, and select the "Modify" option. Make sure the command line tools are enabled (the option should not have a red "X" next to it). Click next and install the new feature.
-- Generating moc_PlusCaptureControlWidget.cpp<br />
-  No command<br />
-  1&gt;AUTOGEN : error : process for C:/Users/User-User/devel/PlusExp-bin/PlusApp-bin/PlusCommonWidgets/moc_PlusCaptureControlWidget.cpp failed:<br /> [C:\Users\User-User\devel\PlusExp-bin\PlusApp-bin\PlusCommonWidgets\PlusCommonWidgets_automoc.vcxproj]
+- Error during building:<br />
+  > Generating moc_PlusCaptureControlWidget.cpp
+  > No command
+  > 1&gt;AUTOGEN : error : process for C:/Users/User-User/devel/PlusExp-bin/PlusApp-bin/PlusCommonWidgets/moc_PlusCaptureControlWidget.cpp failed:
+  > \[C:\Users\User-User\devel\PlusExp-bin\PlusApp-bin\PlusCommonWidgets\PlusCommonWidgets_automoc.vcxproj\]
      - Root cause: build directory path is too long
      - Solution: build Plus in a shorter directory, for example: <i>C:\D\PlusExp-build</i>
