@@ -62,7 +62,7 @@ Build Process
     - PLUS_USE_SONIX_VIDEO: Ultrasonix ultrasound system, requires SDK from Ultrasonix -- disable for 64-bit build
     - PLUS_USE_BKPROFOCUS_VIDEO: BK ultrasound system connection through the OEM interface, requires SDK from BK (also enable PLUS_USE_BKPROFOCUS_CAMERALINK to connect through CameraLink interface)
   - Optional: set advanced build options
-    - If you want to use a specific Plus revision then set it in the PLUS_SVN_REVISION at the default (0) to use the latest version.
+    - If you want to use a specific Plus revision then set it in PLUSLIB_GIT_REVISION and PLUSAPP_GIT_REVISION. Default is `master`, which means the latest version.
     - If you want to build a Slicer loadable module using Plus then turn on PLUSBUILD_USE_3DSlicer option and set the PLUSBUILD_SLICER_BIN_DIRECTORY to your 3D Slicer binary folder.
     - If you want to build the documentation enable PLUSBUILD_DOCUMENTATION. See the generating documentation section for more details.
   - Click Configure

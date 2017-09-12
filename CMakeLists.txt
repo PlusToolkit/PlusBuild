@@ -45,23 +45,6 @@ ELSE()
   SET(PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS TIMEOUT 1000)
 
   #-----------------------------------------------------------------------------
-  # SVN - Let's check if a valid version of SVN is available
-  #-----------------------------------------------------------------------------
-  FIND_FILE(Subversion_SVN_EXECUTABLE svn${CMAKE_EXECUTABLE_SUFFIX}
-    PATHS
-    "c:/Program Files/TortoiseSVN/bin/"
-    "c:/Program Files/SlikSvn/bin/"
-    )
-  FIND_PACKAGE(Subversion REQUIRED)
-
-  #-----------------------------------------------------------------------------
-  # ASSEMBLA - Set username and password for assembla
-  # Anonymous user name for Plus assembla server: https://subversion.assembla.com/svn/plus/
-  #-----------------------------------------------------------------------------
-  SET(PLUSBUILD_ASSEMBLA_USERNAME "perklab_anonymous")
-  SET(PLUSBUILD_ASSEMBLA_PASSWORD "anonymous")
-
-  #-----------------------------------------------------------------------------
   # GIT - Let's check if a valid version of GIT is available
   #-----------------------------------------------------------------------------
   OPTION(PLUSBUILD_USE_GIT_PROTOCOL "If behind a firewall turn this off to use https instead." OFF)
