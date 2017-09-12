@@ -1,20 +1,18 @@
 #--------------------------------------------------------------------------
 # PlusLibData
-IF( "${PLUSBUILD_PlusDATA_SVNREVISION}" STREQUAL "HEAD" )
-  SET(PLUSLIBDATA_SVN_REV)
+IF( "${PLUSBUILD_PLUSLIBDATA_GIT_REVISION}" STREQUAL "master" )
+  SET(PLUSLIBDATA_GIT_TAG)
 ELSE()
-  SET(PLUSLIBDATA_SVN_REV "SVN_REVISION ${PLUSBUILD_PlusDATA_SVNREVISION}")
+  SET(PLUSLIBDATA_GIT_TAG "GIT_TAG ${PLUSBUILD_PLUSLIBDATA_GIT_REVISION}")
 ENDIF()
 
 SET (PLUS_PLUSLIBDATA_DIR ${CMAKE_BINARY_DIR}/PlusLibData CACHE INTERNAL "Path to store PlusLib contents.")
 ExternalProject_Add(PlusLibData
   "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
-  SOURCE_DIR "${PLUS_PLUSLIBDATA_DIR}" 
+  SOURCE_DIR "${PLUS_PLUSLIBDATA_DIR}"
   #--Download step--------------
-  SVN_USERNAME ${PLUSBUILD_ASSEMBLA_USERNAME}
-  SVN_PASSWORD ${PLUSBUILD_ASSEMBLA_PASSWORD}
-  SVN_REPOSITORY https://subversion.assembla.com/svn/plus/trunk/PlusLibData
-  ${PLUSLIBDATA_SVN_REV}
+  GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusLibData.git"
+  ${PLUSLIBDATA_GIT_TAG}
   #--Configure step-------------
   CONFIGURE_COMMAND ""
   #--Build step-----------------

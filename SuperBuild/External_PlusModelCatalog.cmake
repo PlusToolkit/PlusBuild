@@ -7,9 +7,7 @@ ExternalProject_Add(PlusModelCatalog
   SOURCE_DIR "${PLUS_PLUSMODELCATALOG_DIR}" 
   BINARY_DIR "PlusModelCatalog-bin"
   #--Download step--------------
-  SVN_USERNAME ${PLUSBUILD_ASSEMBLA_USERNAME}
-  SVN_PASSWORD ${PLUSBUILD_ASSEMBLA_PASSWORD}
-  SVN_REPOSITORY https://subversion.assembla.com/svn/plus/trunk/PlusModelCatalog
+  GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusModelCatalog.git"
   #--Configure step-------------
   CMAKE_ARGS 
     ${ep_common_args}
