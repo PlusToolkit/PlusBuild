@@ -26,7 +26,7 @@ IF(MSVC)
   IF(${CMAKE_GENERATOR} MATCHES "Visual Studio 9")
     MESSAGE(FATAL_ERROR "Visual Studio 2008 is not supported. You can download Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
   ELSEIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 10")
-    MESSAGE("Visual Studio 2010 is supported, but should only be used if you're compiling for the StealthLink device. If not, please consider using Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
+    MESSAGE("Visual Studio 2010 is supported, but should only be used if you're compiling for the StealthLink device.\nIf StealthLink support is not needed, please consider using Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.\nNot all device options are available for Visual Studio 2010.")
   ELSEIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 11")
     MESSAGE("Visual Studio 2012 is not recommended. You should download Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
   ENDIF()
@@ -764,4 +764,15 @@ ELSE()
   FILE(COPY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/BuildAndTest.sh
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
     FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ WORLD_READ)
+ENDIF()
+
+#-----------------------------------------------------------------------------
+# Display errors for options that are not compatible with VS2010
+#-----------------------------------------------------------------------------
+IF(${CMAKE_GENERATOR} MATCHES "Visual Studio 10")
+  FOREACH(OPTION_NAME PLUSBUILD_USE_aruco PLUS_USE_USDIGITALENCODERS_TRACKER)
+    IF (${OPTION_NAME})
+      MESSAGE(FATAL_ERROR "Option ${OPTION_NAME} is not compatible with Visual Studio 2010. Disable ${OPTION_NAME} or use a more recent compiler.")
+    ENDIF()
+  ENDFOREACH()
 ENDIF()
