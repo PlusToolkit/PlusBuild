@@ -26,7 +26,7 @@ IF(MSVC)
   IF(${CMAKE_GENERATOR} MATCHES "Visual Studio 9")
     MESSAGE(FATAL_ERROR "Visual Studio 2008 is not supported. You can download Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
   ELSEIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 10")
-    MESSAGE("Visual Studio 2010 is supported, but should only be used if you're compiling for the StealthLink device. If not, please consider using Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
+    MESSAGE("Visual Studio 2010 is supported, but should only be used if you're compiling for the StealthLink device.\nIf StealthLink support is not needed, please consider using Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.\nNot all device options are available for Visual Studio 2010.")
   ELSEIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 11")
     MESSAGE("Visual Studio 2012 is not recommended. You should download Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
   ENDIF()
@@ -43,23 +43,6 @@ ELSE()
   # (TIMEOUT parameter is chosen, as no download operation should be performed
   # for offline builds, therefore the timeout parameter is not used anyway).
   SET(PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS TIMEOUT 1000)
-
-  #-----------------------------------------------------------------------------
-  # SVN - Let's check if a valid version of SVN is available
-  #-----------------------------------------------------------------------------
-  FIND_FILE(Subversion_SVN_EXECUTABLE svn${CMAKE_EXECUTABLE_SUFFIX}
-    PATHS
-    "c:/Program Files/TortoiseSVN/bin/"
-    "c:/Program Files/SlikSvn/bin/"
-    )
-  FIND_PACKAGE(Subversion REQUIRED)
-
-  #-----------------------------------------------------------------------------
-  # ASSEMBLA - Set username and password for assembla
-  # Anonymous user name for Plus assembla server: https://subversion.assembla.com/svn/plus/
-  #-----------------------------------------------------------------------------
-  SET(PLUSBUILD_ASSEMBLA_USERNAME "perklab_anonymous")
-  SET(PLUSBUILD_ASSEMBLA_PASSWORD "anonymous")
 
   #-----------------------------------------------------------------------------
   # GIT - Let's check if a valid version of GIT is available
@@ -515,9 +498,13 @@ IF(PLUS_USE_ICCAPTURING_VIDEO)
 ENDIF()
 
 IF(PLUS_USE_OPTITRACK)
-  FIND_PACKAGE(OPTITRACKSDK)
-  IF(NOT OPTITRACKSDK_FOUND)
-    MESSAGE(FATAL_ERROR "This project requires OptiTrack NatNet SDK for supporting OptiTrack devices.")
+  FIND_PACKAGE(MotiveAPI)
+  IF(NOT MOTIVE_API_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires OptiTrack Motive API for supporting OptiTrack devices.")
+  ENDIF()
+  FIND_PACKAGE(NatNetSDK)
+  IF(NOT NATNET_SDK_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires OptiTrack NatNetSDK for supporting OptiTrack devices.")
   ENDIF()
 ENDIF()
 
@@ -781,4 +768,15 @@ ELSE()
   FILE(COPY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/BuildAndTest.sh
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
     FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ WORLD_READ)
+ENDIF()
+
+#-----------------------------------------------------------------------------
+# Display errors for options that are not compatible with VS2010
+#-----------------------------------------------------------------------------
+IF(${CMAKE_GENERATOR} MATCHES "Visual Studio 10")
+  FOREACH(OPTION_NAME PLUSBUILD_USE_aruco PLUS_USE_USDIGITALENCODERS_TRACKER)
+    IF (${OPTION_NAME})
+      MESSAGE(FATAL_ERROR "Option ${OPTION_NAME} is not compatible with Visual Studio 2010. Disable ${OPTION_NAME} or use a more recent compiler.")
+    ENDIF()
+  ENDFOREACH()
 ENDIF()
