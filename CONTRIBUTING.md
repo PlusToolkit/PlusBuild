@@ -1,4 +1,4 @@
-Contributions to the Plus project are welcome through standard GitHub pull requests.
+We follow the standard [GitHub Flow](https://guides.github.com/introduction/flow/) process. Contributions to the Plus project are welcome through GitHub pull requests.
 
 See below information about development process and coding rules.
 
