@@ -6,7 +6,6 @@ Issue tracking
 --------------
 
 - Commit one fix/enhancement at a time (and not multiple independent developments in one single commit) - whenever it's possible without significant extra effort (if you have a choice, commit your fix before start fixing a new problem).
-- When you fix a bug (in addition to describing shortly the main idea how the issue was resolved) add a reference to the ticket id to the commit log in the format: fixed #123
 - When changes committed related to a bug (partial fix, etc.) then add a reference to the ticket id to the commit log in the format: re #123 (this will automatically link the changeset to the ticket)
 
 Committing code changes
