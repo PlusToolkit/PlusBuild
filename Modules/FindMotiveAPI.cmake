@@ -1,7 +1,7 @@
 ###############################################################################
 # Find OptiTrack Motive API
 #
-#     find_package(OptiTrackSDK)
+#     find_package(MotiveAPI)
 #
 # Variables defined by this module:
 #
@@ -19,10 +19,13 @@ SET(MOTIVEAPI_PATH_HINTS
   "$ENV{PROGRAMW6432}/OptiTrack/Motive"
   "C:/Program Files (x86)/OptiTrack/Motive"
   "C:/Program Files/OptiTrack/Motive"
-  # Todo: Add PLTools path hints (for build machine?)
+  "../PLTools/OptiTrack/MotiveAPI-1.10.3"
+  "../../PLTools/OptiTrack/MotiveAPI-1.10.3"
+  "../trunk/PLTools/OptiTrack/MotiveAPI-1.10.3"
+  "${CMAKE_CURRENT_BINARY_DIR}/PLTools/OptiTrack/MotiveAPI-1.10.3"
   )
 
-find_path(MOTIVE_DIR Motive.exe
+find_path(MOTIVE_DIR "/inc/NPTrackingTools.h"
   PATHS ${MOTIVEAPI_PATH_HINTS}
   DOC "OptiTrack Motive API directory")
 
