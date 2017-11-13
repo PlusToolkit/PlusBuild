@@ -37,8 +37,11 @@ IF(ITK_DIR)
   SET (PLUS_ITK_DIR ${ITK_DIR} CACHE INTERNAL "Path to store itk binaries")
 ELSE()
   # ITK has not been built yet, so download and build it as an external project
-  SET (ITKv4_REPOSITORY ${GIT_PROTOCOL}://itk.org/ITK.git)
-  SET (ITKv4_GIT_TAG v4.12.0)
+  SetGitRepositoryTag(
+    itk
+    "${GIT_PROTOCOL}://itk.org/ITK.git"
+    "v4.12.0"
+    )
 
   IF(UNIX AND NOT APPLE)
     SET(itk_common_cxx_flags "${ep_common_cxx_flags} -std=c++11")
@@ -54,8 +57,8 @@ ELSE()
     SOURCE_DIR "${PLUS_ITK_SRC_DIR}"
     BINARY_DIR "${PLUS_ITK_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY "${ITKv4_REPOSITORY}"
-    GIT_TAG "${ITKv4_GIT_TAG}"
+    GIT_REPOSITORY ${itk_GIT_REPOSITORY}
+    GIT_TAG ${itk_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS 
       ${ep_common_args}

@@ -298,6 +298,13 @@ IF(BUILDNAME)
     )
 ENDIF(BUILDNAME)
 
+IF(NOT DEFINED(PLUSLIB_GIT_REPOSITORY))
+  SET(PLUSLIB_GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusLib.git" CACHE STRING "Set PlusLib desired git url")
+ENDIF()
+IF(NOT DEFINED(PLUSLIB_GIT_REVISION))
+  SET(PLUSLIB_GIT_REVISION "master" CACHE STRING "Set PlusLib desired git hash (master means latest)")
+ENDIF()
+
 # --------------------------------------------------------------------------
 # PlusLib
 SET (PLUS_PLUSLIB_DIR ${CMAKE_BINARY_DIR}/PlusLib CACHE INTERNAL "Path to store PlusLib contents.")
@@ -307,7 +314,7 @@ ExternalProject_Add(PlusLib
   SOURCE_DIR "${PLUS_PLUSLIB_DIR}"
   BINARY_DIR "${PLUSLIB_DIR}"
   #--Download step--------------
-  GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusLib.git"
+  GIT_REPOSITORY ${PLUSLIB_GIT_REPOSITORY}
   GIT_TAG ${PLUSLIB_GIT_REVISION}
   #--Configure step-------------
   CMAKE_ARGS

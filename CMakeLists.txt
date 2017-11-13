@@ -32,6 +32,13 @@ IF(MSVC)
   ENDIF()
 ENDIF()
 
+# Macro to set the Git repository and tag, and display a message
+MACRO(SetGitRepositoryTag project_name git_repository git_tag)
+  SET(${project_name}_GIT_REPOSITORY ${git_repository})
+  SET(${project_name}_GIT_TAG ${git_tag})
+  MESSAGE(STATUS "${project_name} repository: ${git_repository} (${git_tag})")
+ENDMACRO(SetGitRepositoryTag)
+
 IF (PLUSBUILD_OFFLINE_BUILD)
   # Set an empty download and update command for external projects
   SET(PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS DOWNLOAD_COMMAND "" UPDATE_COMMAND "")
@@ -116,10 +123,6 @@ OPTION(PLUSBUILD_USE_Tesseract "Use OCR in PlusLib for recognizing ultrasound im
 OPTION(PLUSBUILD_USE_OpenCV "Use OpenCV for optical marker tracking and other features." OFF)
 OPTION(PLUSBUILD_USE_aruco "Use aruco for optical marker tracking." OFF)
 OPTION(PLUSBUILD_DOWNLOAD_PLUSLIBDATA "Download sample and test data. Required for automatic tests." ON)
-IF(PLUSBUILD_DOWNLOAD_PLUSLIBDATA)
-  SET(PLUSBUILD_PLUSLIBDATA_GIT_REVISION "master" CACHE STRING "Set PlusLibData desired git hash (master means latest)." FORCE)
-  MARK_AS_ADVANCED(PLUSBUILD_PLUSLIBDATA_GIT_REVISION)
-ENDIF()
 
 # Documentation
 OPTION(PLUSBUILD_DOCUMENTATION "Build Plus documentation (Doxygen)." OFF)
@@ -276,10 +279,24 @@ IF(PLUS_USE_Ascension3DG AND PLUS_USE_Ascension3DGm)
 ENDIF()
 
 #-----------------------------------------------------------------------------
-# Plus revision - Set Plus stable relase revision (0 means latest)
+# Plus revision - Set Plus stable relase revision (master means latest)
 #-----------------------------------------------------------------------------
+SET(PLUSLIB_GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusLib.git" CACHE STRING "Set PlusLib desired git url")
+MARK_AS_ADVANCED(PLUSLIB_GIT_REPOSITORY)
 SET(PLUSLIB_GIT_REVISION "master" CACHE STRING "Set PlusLib desired git hash (master means latest)")
+MARK_AS_ADVANCED(PLUSLIB_GIT_REVISION)
+
+SET(PLUSAPP_GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusApp.git" CACHE STRING "Set PlusApp desired git url")
+MARK_AS_ADVANCED(PLUSAPP_GIT_REPOSITORY)
 SET(PLUSAPP_GIT_REVISION "master" CACHE STRING "Set PlusApp desired git hash (master means latest)")
+MARK_AS_ADVANCED(PLUSAPP_GIT_REVISION)
+
+IF(PLUSBUILD_DOWNLOAD_PLUSLIBDATA)
+  SET(PLUSBUILD_PLUSLIBDATA_GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusLibData.git" CACHE STRING "Set PlusLibData desired git url.")
+  MARK_AS_ADVANCED(PLUSBUILD_PLUSLIBDATA_GIT_REPOSITORY)
+  SET(PLUSBUILD_PLUSLIBDATA_GIT_REVISION "master" CACHE STRING "Set PlusLibData desired git hash (master means latest).")
+  MARK_AS_ADVANCED(PLUSBUILD_PLUSLIBDATA_GIT_REVISION)
+ENDIF()
 
 #-----------------------------------------------------------------------------
 # Plus executable output path

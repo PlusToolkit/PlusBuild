@@ -8,6 +8,13 @@ IF(BUILDNAME)
   )
 ENDIF()
 
+IF(NOT DEFINED(PLUSAPP_GIT_REPOSITORY))
+  SET(PLUSAPP_GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusApp.git" CACHE STRING "Set PlusApp desired git url")
+ENDIF()
+IF(NOT DEFINED(PLUSAPP_GIT_REVISION))
+  SET(PLUSAPP_GIT_REVISION "master" CACHE STRING "Set PlusApp desired git hash (master means latest)")
+ENDIF()
+
 SET (PLUS_PLUSAPP_DIR ${CMAKE_BINARY_DIR}/PlusApp CACHE INTERNAL "Path to store PlusApp contents.")
 SET (PLUSAPP_DIR ${CMAKE_BINARY_DIR}/PlusApp-bin CACHE PATH "The directory containing PlusApp binaries" FORCE)                
 ExternalProject_Add(PlusApp
@@ -15,7 +22,7 @@ ExternalProject_Add(PlusApp
   SOURCE_DIR "${PLUS_PLUSAPP_DIR}" 
   BINARY_DIR "${PLUSAPP_DIR}"
   #--Download step--------------
-  GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusApp.git"
+  GIT_REPOSITORY ${PLUSAPP_GIT_REPOSITORY}
   GIT_TAG ${PLUSAPP_GIT_REVISION}
   #--Configure step-------------
   CMAKE_ARGS 

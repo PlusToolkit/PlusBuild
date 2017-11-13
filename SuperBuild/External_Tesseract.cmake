@@ -4,6 +4,12 @@ SET(tesseract_ROOT_DIR ${CMAKE_BINARY_DIR}/Deps)
 
 # --------------------------------------------------------------------------
 # leptonica
+SetGitRepositoryTag(
+  leptonica
+  "${GIT_PROTOCOL}://github.com/PLUSToolkit/leptonica.git"
+  "master"
+  )
+
 IF(leptonica_DIR)
   FIND_PACKAGE(leptonica REQUIRED NO_MODULE)
   
@@ -18,8 +24,8 @@ ELSE()
     SOURCE_DIR "${PLUS_leptonica_src_DIR}"
     BINARY_DIR "${PLUS_leptonica_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PLUSToolkit/leptonica.git"
-    GIT_TAG master
+    GIT_REPOSITORY ${leptonica_GIT_REPOSITORY}
+    GIT_TAG ${leptonica_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS
         ${ep_common_args}
@@ -37,6 +43,12 @@ ENDIF()
 
 # --------------------------------------------------------------------------
 # tessdata
+SetGitRepositoryTag(
+  tessdata
+  "${GIT_PROTOCOL}://github.com/PLUSToolkit/tessdata.git"
+  "master"
+  )
+
 IF(tessdata_DIR)
   IF(NOT EXISTS ${tessdata_DIR})
     MESSAGE(FATAL_ERROR "Folder specified by tessdata_DIR does not exist.")
@@ -52,8 +64,8 @@ ELSE()
     SOURCE_DIR "${PLUS_tessdata_src_DIR}"
     BINARY_DIR "${PLUS_tessdata_src_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PLUSToolkit/tessdata.git"
-    GIT_TAG master
+    GIT_REPOSITORY ${tessdata_GIT_REPOSITORY}
+    GIT_TAG ${tessdata_GIT_TAG}
     #--Configure step-------------
     CONFIGURE_COMMAND ""
     #--Build step-----------------
@@ -111,7 +123,12 @@ IF(tesseract_DIR)
   
   SET (PLUS_tesseract_DIR ${tesseract_DIR} CACHE INTERNAL "Path to store tesseract binaries")
 ELSE()
-  MESSAGE("Downloading tesseract from ${GIT_PROTOCOL}://github.com/PLUSToolkit/tesseract-ocr-cmake.git")
+
+  SetGitRepositoryTag(
+    tesseract
+    "${GIT_PROTOCOL}://github.com/PLUSToolkit/tesseract-ocr-cmake.git"
+    "21855d0568a9253dede4e223aae71c0249b90438"
+    )
 
   SET (PLUS_tesseract_src_DIR ${tesseract_ROOT_DIR}/tesseract CACHE INTERNAL "Path to store tesseract contents.")
   SET (PLUS_tesseract_prefix_DIR ${tesseract_ROOT_DIR}/tesseract-prefix CACHE INTERNAL "Path to store tesseract prefix data.")
@@ -122,8 +139,8 @@ ELSE()
     SOURCE_DIR "${PLUS_tesseract_src_DIR}"
     BINARY_DIR "${PLUS_tesseract_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PLUSToolkit/tesseract-ocr-cmake.git"
-    GIT_TAG 21855d0568a9253dede4e223aae71c0249b90438
+    GIT_REPOSITORY ${tesseract_GIT_REPOSITORY}
+    GIT_TAG ${tesseract_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS
       ${ep_common_args}

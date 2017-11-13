@@ -32,10 +32,6 @@ ELSE()
     SET(OvrvisionPro_DEPENDENCIES)
   ENDIF()
 
-  SET(OvrvisionPro_REPOSITORY https://github.com/PLUSToolkit/OvrvisionProCMake.git)
-
-  MESSAGE(STATUS "Downloading OvrvisionPro SDK from: ${OvrvisionPro_REPOSITORY}")
-
   # --------------------------------------------------------------------------
   # OvrvisionPro SDK
   SET (PLUS_OvrvisionPro_src_DIR ${CMAKE_BINARY_DIR}/Deps/OvrvisionPro CACHE INTERNAL "Path to store OvrvisionPro contents.")
@@ -54,14 +50,20 @@ ELSE()
     # Linux?
   ENDIF()
 
+  SetGitRepositoryTag(
+    OvrvisionPro
+    "${GIT_PROTOCOL}://github.com/PLUSToolkit/OvrvisionProCMake.git"
+    "master"
+    )
+
   ExternalProject_Add( OvrvisionPro
     PREFIX ${PLUS_OvrvisionPro_prefix_DIR}
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
     SOURCE_DIR "${PLUS_OvrvisionPro_src_DIR}"
     BINARY_DIR "${PLUS_OvrvisionPro_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY ${OvrvisionPro_REPOSITORY}
-    GIT_TAG master
+    GIT_REPOSITORY ${OvrvisionPro_GIT_REPOSITORY}
+    GIT_TAG ${OvrvisionPro_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS
       ${ep_common_args}
