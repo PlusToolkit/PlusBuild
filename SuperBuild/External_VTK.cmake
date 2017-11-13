@@ -53,11 +53,6 @@ IF(VTK_DIR)
   SET(VTK_BUILD_DEPENDENCY_TARGET CACHE INTERNAL "The name of the target to list as a dependency to ensure build order correctness.")
 ELSE()
   # VTK has not been built yet, so download and build it as an external project
-  SET(VTK_GIT_PROTOCOL https)
-
-  SET(VTK_GIT_REPOSITORY "gitlab.kitware.com/vtk/vtk.git")
-  SET(VTK_GIT_TAG "v7.1.0")
-  SET(VTK_GIT_PROTOCOL https)
 
   SET(VTK_VERSION_SPECIFIC_ARGS)
   IF(PLUSBUILD_BUILD_PLUSAPP)
@@ -80,8 +75,12 @@ ELSE()
   IF(MSVC)
     LIST(APPEND VTK_VERSION_SPECIFIC_ARGS -DCMAKE_CXX_MP_FLAG:BOOL=ON)
   ENDIF()
-  
-  MESSAGE(STATUS "Downloading VTK ${VTK_GIT_TAG} from: ${VTK_GIT_PROTOCOL}://${VTK_GIT_REPOSITORY}")
+
+  SetGitRepositoryTag(
+    VTK
+    "${GIT_PROTOCOL}://gitlab.kitware.com/vtk/vtk.git"
+    "v7.1.0"
+    )
 
   SET (PLUS_VTK_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/vtk")
   SET (PLUS_VTK_DIR "${CMAKE_BINARY_DIR}/Deps/vtk-bin" CACHE INTERNAL "Path to store vtk binaries")
@@ -92,7 +91,7 @@ ELSE()
     SOURCE_DIR "${PLUS_VTK_SRC_DIR}"
     BINARY_DIR "${PLUS_VTK_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY "${VTK_GIT_PROTOCOL}://${VTK_GIT_REPOSITORY}"
+    GIT_REPOSITORY ${VTK_GIT_REPOSITORY}
     GIT_TAG ${VTK_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS 

@@ -1,13 +1,20 @@
 # --------------------------------------------------------------------------
 # PlusModelCatalog
 
+SetGitRepositoryTag(
+  PlusModelCatalog
+  "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusModelCatalog.git"
+  "master"
+  )
+
 SET (PLUS_PLUSMODELCATALOG_DIR ${CMAKE_BINARY_DIR}/PlusModelCatalog CACHE INTERNAL "Path to store Plus Model Catalog.")
 ExternalProject_Add(PlusModelCatalog
   "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
   SOURCE_DIR "${PLUS_PLUSMODELCATALOG_DIR}" 
   BINARY_DIR "PlusModelCatalog-bin"
   #--Download step--------------
-  GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusModelCatalog.git"
+  GIT_REPOSITORY ${PlusModelCatalog_GIT_REPOSITORY}
+  GIT_TAG ${PlusModelCatalog_GIT_TAG}
   #--Configure step-------------
   CMAKE_ARGS 
     ${ep_common_args}

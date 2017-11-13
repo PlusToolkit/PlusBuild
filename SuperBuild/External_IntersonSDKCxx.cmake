@@ -28,8 +28,11 @@ IF(IntersonSDKCxx_DIR)
   SET(PLUS_IntersonSDKCxx_DIR "${IntersonSDKCxx_DIR}" CACHE INTERNAL "Path to store IntersonSDKCxx binaries")
 ELSE()
   # IntersonSDKCxx has not been built yet, so download and build it as an external project
-  SET (IntersonSDKCxx_REPOSITORY ${GIT_PROTOCOL}://github.com/KitwareMedical/IntersonSDKCxx.git)
-  SET (IntersonSDKCxx_GIT_TAG 819d620052be7e9b232e12d8946793c15cfbf5a3)
+  SetGitRepositoryTag(
+    IntersonSDKCxx
+    "${GIT_PROTOCOL}://github.com/KitwareMedical/IntersonSDKCxx.git"
+    "819d620052be7e9b232e12d8946793c15cfbf5a3"
+    )
 
   SET (PLUS_IntersonSDKCxx_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/IntersonSDKCxx")
   SET (PLUS_IntersonSDKCxx_DIR "${CMAKE_BINARY_DIR}/Deps/IntersonSDKCxx-bin" CACHE INTERNAL "Path to store IntersonSDKCxx binaries")
@@ -38,8 +41,8 @@ ELSE()
     SOURCE_DIR "${PLUS_IntersonSDKCxx_SRC_DIR}"
     BINARY_DIR "${PLUS_IntersonSDKCxx_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY "${IntersonSDKCxx_REPOSITORY}"
-    GIT_TAG "${IntersonSDKCxx_GIT_TAG}"
+    GIT_REPOSITORY ${IntersonSDKCxx_GIT_REPOSITORY}
+    GIT_TAG ${IntersonSDKCxx_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS 
       ${ep_common_args}

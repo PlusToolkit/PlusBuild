@@ -37,8 +37,6 @@ IF(OpenCV_DIR)
   # Create a dummy target
   ADD_CUSTOM_TARGET(OpenCV)
 ELSE()
-  # No OpenCV is specified, so download and build
-  SET(OpenCV_REPOSITORY https://github.com/opencv/opencv.git)
 
   FIND_PACKAGE(CUDA QUIET)
   
@@ -89,7 +87,12 @@ ELSE()
     LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DWITH_QT:BOOL=ON -DQt5_DIR:PATH=${Qt5_DIR})
   ENDIF()
 
-  MESSAGE(STATUS "Downloading OpenCV from: ${OpenCV_REPOSITORY}")
+  # No OpenCV is specified, so download and build
+  SetGitRepositoryTag(
+    OpenCV
+    "${GIT_PROTOCOL}://github.com/opencv/opencv.git"
+    "3.2.0"
+    )
 
   SET (PLUS_OpenCV_src_DIR ${CMAKE_BINARY_DIR}/Deps/OpenCV CACHE INTERNAL "Path to store OpenCV contents.")
   SET (PLUS_OpenCV_prefix_DIR ${CMAKE_BINARY_DIR}/Deps/OpenCV-prefix CACHE INTERNAL "Path to store OpenCV prefix data.")
@@ -100,8 +103,8 @@ ELSE()
     SOURCE_DIR "${PLUS_OpenCV_src_DIR}"
     BINARY_DIR "${PLUS_OpenCV_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY ${OpenCV_REPOSITORY}
-    GIT_TAG 3.2.0
+    GIT_REPOSITORY ${OpenCV_GIT_REPOSITORY}
+    GIT_TAG ${OpenCV_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS
       ${ep_common_args}

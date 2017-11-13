@@ -35,9 +35,11 @@ IF(aruco_DIR)
   SET (PLUS_aruco_DIR ${aruco_DIR} CACHE INTERNAL "Path to store aruco binaries")
 ELSE()
   # aruco has not been built yet, so download and build it as an external project
-  SET(aruco_GIT_REPOSITORY https://github.com/PlusToolkit/aruco.git)
-
-  MESSAGE(STATUS "Downloading aruco from: ${aruco_GIT_REPOSITORY}")
+  SetGitRepositoryTag(
+    aruco
+    "${GIT_PROTOCOL}://github.com/PlusToolkit/aruco.git"
+    "master"
+    )
 
   SET (PLUS_aruco_src_DIR ${CMAKE_BINARY_DIR}/Deps/aruco CACHE INTERNAL "Path to store aruco contents")
   SET (PLUS_aruco_prefix_DIR ${CMAKE_BINARY_DIR}/Deps/aruco-prefix CACHE INTERNAL "Path to store aruco prefix data.")
@@ -50,6 +52,7 @@ ELSE()
     BINARY_DIR "${PLUS_aruco_DIR}"
     #--Download step--------------
     GIT_REPOSITORY ${aruco_GIT_REPOSITORY}
+    GIT_TAG ${aruco_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS
       ${ep_common_args}

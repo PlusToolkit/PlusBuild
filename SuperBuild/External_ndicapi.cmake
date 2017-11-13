@@ -29,9 +29,11 @@ IF(ndicapi_DIR)
 
   SET(PLUS_ndicapi_DIR ${ndicapi_DIR} CACHE INTERNAL "Path to store ndicapi binaries")
 ELSE()
-  SET(ndicapi_REPOSITORY https://github.com/PlusToolkit/ndicapi.git)
-
-  MESSAGE(STATUS "Downloading ndicapi from: ${ndicapi_REPOSITORY}")
+  SetGitRepositoryTag(
+    ndicapi
+    "${GIT_PROTOCOL}://github.com/PlusToolkit/ndicapi.git"
+    "master"
+    )
 
   # --------------------------------------------------------------------------
   # OvrvisionPro SDK
@@ -45,8 +47,8 @@ ELSE()
     SOURCE_DIR "${PLUS_ndicapi_src_DIR}"
     BINARY_DIR "${PLUS_ndicapi_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY ${ndicapi_REPOSITORY}
-    GIT_TAG master
+    GIT_REPOSITORY ${ndicapi_GIT_REPOSITORY}
+    GIT_TAG ${ndicapi_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS
       ${ep_common_args}

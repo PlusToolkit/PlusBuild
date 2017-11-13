@@ -27,7 +27,11 @@ IF(OpenIGTLinkIO_DIR)
   SET (PLUS_OpenIGTLinkIO_DIR "${OpenIGTLinkIO_DIR}" CACHE INTERNAL "Path to store OpenIGTLinkIO binaries")
 ELSE()
   # OpenIGTLinkIO has not been built yet, so download and build it as an external project
-  MESSAGE(STATUS "Downloading OpenIGTLinkIO from ${GIT_PROTOCOL}://github.com/IGSIO/OpenIGTLinkIO.git")
+  SetGitRepositoryTag(
+    OpenIGTLinkIO
+    "${GIT_PROTOCOL}://github.com/IGSIO/OpenIGTLinkIO.git"
+    "master"
+    )
 
   SET (PLUS_OpenIGTLinkIO_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/OpenIGTLinkIO")
   SET (PLUS_OpenIGTLinkIO_DIR "${CMAKE_BINARY_DIR}/Deps/OpenIGTLinkIO-bin" CACHE INTERNAL "Path to store OpenIGTLinkIO binaries")
@@ -37,8 +41,8 @@ ELSE()
     SOURCE_DIR "${PLUS_OpenIGTLinkIO_SRC_DIR}"
     BINARY_DIR "${PLUS_OpenIGTLinkIO_DIR}"
     #--Download step--------------
-    GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/IGSIO/OpenIGTLinkIO.git"
-    GIT_TAG "master"
+    GIT_REPOSITORY ${OpenIGTLinkIO_GIT_REPOSITORY}
+    GIT_TAG ${OpenIGTLinkIO_GIT_TAG}
     #--Configure step-------------
     CMAKE_ARGS 
       ${ep_common_args}
