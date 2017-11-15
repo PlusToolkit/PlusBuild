@@ -38,7 +38,7 @@ ELSE()
     BINARY_DIR "${PLUS_OpenIGTLinkIO_DIR}"
     #--Download step--------------
     GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/IGSIO/OpenIGTLinkIO.git"
-    GIT_TAG master
+    GIT_TAG "577bfedd66d720413ea380ca764471d908c9476b"
     #--Configure step-------------
     CMAKE_ARGS 
       ${ep_common_args}
