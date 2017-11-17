@@ -32,7 +32,7 @@ ELSE()
   SetGitRepositoryTag(
     ndicapi
     "${GIT_PROTOCOL}://github.com/PlusToolkit/ndicapi.git"
-    "master"
+    "f1bf6d55f8fa61105dc219ab09ee706cfecc0564"
     )
 
   # --------------------------------------------------------------------------

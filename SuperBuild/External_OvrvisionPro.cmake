@@ -53,7 +53,7 @@ ELSE()
   SetGitRepositoryTag(
     OvrvisionPro
     "${GIT_PROTOCOL}://github.com/PLUSToolkit/OvrvisionProCMake.git"
-    "master"
+    "dc53f9cc29dd0a566a08648f4ac2914b9d555c72"
     )
 
   ExternalProject_Add( OvrvisionPro

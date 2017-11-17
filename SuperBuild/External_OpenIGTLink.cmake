@@ -33,7 +33,7 @@ ELSE()
   SetGitRepositoryTag(
     OpenIGTLink
     "${GIT_PROTOCOL}://github.com/openigtlink/OpenIGTLink.git"
-    "master"
+    "63d0a14ba8d7e1fce0d2b813e6b33a4e4f196486"
     )
 
   SET (PLUS_OpenIGTLink_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/OpenIGTLink")
