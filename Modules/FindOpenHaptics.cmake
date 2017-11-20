@@ -297,6 +297,8 @@ if(OpenHaptics_FOUND)
     ${HLAPI_HLU_INCLUDE_DIRS}
     ${HDAPI_HDU_INCLUDE_DIRS}
     )
+  list(REMOVE_DUPLICATES OpenHaptics_INCLUDE_DIRS)
+  list(REMOVE_DUPLICATES OpenHaptics_LIBRARIES)
 
   set(OpenHaptics_BINARY_DIR ${_libsearch})
   set(OpenHaptics_UTILITIES_BINARY_DIR ${_libsearch2})
