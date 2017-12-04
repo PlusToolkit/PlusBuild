@@ -76,9 +76,10 @@ ELSE()
     LIST(APPEND VTK_VERSION_SPECIFIC_ARGS -DCMAKE_CXX_MP_FLAG:BOOL=ON)
   ENDIF()
 
+  message(${GIT_PROTOCOL})
   SetGitRepositoryTag(
     VTK
-    "${GIT_PROTOCOL}://gitlab.kitware.com/vtk/vtk.git"
+    "https://gitlab.kitware.com/vtk/vtk.git"
     "v7.1.0"
     )
 
