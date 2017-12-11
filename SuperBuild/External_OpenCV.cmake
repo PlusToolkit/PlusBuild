@@ -1,5 +1,5 @@
 IF(OpenCV_DIR)
-  FIND_PACKAGE(OpenCV 3.2.0 REQUIRED NO_MODULE)
+  FIND_PACKAGE(OpenCV 3.3.1 REQUIRED NO_MODULE)
 
   # Copy libraries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
   FOREACH(lib ${OpenCV_LIBS})
@@ -91,7 +91,7 @@ ELSE()
   SetGitRepositoryTag(
     OpenCV
     "${GIT_PROTOCOL}://github.com/opencv/opencv.git"
-    "3.2.0"
+    "3.3.1"
     )
 
   SET (PLUS_OpenCV_src_DIR ${CMAKE_BINARY_DIR}/Deps/OpenCV CACHE INTERNAL "Path to store OpenCV contents.")
