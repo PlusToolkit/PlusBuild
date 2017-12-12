@@ -209,6 +209,7 @@ IF(PLUS_USE_TELEMED_VIDEO)
 ENDIF (PLUS_USE_TELEMED_VIDEO)
 OPTION(PLUS_USE_THORLABS_VIDEO "Provide support for the ThorLabs Compact Spectrometers" OFF)
 OPTION(PLUS_USE_OpenCV_VIDEO "Provide support for capturing an OpenCV capture stream" OFF)
+OPTION(PLUS_USE_INFRARED_SEEK_CAM "Provide support for capturing an Infrared Seek Camera capture stream" OFF)
 
 # Tracking hardware
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
@@ -466,6 +467,31 @@ IF(PLUSBUILD_USE_OpenCV)
   MESSAGE(STATUS "------")
   MESSAGE(STATUS "")
 ENDIF()
+
+# Infrared Thermal Seek camera
+IF(PLUS_USE_INFRARED_SEEK_CAM)
+  # libusb-1.0 -----
+  find_path(LIBUSB_INCLUDE_DIR
+    NAMES libusb.h
+    PATH_SUFFIXES "include" "libusb" "libusb-1.0"
+  )
+
+  find_library(LIBUSB_LIBRARY
+    NAMES usb-1.0
+    PATH_SUFFIXES "lib" "lib32" "lib64"
+  )
+
+  if (NOT LIBUSB_LIBRARY OR NOT LIBUSB_INCLUDE_DIR)
+    message(FATAL_ERROR "PLUS_USE_INFRARED_SEEK_CAM requires LIBUSB which is not found.")
+  endif()
+endif()
+
+IF(PLUS_USE_INFRARED_SEEK_CAM AND NOT PLUSBUILD_USE_OpenCV)
+  MESSAGE("PLUS_USE_INFRARED_SEEK_CAM requires PLUSBUILD_USE_OpenCV option enabled, enabling.")
+  SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for Infrared Seek Camera and other features." FORCE)
+  
+ENDIF()
+
 IF(PLUSBUILD_USE_aruco)
   INCLUDE(SuperBuild/External_aruco.cmake)
 ENDIF()
