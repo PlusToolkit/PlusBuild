@@ -4,24 +4,7 @@ IF(OvrvisionPro_DIR)
   MESSAGE(STATUS "Using OvrvisionPro available at: ${OvrvisionPro_DIR}")
   
   # Copy libraries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
-  IF( MSVC OR ${CMAKE_GENERATOR} MATCHES "Xcode" )
-    FILE(COPY 
-      ${OpenIGTLinkIO_LIBRARY_DIRS}/Release/
-      DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release
-      FILES_MATCHING REGEX .*${CMAKE_SHARED_LIBRARY_SUFFIX}
-      )
-    FILE(COPY 
-      ${OpenIGTLinkIO_LIBRARY_DIRS}/Debug/
-      DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug
-      FILES_MATCHING REGEX .*${CMAKE_SHARED_LIBRARY_SUFFIX}
-      )    
-  ELSE()
-    FILE(COPY 
-      ${OpenIGTLinkIO_LIBRARY_DIRS}/
-      DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-      FILES_MATCHING REGEX .*${CMAKE_SHARED_LIBRARY_SUFFIX}
-      )
-  ENDIF()
+  PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} OvrvisionPro)
 
   SET(PLUS_OvrvisionPro_DIR ${OvrvisionPro_DIR} CACHE INTERNAL "Path to store OvrvisionPro binaries")
 ELSE()

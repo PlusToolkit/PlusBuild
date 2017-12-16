@@ -1,0 +1,55 @@
+MACRO(PlusCopyLibrariesToDirectory _destination)
+  FOREACH(lib ${ARGN})
+    IF(NOT TARGET ${lib})
+      continue()
+    ENDIF()
+    
+    GET_TARGET_PROPERTY(_lib_type ${lib} TYPE)
+
+    IF(NOT ${_lib_type} STREQUAL "INTERFACE_LIBRARY")
+      GET_TARGET_PROPERTY(_debug_file ${lib} IMPORTED_LOCATION_DEBUG)
+      GET_TARGET_PROPERTY(_release_file ${lib} IMPORTED_LOCATION_RELEASE)
+      GET_TARGET_PROPERTY(_rel_deb_info_file ${lib} IMPORTED_LOCATION_RELWITHDEBINFO)
+      GET_TARGET_PROPERTY(_min_size_rel_file ${lib} IMPORTED_LOCATION_MINSIZEREL)
+      GET_TARGET_PROPERTY(_pdb_name ${lib} PDB_NAME)
+      GET_TARGET_PROPERTY(_pdb_directory ${lib} PDB_OUTPUT_DIRECTORY)
+
+      IF(MSVC OR ${CMAKE_GENERATOR} MATCHES "Xcode")
+        # Release
+        IF(EXISTS ${_release_file})
+          FILE(COPY ${_release_file} DESTINATION ${_destination}/Release)
+        ENDIF()
+
+        # Debug
+        IF(EXISTS ${_debug_file})
+          FILE(COPY ${_debug_file} DESTINATION ${_destination}/Debug)
+        ENDIF()
+
+        # Release with debug info
+        IF(EXISTS ${_rel_deb_info_file})
+          FILE(COPY ${_rel_deb_info_file} DESTINATION ${_destination}/RelWithDebInfo)
+        ELSEIF(EXISTS ${_release_file})
+          FILE(COPY ${_release_file} DESTINATION ${_destination}/RelWithDebInfo)
+        ENDIF()
+
+        # Min size release
+        IF(EXISTS ${_min_size_rel_file})
+          FILE(COPY ${_min_size_rel_file} DESTINATION ${_destination}/MinSizeRel)
+        ELSEIF(EXISTS ${_release_file})
+          FILE(COPY ${_release_file} DESTINATION ${_destination}/MinSizeRel)
+        ENDIF()
+      ELSE()
+        IF(_debug_file EQUAL _release_file AND EXISTS ${_release_file})
+          FILE(COPY ${_release_file} DESTINATION ${_destination})
+        ELSE()
+          IF(EXISTS ${_release_file})
+            FILE(COPY ${_release_file} DESTINATION ${_destination})
+          ENDIF()
+          IF(EXISTS ${_debug_file})
+            FILE(COPY ${_debug_file} DESTINATION ${_destination})
+          ENDIF()
+        ENDIF()
+      ENDIF()
+    ENDIF()
+  ENDFOREACH()
+ENDMACRO()

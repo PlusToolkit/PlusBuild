@@ -17,6 +17,9 @@ SET(CMAKE_MODULE_PATH
   ${CMAKE_MODULE_PATH}
   )
 
+# Include our build macros
+INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/CMake/PlusBuildMacros.cmake)
+
 OPTION(PLUSBUILD_OFFLINE_BUILD "Build Plus without an internet connection. All libraries must be downloaded and updated manually." OFF)
 MARK_AS_ADVANCED(PLUSBUILD_OFFLINE_BUILD)
 
