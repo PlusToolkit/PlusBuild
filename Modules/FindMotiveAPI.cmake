@@ -15,14 +15,14 @@
 #  MOTIVE_OPENMP_DIR              Location of libiomp5md.dll needed to use Motive API
 
 SET(MOTIVEAPI_PATH_HINTS
-  "$ENV{PROGRAMFILES}/OptiTrack/Motive"
-  "$ENV{PROGRAMW6432}/OptiTrack/Motive"
-  "C:/Program Files (x86)/OptiTrack/Motive"
-  "C:/Program Files/OptiTrack/Motive"
   "../PLTools/OptiTrack/MotiveAPI-1.10.3"
   "../../PLTools/OptiTrack/MotiveAPI-1.10.3"
   "../trunk/PLTools/OptiTrack/MotiveAPI-1.10.3"
   "${CMAKE_CURRENT_BINARY_DIR}/PLTools/OptiTrack/MotiveAPI-1.10.3"
+  "$ENV{PROGRAMFILES}/OptiTrack/Motive"
+  "$ENV{PROGRAMW6432}/OptiTrack/Motive"
+  "C:/Program Files (x86)/OptiTrack/Motive"
+  "C:/Program Files/OptiTrack/Motive"
   )
 
 find_path(MOTIVE_DIR "/inc/NPTrackingTools.h"
@@ -35,19 +35,19 @@ IF (MOTIVE_DIR)
   mark_as_advanced(MOTIVE_API_INCLUDE_DIR)
 
   # Libraries
-  SET(LIB_NAME_SUFFIX "")
+  SET(PLATFORM_NAME_SUFFIX "")
   SET(OPENMP_PATH_SUFFIX "/lib32")
   IF (CMAKE_HOST_WIN32 AND CMAKE_CL_64 )
-    SET(LIB_NAME_SUFFIX "x64")
+    SET(PLATFORM_NAME_SUFFIX "x64")
     SET(OPENMP_PATH_SUFFIX "")
   ENDIF ()
   
   find_path(MotiveAPI_LIBRARY_DIR
-            NAMES NPTrackingTools${PLATFORM_SUFFIX}${CMAKE_STATIC_LIBRARY_SUFFIX}
+            NAMES NPTrackingTools${PLATFORM_NAME_SUFFIX}${CMAKE_STATIC_LIBRARY_SUFFIX}
             PATHS "${MOTIVE_DIR}/lib/" NO_DEFAULT_PATH)
 
   find_path(MotiveAPI_BINARY_DIR
-            NAMES NPTrackingTools${PLATFORM_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX}
+            NAMES NPTrackingTools${PLATFORM_NAME_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX}
             PATHS "${MOTIVE_DIR}/lib/" NO_DEFAULT_PATH)
 
    find_path(libiomp_LIBRARY_DIR
@@ -56,8 +56,8 @@ IF (MOTIVE_DIR)
              
   set(MOTIVE_API_LIBRARY_DIR ${MotiveAPI_LIBRARY_DIR})
   set(MOTIVE_API_BINARY_DIR ${MotiveAPI_BINARY_DIR})
-  set(MOTIVE_API_LIBRARY_NAME NPTrackingTools${LIB_NAME_SUFFIX}${CMAKE_STATIC_LIBRARY_SUFFIX})
-  set(MOTIVE_API_BINARY_NAME NPTrackingTools${LIB_NAME_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX})
+  set(MOTIVE_API_LIBRARY_NAME NPTrackingTools${PLATFORM_NAME_SUFFIX}${CMAKE_STATIC_LIBRARY_SUFFIX})
+  set(MOTIVE_API_BINARY_NAME NPTrackingTools${PLATFORM_NAME_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX})
   set(MOTIVE_OPENMP_DIR ${libiomp_LIBRARY_DIR})
   
   mark_as_advanced(MOTIVE_API_LIBRARY_DIR)
