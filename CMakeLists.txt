@@ -259,9 +259,16 @@ IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
 ENDIF()
 
 OPTION(PLUS_USE_NVIDIA_DVP "Provide support for the NVidia Digital Video Pipeline" OFF)
-IF (PLUS_USE_NVIDIA_DVP)
+IF(PLUS_USE_NVIDIA_DVP)
   FIND_PACKAGE(QuadroSDI REQUIRED)
   FIND_PACKAGE(OpenGL REQUIRED)
+ENDIF()
+
+IF(UNIX AND NOT APPLE)
+  OPTION(PLUS_USE_V4L2 "Provide support for video4linux devices" OFF)
+  IF(PLUS_USE_V4L2)
+    FIND_PACKAGE(V4L2 REQUIRED)
+  ENDIF()
 ENDIF()
 
 #-----------------------------------------------------------------------------
