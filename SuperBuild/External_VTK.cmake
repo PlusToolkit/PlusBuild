@@ -78,7 +78,7 @@ ELSE()
 
   SetGitRepositoryTag(
     VTK
-    "${GIT_PROTOCOL}://gitlab.kitware.com/vtk/vtk.git"
+    "${GIT_PROTOCOL}://github.com/kitware/vtk.git"
     "v7.1.0"
     )
 
