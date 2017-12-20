@@ -12,18 +12,7 @@ IF(IntersonSDKCxx_DIR)
   
   MESSAGE(STATUS "Using IntersonSDKCxx available at: ${IntersonSDKCxx_DIR}")
 
-  SET(_config)
-  IF (MSVC OR ${CMAKE_GENERATOR} MATCHES "Xcode")
-    SET( _config "/Release" )
-  ENDIF()
-  FOREACH(_libpath ${IntersonSDKCxx_RUNTIME_LIBRARY_DIRS})
-    IF(EXISTS "${_libpath}/IntersonCxx.${CMAKE_SHARED_LIBRARY_SUFFIX}")
-      FILE(COPY "${_libpath}"
-        DESTINATION "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}${_config}"
-        FILES_MATCHING REGEX .*${CMAKE_SHARED_LIBRARY_SUFFIX}
-        )
-    ENDIF()
-  ENDFOREACH()
+  PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${IntersonSDKCxx_LIBRARIES})
 
   SET(PLUS_IntersonSDKCxx_DIR "${IntersonSDKCxx_DIR}" CACHE INTERNAL "Path to store IntersonSDKCxx binaries")
 ELSE()
