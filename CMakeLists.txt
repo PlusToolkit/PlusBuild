@@ -547,7 +547,7 @@ IF(PLUS_USE_INFRARED_TEQ1_CAM)
 ENDIF()
 
 IF(PLUS_USE_ATRACSYS)
-  FIND_PACKAGE(ATRACSYS)
+  FIND_PACKAGE(Atracsys)
   IF(NOT ATRACSYS_SDK_FOUND)
     MESSAGE(FATAL_ERROR "This project requires the Atracsys sTk Passive Tracking SDK to support the use of Atacsys optical trackers. One of the components is missing. Please verify configuration or turn off PLUS_USE_ATRACSYS")
   ENDIF()
