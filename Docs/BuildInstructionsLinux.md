@@ -36,7 +36,7 @@ Build Process
   - Unix Makefiles
   - Eclipse CDT - Unix Makefiles
 - Enter git, and qt library locations if they are not detected automatically.
-  - Qt entry should read as _/some/qt-install-dir/bin/qmake_
+  - Qt entry should read as _/some/qt-install-dir/lib/cmake/Qt5_
 - Disable all hardware devices, there are no Linux drivers for hardware (consider writing the hardware vendors to request Linux drivers!)
 - Optional: set advanced build options
   - If you want to use a specific Plus revision then set it in PLUSLIB_GIT_REVISION and PLUSAPP_GIT_REVISION. Default is `master`, which means the latest version.
