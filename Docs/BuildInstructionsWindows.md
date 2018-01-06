@@ -22,10 +22,10 @@ Required:
   - Developers at Queen, UBC, Robarts, and other collaborators: Request access to the PLTools repository from <a href="https://github.com/PerkLab">PerkLab</a>, which contains the SDKs for Ultrasonix, BK, NDI, etc. and clone the repository in the same directory where PlusBuild folder is located. During the build process, required SDK files will be loaded automatically from the PLTools directory. Example: C:\Users\Joe\devel\PLTools and C:\Users\Joe\devel\PlusBuild.
 
 Required for packaging and documentation generation:
-  
+
 - [**NSIS**](http://sourceforge.net/projects/nsis/files/NSIS%202/2.46/nsis-2.46-setup.exe/download): required for building installation packages.
 - [**Doxygen**](http://www.stack.nl/~dimitri/doxygen/download.html): required for building documentation. Version 1.8.7 is currently used and detected automatically. Other versions may work as well.
-- [**Graphviz**](http://www.graphviz.org/Download_windows.php): required for building documentation. Version 2.38 is currently used and detected automatically. Other versions may work as well, if not them update PlusLib/src/CMakeLists.txt to add support for other versions.
+- [**Graphviz**](https://graphviz.gitlab.io/download/): required for building documentation. Version 2.38 is currently used and detected automatically. Other versions may work as well, if not them update PlusLib/src/CMakeLists.txt to add support for other versions.
 - [**Microsoft HTML Help 1.4**](http://go.microsoft.com/fwlink/p/?linkid=154968): required for building documentation in .chm Windows Help file format. Documentation is available [here](https://msdn.microsoft.com/en-us/library/windows/desktop/ms670169(v=vs.85).aspx).
 
 Recommended tools:
@@ -69,7 +69,7 @@ Build Process
 - Click Generate to generate the PlusBuild project.
 - Click Open Project to open PlusBuild in Visual Studio.
 - Choose build configuration (Debug/Release)
-- Select in menu: Build / Build Solution 
+- Select in menu: Build / Build Solution
 
 Run Plus applications
 =====================
@@ -79,7 +79,7 @@ Run Plus applications
   - Go to the  _Plus-bin_/bin/Release (or _Plus-bin_/bin/Debug) directory
   - Type the name of the executable you want to run and press enter. The program shall start.
 - Debugging applications:
-   - Open _Plus-bin_\PlusApp-bin\PlusApp.sln 
+   - Open _Plus-bin_\PlusApp-bin\PlusApp.sln
    - Select the project corresponding to the application as startup project
    - Start debugging to run the application in debug mode
 
