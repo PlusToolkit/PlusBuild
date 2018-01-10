@@ -470,26 +470,7 @@ ENDIF()
 
 # Infrared Thermal Seek camera
 IF(PLUS_USE_INFRARED_SEEK_CAM)
-  # libusb-1.0 -----
-  find_path(LIBUSB_INCLUDE_DIR
-    NAMES libusb.h
-    PATH_SUFFIXES "include" "libusb" "libusb-1.0"
-  )
-
-  find_library(LIBUSB_LIBRARY
-    NAMES usb-1.0
-    PATH_SUFFIXES "lib" "lib32" "lib64"
-  )
-
-  if (NOT LIBUSB_LIBRARY OR NOT LIBUSB_INCLUDE_DIR)
-    message(FATAL_ERROR "PLUS_USE_INFRARED_SEEK_CAM requires LIBUSB which is not found.")
-  endif()
-endif()
-
-IF(PLUS_USE_INFRARED_SEEK_CAM AND NOT PLUSBUILD_USE_OpenCV)
-  MESSAGE("PLUS_USE_INFRARED_SEEK_CAM requires PLUSBUILD_USE_OpenCV option enabled, enabling.")
-  SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for Infrared Seek Camera and other features." FORCE)
-  
+  INCLUDE(SuperBuild/External_InfraredSeekCam.cmake)
 ENDIF()
 
 IF(PLUSBUILD_USE_aruco)
@@ -686,6 +667,10 @@ ENDIF()
 
 IF(PLUS_USE_NDI AND NOT ndicapi_DIR)
   LIST(APPEND PlusLib_DEPENDENCIES ndicapi)
+ENDIF()
+
+IF(PLUS_USE_INFRARED_SEEK_CAM)
+  LIST(APPEND PlusLib_DEPENDENCIES SeekCameraLib)
 ENDIF()
 
 SET(PlusApp_DEPENDENCIES PlusLib)

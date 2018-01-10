@@ -4,17 +4,15 @@ IF(SeekCameraLib_DIR)
   MESSAGE(STATUS "Using SeekCameraLib available at: ${SeekCameraLib_DIR}")
 
   # Copy libraries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
-  PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${SeekCameraLib_LIBS})
+  PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${SeekCameraLib_LIBRARIES})
 
   SET(PLUS_SeekCameraLib_DIR ${SeekCameraLib_DIR} CACHE INTERNAL "Path to store SeekCameraLib binaries")
- 
 ELSE()
-
   # SeekCameraLib has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     SeekCameraLib
     "${GIT_PROTOCOL}://github.com/adamrankin/libseek-thermal.git"
-    "master"
+    master
     )
 
   SET (PLUS_SeekCameraLib_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/SeekCameraLib")
@@ -35,6 +33,8 @@ ELSE()
       -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
       -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
       -DBUILD_SHARED_LIBS:BOOL=${PLUSBUILD_BUILD_SHARED_LIBS}
+      -DOpenCV_DIR:PATH=${PLUS_OpenCV_DIR}
+      -DLibUSB_ROOT_DIR:PATH=${LibUSB_ROOT_DIR}
       -DCMAKE_CXX_FLAGS:STRING=${ep_common_cxx_flags}
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
     #--Build step-----------------
