@@ -209,6 +209,7 @@ IF(PLUS_USE_TELEMED_VIDEO)
 ENDIF (PLUS_USE_TELEMED_VIDEO)
 OPTION(PLUS_USE_THORLABS_VIDEO "Provide support for the ThorLabs Compact Spectrometers" OFF)
 OPTION(PLUS_USE_OpenCV_VIDEO "Provide support for capturing an OpenCV capture stream" OFF)
+OPTION(PLUS_USE_INFRARED_SEEK_CAM "Provide support for capturing an Infrared Seek Camera capture stream" OFF)
 
 # Tracking hardware
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
@@ -446,6 +447,10 @@ IF(PLUS_USE_OpenCV_VIDEO AND NOT PLUSBUILD_USE_OpenCV)
   MESSAGE("PLUS_USE_OpenCV_VIDEO requires PLUSBUILD_USE_OpenCV option enabled, enabling.")
   SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
 ENDIF()
+IF(PLUS_USE_INFRARED_SEEK_CAM AND NOT PLUSBUILD_USE_OpenCV)
+  MESSAGE("PLUS_USE_INFRARED_SEEK_CAM requires PLUSBUILD_USE_OpenCV option enabled, enabling.")
+  SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for infrared Seek camera and other features." FORCE)
+ENDIF()
 IF(PLUS_USE_OPTICAL_MARKER_TRACKER)
   IF (NOT PLUSBUILD_USE_aruco)
     MESSAGE("PLUS_USE_OPTICAL_MARKER_TRACKER requires PLUSBUILD_USE_aruco option enabled, enabling.")
@@ -466,6 +471,12 @@ IF(PLUSBUILD_USE_OpenCV)
   MESSAGE(STATUS "------")
   MESSAGE(STATUS "")
 ENDIF()
+
+# Infrared Thermal Seek camera
+IF(PLUS_USE_INFRARED_SEEK_CAM)
+  INCLUDE(SuperBuild/External_InfraredSeekCam.cmake)
+ENDIF()
+
 IF(PLUSBUILD_USE_aruco)
   INCLUDE(SuperBuild/External_aruco.cmake)
 ENDIF()
@@ -660,6 +671,10 @@ ENDIF()
 
 IF(PLUS_USE_NDI AND NOT ndicapi_DIR)
   LIST(APPEND PlusLib_DEPENDENCIES ndicapi)
+ENDIF()
+
+IF(PLUS_USE_INFRARED_SEEK_CAM)
+  LIST(APPEND PlusLib_DEPENDENCIES SeekCameraLib)
 ENDIF()
 
 SET(PlusApp_DEPENDENCIES PlusLib)
