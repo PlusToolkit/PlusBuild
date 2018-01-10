@@ -17,7 +17,7 @@ ELSE()
 
   SET (PLUS_SeekCameraLib_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/SeekCameraLib")
   SET (PLUS_SeekCameraLib_DIR "${CMAKE_BINARY_DIR}/Deps/SeekCameraLib-bin" CACHE INTERNAL "Path to store SeekCameraLib binaries")
-message(${PLUS_OpenCV_DIR})  
+
   ExternalProject_Add( SeekCameraLib
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
     PREFIX "${CMAKE_BINARY_DIR}/Deps/SeekCameraLib-prefix"
