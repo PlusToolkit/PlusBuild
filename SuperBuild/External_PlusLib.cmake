@@ -334,6 +334,11 @@ IF(NOT DEFINED(PLUSLIB_GIT_REVISION))
   SET(PLUSLIB_GIT_REVISION "master" CACHE STRING "Set PlusLib desired git hash (master means latest)")
 ENDIF()
 
+IF(UNIX AND NOT APPLE)
+  LIST(APPEND PLUSBUILD_ADDITIONAL_SDK_ARGS
+    -DPLUS_USE_V4L2:BOOL=${PLUS_USE_V4L2}
+    )
+ENDIF()
 # --------------------------------------------------------------------------
 # PlusLib
 SET (PLUS_PLUSLIB_DIR ${CMAKE_BINARY_DIR}/PlusLib CACHE INTERNAL "Path to store PlusLib contents.")
