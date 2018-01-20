@@ -25,6 +25,13 @@ SET(MOTIVEAPI_PATH_HINTS
   "C:/Program Files/OptiTrack/Motive"
   )
 
+SET(Microsoft_VC80_OpenMP_PATH_HINTS
+  "../PLTools/OptiTrack/Microsoft.VC80.OpenMP"
+  "../../PLTools/OptiTrack/Microsoft.VC80.OpenMP"
+  "../trunk/PLTools/OptiTrack/Microsoft.VC80.OpenMP"
+  "${CMAKE_CURRENT_BINARY_DIR}/PLTools/OptiTrack/Microsoft.VC80.OpenMP"
+  )
+
 find_path(MOTIVE_DIR "/inc/NPTrackingTools.h"
   PATHS ${MOTIVEAPI_PATH_HINTS}
   DOC "OptiTrack Motive API directory")
@@ -40,8 +47,13 @@ IF (MOTIVE_DIR)
   IF (CMAKE_HOST_WIN32 AND CMAKE_CL_64 )
     SET(PLATFORM_NAME_SUFFIX "x64")
     SET(OPENMP_PATH_SUFFIX "")
+  ELSE()
+    find_path(MSVC80_OpenMP_DIR
+      NAMES vcomp.dll
+      PATHS ${Microsoft_VC80_OpenMP_PATH_HINTS}
+      DOC "Microsoft VC80 OpenMP directory")
   ENDIF ()
-  
+
   find_path(MotiveAPI_LIBRARY_DIR
             NAMES NPTrackingTools${PLATFORM_NAME_SUFFIX}${CMAKE_STATIC_LIBRARY_SUFFIX}
             PATHS "${MOTIVE_DIR}/lib/" NO_DEFAULT_PATH)
@@ -50,21 +62,23 @@ IF (MOTIVE_DIR)
             NAMES NPTrackingTools${PLATFORM_NAME_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX}
             PATHS "${MOTIVE_DIR}/lib/" NO_DEFAULT_PATH)
 
-   find_path(libiomp_LIBRARY_DIR
-             NAMES libiomp5md${CMAKE_SHARED_LIBRARY_SUFFIX}
-             PATHS "${MOTIVE_DIR}${OPENMP_PATH_SUFFIX}" NO_DEFAULT_PATH)
-             
+  find_path(libiomp_LIBRARY_DIR
+            NAMES libiomp5md${CMAKE_SHARED_LIBRARY_SUFFIX}
+            PATHS "${MOTIVE_DIR}${OPENMP_PATH_SUFFIX}" NO_DEFAULT_PATH)
+
   set(MOTIVE_API_LIBRARY_DIR ${MotiveAPI_LIBRARY_DIR})
   set(MOTIVE_API_BINARY_DIR ${MotiveAPI_BINARY_DIR})
   set(MOTIVE_API_LIBRARY_NAME NPTrackingTools${PLATFORM_NAME_SUFFIX}${CMAKE_STATIC_LIBRARY_SUFFIX})
   set(MOTIVE_API_BINARY_NAME NPTrackingTools${PLATFORM_NAME_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX})
   set(MOTIVE_OPENMP_DIR ${libiomp_LIBRARY_DIR})
-  
+  set(MOTIVE_MSVC80_OPENMP_DIR ${MSVC80_OpenMP_DIR})
+
   mark_as_advanced(MOTIVE_API_LIBRARY_DIR)
   mark_as_advanced(MOTIVE_API_BINARY_DIR)
   mark_as_advanced(MOTIVE_API_LIBRARY_NAME)
   mark_as_advanced(MOTIVE_API_BINARY_NAME)
   mark_as_advanced(MOTIVE_OPENMP_DIR)
+  mark_as_advanced(MOTIVE_MSVC80_OPENMP_DIR)
 
   #Version
   #TODO: properly set SDK version using REGEX
