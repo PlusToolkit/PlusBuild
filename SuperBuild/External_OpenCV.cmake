@@ -1,5 +1,6 @@
+SET(PLUSBUILD_OpenCV_VERSION "3.3.1" CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])")
 IF(OpenCV_DIR)
-  FIND_PACKAGE(OpenCV 3.3.1 REQUIRED NO_MODULE)
+  FIND_PACKAGE(OpenCV ${PLUSBUILD_OpenCV_VERSION} REQUIRED NO_MODULE)
 
   # Copy libraries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
   PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${OpenCV_LIBS})
@@ -64,7 +65,7 @@ ELSE()
   SetGitRepositoryTag(
     OpenCV
     "${GIT_PROTOCOL}://github.com/opencv/opencv.git"
-    "3.3.1"
+    ${PLUSBUILD_OpenCV_VERSION}
     )
 
   SET (PLUS_OpenCV_src_DIR ${CMAKE_BINARY_DIR}/Deps/OpenCV CACHE INTERNAL "Path to store OpenCV contents.")
