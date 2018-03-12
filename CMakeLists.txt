@@ -473,6 +473,7 @@ IF(PLUS_USE_OPTICAL_MARKER_TRACKER)
 ENDIF()
 #-- END OvrvisionPro/OPTICAL_TRACKER dependency verification ------------------------------------------
 
+# OpenCV dependency, MUST COME AFTER VTK external inclusion
 IF(PLUSBUILD_USE_OpenCV)
   MESSAGE(STATUS "")
   MESSAGE(STATUS "------")
@@ -487,10 +488,12 @@ IF(PLUS_USE_INFRARED_SEEK_CAM)
   INCLUDE(SuperBuild/External_InfraredSeekCam.cmake)
 ENDIF()
 
+# ArUco dependency
 IF(PLUSBUILD_USE_aruco)
   INCLUDE(SuperBuild/External_aruco.cmake)
 ENDIF()
 
+# OvrvisionPro dependency
 IF(PLUS_USE_OvrvisionPro)
   FIND_PACKAGE(OpenGL REQUIRED)
   FIND_PACKAGE(OpenCL REQUIRED)

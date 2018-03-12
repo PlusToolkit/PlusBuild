@@ -1,4 +1,5 @@
 SET(PLUSBUILD_OpenCV_VERSION "3.3.1" CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])")
+
 IF(OpenCV_DIR)
   FIND_PACKAGE(OpenCV ${PLUSBUILD_OpenCV_VERSION} REQUIRED NO_MODULE)
 
@@ -11,7 +12,6 @@ IF(OpenCV_DIR)
   # Create a dummy target
   ADD_CUSTOM_TARGET(OpenCV)
 ELSE()
-
   FIND_PACKAGE(CUDA QUIET)
   
   SET(OpenCV_PLATFORM_SPECIFIC_ARGS)
@@ -27,7 +27,7 @@ ELSE()
       SET(_cuda ON)
       LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DCUDA_TOOLKIT_ROOT_DIR:PATH=${CUDA_TOOLKIT_ROOT_DIR})
     ENDIF()
-    
+
     IF(_cuda)
       LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DWITH_CUDA:BOOL=ON)
     ELSE()
@@ -36,7 +36,7 @@ ELSE()
     
     SET(_generations "Fermi" "Kepler" "Maxwell")
     IF(${CUDA_VERSION} VERSION_GREATER 7)
-      LIST(APPEND _generations "Pascal")
+      LIST(APPEND _generations "Pascal" "Volta")
     ENDIF()
     IF(NOT CMAKE_CROSSCOMPILING)
       LIST(APPEND _generations "Auto")
@@ -59,6 +59,11 @@ ELSE()
   
   IF(Qt5_FOUND)
     LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DWITH_QT:BOOL=ON -DQt5_DIR:PATH=${Qt5_DIR})
+  ENDIF()
+
+  IF(PLUSBUILD_VTK_VERSION STREQUAL "v9.0.0")
+    # VTK v9.0.0 requires more recent opencv
+    SET(PLUSBUILD_OpenCV_VERSION 2244f1722c3aea4e83e9fbbe44f78ec961df26e5 CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])" FORCE)
   ENDIF()
 
   # No OpenCV is specified, so download and build

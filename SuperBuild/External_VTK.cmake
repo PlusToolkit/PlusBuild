@@ -44,10 +44,25 @@ ELSE()
     LIST(APPEND VTK_VERSION_SPECIFIC_ARGS -DCMAKE_CXX_MP_FLAG:BOOL=ON)
   ENDIF()
 
+  SET(PLUSBUILD_EXTERNAL_VTK_VERSION "v7.1.0" CACHE STRING "Which VTK version to build Plus against")
+  SET(_vtk_versions "v7.1.0" "v8.1.0" "v9.0.0")
+  set_property( CACHE PLUSBUILD_EXTERNAL_VTK_VERSION PROPERTY STRINGS "" ${_vtk_versions} )
+
+  IF(PLUSBUILD_EXTERNAL_VTK_VERSION STREQUAL "")
+    SET(PLUSBUILD_EXTERNAL_VTK_VERSION "v7.1.0" CACHE STRING "Which VTK version to build Plus against" FORCE)
+    SET(PLUSBUILD_VTK_VERSION "v7.1.0" CACHE INTERNAL "VTK version chosen to build.")
+  ELSEIF(PLUSBUILD_EXTERNAL_VTK_VERSION STREQUAL "v9.0.0")
+    # No v9.0.0 tag yet, replace with specific hash
+    SET(PLUSBUILD_EXTERNAL_VTK_VERSION "a7b28871d34c91702153028dd28e8eb0e0728d47" CACHE STRING "Which VTK version to build Plus against" FORCE)
+    SET(PLUSBUILD_VTK_VERSION "v9.0.0" CACHE INTERNAL "VTK version chosen to build.")
+  ELSE()
+    SET(PLUSBUILD_VTK_VERSION ${PLUSBUILD_EXTERNAL_VTK_VERSION} CACHE INTERNAL "VTK version chosen to build.")
+  ENDIF()
+
   SetGitRepositoryTag(
     VTK
     "${GIT_PROTOCOL}://github.com/kitware/vtk.git"
-    "v7.1.0"
+    ${PLUSBUILD_EXTERNAL_VTK_VERSION}
     )
 
   SET (PLUS_VTK_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/vtk")
