@@ -19,7 +19,7 @@ SET( Philips_PATH_HINTS
     )
 
 FIND_PATH(Philips_INCLUDE_DIR StreamMgr.h
-  PATH_SUFFIXES inc
+  PATH_SUFFIXES inc include
   PATHS ${Philips_PATH_HINTS} 
   )
 
