@@ -11,60 +11,97 @@
 #  ATRACSYS_SDK_LIBRARY_DIR          Libraries needed to use sTk Passive Tracking SDK
 #  ATRACSYS_SDK_BINARY_DIR           Binaries needed to use sTk Passive Tracking SDK
 
-SET(ATRACSYS_SDK_PATH_HINTS
-  "$ENV{PROGRAMFILES}/Atracsys/sTk Passive Tracking SDK"
-  "$ENV{PROGRAMW6432}/Atracsys/sTk Passive Tracking SDK"
-  "C:/Program Files (x86)/Atracsys/sTk Passive Tracking SDK"
-  "C:/Program Files/Atracsys/sTk Passive Tracking SDK"
-  "../PLTools/Atracsys/sTk Passive Tracking SDK"
-  "../../PLTools/Atracsys/sTk Passive Tracking SDK"
-  "../trunk/PLTools/Atracsys/sTk Passive Tracking SDK"
-  "${CMAKE_CURRENT_BINARY_DIR}/PLTools/Atracsys/sTk Passive Tracking SDK"
-  )
 
-if( WIN32 )
-    find_path(ATRACSYS_SDK_DIR versions.txt
-        PATHS ${ATRACSYS_SDK_PATH_HINTS}
-        DOC "Atracsys sTk Passive Tracking SDK directory")
-else()
-    find_path( ATRACSYS_SDK_DIR include/ftkTypes.h DOC "Directory where ftkTypes.h is located" )
-endif()
 
-if (ATRACSYS_SDK_DIR)
-  # Include directories
-  set(ATRACSYS_SDK_INCLUDE_DIR ${ATRACSYS_SDK_DIR}/include)
-  mark_as_advanced(ATRACSYS_SDK_INCLUDE_DIR)
+SET(PLUS_USE_ATRACSYS_DEVICE_TYPE "stk" CACHE STRING "Type of Atracsys device to build support for.")
+SET_PROPERTY(CACHE PLUS_USE_ATRACSYS_DEVICE_TYPE PROPERTY STRINGS stk ftk)
+SET(ATRACSYS_DEVICE_TYPE ${PLUS_USE_ATRACSYS_DEVICE_TYPE})
 
-  # Libraries
-  if( WIN32 )
-    find_path(AtracsysSDK_LIBRARY_DIR
-            NAMES fusionTrack32${CMAKE_STATIC_LIBRARY_SUFFIX}
-            PATHS "${ATRACSYS_SDK_DIR}/lib" NO_DEFAULT_PATH)
+# PLTools 
+SET(PLTOOLS_ATRACSYS_PATHS "")
+MARK_AS_ADVANCED(PLTOOLS_ATRACSYS_PATHS)
 
-    find_path(AtracsysSDK_BINARY_DIR
-            NAMES fusionTrack32${CMAKE_SHARED_LIBRARY_SUFFIX}
-            PATHS "${ATRACSYS_SDK_DIR}/bin" NO_DEFAULT_PATH)
-  else()
-    find_library( AtracsysSDK_LIBRARY_DIR
-            NAMES fusionTrack32 
-            PATHS "${ATRACSYS_SDK_DIR}/lib" NO_DEFAULT_PATH )
-    set( AtracsysSDK_BINARY_DIR ${AtracsysSDK_LIBRARY_DIR} )
-  endif()
+IF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "stk")
+  # use spryTrack SDK
+	IF(WIN32 AND NOT CMAKE_CL_64)
+    # Windows 32 bit spryTrack path hints
+    SET(ATRACSYS_SDK_PATH_HINTS
+      "$ENV{PROGRAMFILES(x86)}/Atracsys/spryTrack SDK x86"
+      "C:/Program Files (x86)/Atracsys/spryTrack SDK x86"
+    )
+  ELSEIF(WIN32 AND CMAKE_CL_64)
+    # Windows 64 bit spryTrack path hints
+    SET(ATRACSYS_SDK_PATH_HINTS
+      "$ENV{PROGRAMFILES}/Atracsys/spryTrack SDK x64"
+      "C:/Program Files/Atracsys/spryTrack SDK x64"
+    )
+  ELSEIF(UNIX)
+    #Unix spryTrack path hints
+    
+  ENDIF()
+ELSEIF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "ftk")
+  # use fusionTrack SDK
+	IF(WIN32 AND NOT CMAKE_CL_64)
+    message(FATAL_ERROR "There is no support for fusionTrack devices on win32. Please choose an x64 generator and use the x64 fTk SDK.")
+  ELSEIF(WIN32 AND CMAKE_CL_64)
+    # Windows 64 bit fusionTrack path hints
+    SET(ATRACSYS_SDK_PATH_HINTS
+      "$ENV{PROGRAMFILES}/Atracsys/fusionTrack SDK x86"
+      "C:/Program Files/Atracsys/fusionTrack SDK x86"
+    )
+  ELSEIF(UNIX)
+    #Unix spryTrack path hints
+    
+  ENDIF()
+ENDIF()
+MARK_AS_ADVANCED(ATRACSYS_SDK_PATH_HINTS)
 
-  set(ATRACSYS_SDK_LIBRARY_DIR ${AtracsysSDK_LIBRARY_DIR})
-  set(ATRACSYS_SDK_BINARY_DIR ${AtracsysSDK_BINARY_DIR})
-  mark_as_advanced(AtracsysSDK_LIBRARY_DIR)
-  mark_as_advanced(AtracsysSDK_BINARY_DIR)
+find_path( ATRACSYS_SDK_DIR include/ftkTypes.h
+  PATHS ${ATRACSYS_SDK_PATH_HINTS}
+  DOC "Atracsys SDK directory." )
+MARK_AS_ADVANCED(ATRACSYS_SDK_DIR)
 
+IF(ATRACSYS_SDK_DIR)
+  # Set include directories
+  SET(ATRACSYS_SDK_INCLUDE_DIR ${ATRACSYS_SDK_DIR}/include)
+  MARK_AS_ADVANCED(ATRACSYS_SDK_INCLUDE_DIR)
+
+  IF(WIN32)
+    # bitness suffix
+    IF(CMAKE_CL_64)
+      SET(ATRACSYS_BITNESS_SUFFIX "64")
+    ELSE()
+      SET(ATRACSYS_BITNESS_SUFFIX "32")
+    ENDIF()
+    
+    # Library
+    FIND_LIBRARY(AtracsysSDK_LIBRARY
+      NAMES fusionTrack${ATRACSYS_BITNESS_SUFFIX}${CMAKE_STATIC_LIBRARY_SUFFIX}
+      PATHS "${ATRACSYS_SDK_DIR}/lib" NO_DEFAULT_PATH)
+    
+    # Binaries
+    FIND_PATH(AtracsysSDK_BINARY_DIR
+      NAMES fusionTrack${ATRACSYS_BITNESS_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX}
+      PATHS "${ATRACSYS_SDK_DIR}/bin" NO_DEFAULT_PATH)
+      
+  ELSEIF(UNIX)
+  
+  ENDIF()
+
+  SET(ATRACSYS_SDK_LIBRARY ${AtracsysSDK_LIBRARY})
+  MARK_AS_ADVANCED(AtracsysSDK_LIBRARY)
+  SET(ATRACSYS_SDK_BINARY_DIR ${AtracsysSDK_BINARY_DIR})
+  MARK_AS_ADVANCED(AtracsysSDK_BINARY_DIR)
+  
   #Version
   #TODO: properly set SDK version using regex
   set(ATRACSYS_SDK_VERSION "3.1.1")
 
-endif()
+ENDIF()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(ATRACSYS_SDK
   FOUND_VAR ATRACSYS_SDK_FOUND
-  REQUIRED_VARS ATRACSYS_SDK_INCLUDE_DIR ATRACSYS_SDK_LIBRARY_DIR #ATRACSYS_SDK_BINARY_DIR 
+  REQUIRED_VARS ATRACSYS_DEVICE_TYPE ATRACSYS_SDK_INCLUDE_DIR ATRACSYS_SDK_LIBRARY ATRACSYS_SDK_BINARY_DIR 
   VERSION_VAR ATRACSYS_SDK_VERSION
 )
