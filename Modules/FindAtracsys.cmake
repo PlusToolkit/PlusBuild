@@ -8,16 +8,10 @@
 #  ATRACSYS_SDK_FOUND                True if Atracsys sTk Passive Tracking SDK was found
 #  ATRACSYS_SDK_VERSION              The version of sTkPassive Tracking SDK
 #  ATRACSYS_SDK_INCLUDE_DIR          The location of sTk Passive Tracking SDK headers
-#  ATRACSYS_SDK_LIBRARY_DIR          Libraries needed to use sTk Passive Tracking SDK
+#  ATRACSYS_SDK_LIBRARY              Library needed to use sTk Passive Tracking SDK
 #  ATRACSYS_SDK_BINARY_DIR           Binaries needed to use sTk Passive Tracking SDK
 
-
-
-SET(PLUS_USE_ATRACSYS_DEVICE_TYPE "stk" CACHE STRING "Type of Atracsys device to build support for.")
-SET_PROPERTY(CACHE PLUS_USE_ATRACSYS_DEVICE_TYPE PROPERTY STRINGS stk ftk)
-SET(ATRACSYS_DEVICE_TYPE ${PLUS_USE_ATRACSYS_DEVICE_TYPE})
-
-# PLTools 
+# PLTools
 SET(PLTOOLS_ATRACSYS_PATHS "")
 MARK_AS_ADVANCED(PLTOOLS_ATRACSYS_PATHS)
 
@@ -41,18 +35,23 @@ IF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "stk")
   ENDIF()
 ELSEIF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "ftk")
   # use fusionTrack SDK
-	IF(WIN32 AND NOT CMAKE_CL_64)
+  IF(WIN32 AND NOT CMAKE_CL_64)
     message(FATAL_ERROR "There is no support for fusionTrack devices on win32. Please choose an x64 generator and use the x64 fTk SDK.")
   ELSEIF(WIN32 AND CMAKE_CL_64)
     # Windows 64 bit fusionTrack path hints
     SET(ATRACSYS_SDK_PATH_HINTS
-      "$ENV{PROGRAMFILES}/Atracsys/fusionTrack SDK x86"
-      "C:/Program Files/Atracsys/fusionTrack SDK x86"
-    )
+      "$ENV{PROGRAMFILES}/Atracsys/fusionTrack SDK x64"
+      "C:/Program Files/Atracsys/fusionTrack SDK x64"
+      )
   ELSEIF(UNIX)
     #Unix spryTrack path hints
     
   ENDIF()
+ELSEIF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "ftksim")
+  SET(ATRACSYS_SDK_PATH_HINTS
+      "$ENV{PROGRAMFILES}/Atracsys/simulator SDK x64"
+      "C:/Program Files/Atracsys/simulator SDK x64"
+      )
 ENDIF()
 MARK_AS_ADVANCED(ATRACSYS_SDK_PATH_HINTS)
 
@@ -60,7 +59,7 @@ find_path( ATRACSYS_SDK_DIR include/ftkTypes.h
   PATHS ${ATRACSYS_SDK_PATH_HINTS}
   DOC "Atracsys SDK directory." )
 MARK_AS_ADVANCED(ATRACSYS_SDK_DIR)
-
+  
 IF(ATRACSYS_SDK_DIR)
   # Set include directories
   SET(ATRACSYS_SDK_INCLUDE_DIR ${ATRACSYS_SDK_DIR}/include)
