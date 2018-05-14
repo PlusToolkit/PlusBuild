@@ -11,7 +11,7 @@ ELSE()
   # SeekCameraLib has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     SeekCameraLib
-    "${GIT_PROTOCOL}://github.com/medtec4susdev/libseek-thermal.git"
+    "${GIT_PROTOCOL}://github.com/Ediolot/libseek-thermal.git"
     master
     )
 
@@ -29,12 +29,16 @@ ELSE()
     #--Configure step-------------
     CMAKE_ARGS
       ${ep_common_args}
+      -DLibUSB_ROOT_DIR:PATH=${LibUSB_ROOT_DIR}
+      -DOpenCV_DIR:PATH=${PLUS_OpenCV_DIR}
+      -DBUILD_EXAMPLES:BOOL=FALSE
+      -DINSTALL_DLL:BOOL=FALSE
+      -DWITH_ADDRESS_SANITIZER:BOOL=FALSE
+      -DWITH_DEBUG_VERBOSITY:BOOL=FALSE
       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
       -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
       -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
       -DBUILD_SHARED_LIBS:BOOL=${PLUSBUILD_BUILD_SHARED_LIBS}
-      -DOpenCV_DIR:PATH=${PLUS_OpenCV_DIR}
-      -DLibUSB_ROOT_DIR:PATH=${LibUSB_ROOT_DIR}
       -DCMAKE_CXX_FLAGS:STRING=${ep_common_cxx_flags}
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
     #--Build step-----------------
