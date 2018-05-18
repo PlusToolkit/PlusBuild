@@ -45,6 +45,6 @@ ELSE()
     BUILD_ALWAYS 1
     #--Install step-----------------
     INSTALL_COMMAND ""
-    DEPENDS LibUSB ${SeekCameraLib_DEPENDENCIES}
+    DEPENDS LibUSB OpenCV ${SeekCameraLib_DEPENDENCIES}
    )
 ENDIF()
