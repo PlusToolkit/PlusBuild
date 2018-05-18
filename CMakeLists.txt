@@ -84,7 +84,7 @@ IF(Git_FOUND)
 ENDIF()
 SET(_x86env "ProgramFiles(x86)")
 FIND_PROGRAM(BASH_EXECUTABLE bash
-  HINTS 
+  HINTS
     ${_git_directory}
     $ENV{ProgramFiles}/Git/bin
     $ENV{${_x86env}}/Git/bin
@@ -206,7 +206,7 @@ OPTION(PLUS_USE_WINPROBE_VIDEO "Provide support WinProbe ultrasound systems" OFF
 OPTION(PLUS_USE_INTERSON_VIDEO "Provide support for the Interson USB ultrasound probes" OFF)
 OPTION(PLUS_USE_INTERSONSDKCXX_VIDEO "Provide support for the Interson SDK 1.X with C++ Wrapper USB ultrasound probes" OFF)
 OPTION(PLUS_USE_TELEMED_VIDEO "Provide support for the Telemed ultrasound probes" OFF)
-OPTION(PLUS_USE_AGILENT "Provide support for the Agilent digitizer device" OFF) 
+OPTION(PLUS_USE_AGILENT "Provide support for the Agilent digitizer device" OFF)
 IF(PLUS_USE_TELEMED_VIDEO)
   OPTION(PLUS_TEST_TELEMED "Enable testing of acquisition from Telemed ultrasound systems. Enable this only if a Telemed device is connected to this computer. " OFF)
 ENDIF (PLUS_USE_TELEMED_VIDEO)
@@ -487,6 +487,7 @@ ENDIF()
 
 # Infrared Thermal Seek camera
 IF(PLUS_USE_INFRARED_SEEK_CAM)
+  INCLUDE(SuperBuild/External_libusb.cmake)
   INCLUDE(SuperBuild/External_InfraredSeekCam.cmake)
 ENDIF()
 
