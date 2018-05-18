@@ -344,6 +344,8 @@ ENDIF()
 # PlusLib
 SET (PLUS_PLUSLIB_DIR ${CMAKE_BINARY_DIR}/PlusLib CACHE INTERNAL "Path to store PlusLib contents.")
 SET (PLUSLIB_DIR ${CMAKE_BINARY_DIR}/PlusLib-bin CACHE PATH "The directory containing PlusLib binaries" FORCE)
+
+# CONFIGURE AND BUILD
 ExternalProject_Add(PlusLib
   "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
   SOURCE_DIR "${PLUS_PLUSLIB_DIR}"

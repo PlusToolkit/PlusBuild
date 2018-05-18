@@ -1,7 +1,7 @@
 SET(LibUSB_WinURL "https://sourceforge.net/projects/libusb/files/libusb-1.0/libusb-1.0.22/libusb-1.0.22.7z/download")
 
 # Download libusb if windows
-# In Linux install with sudo apt-get install libusb-1.0-0-dev
+# In Linux install required with sudo apt-get install libusb-1.0-0-dev
 IF (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 
   SET(DEPS_DIR        ${CMAKE_BINARY_DIR}/Deps)
@@ -10,12 +10,10 @@ IF (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
   SET(LibUSB_PREFIX   ${DEPS_DIR}/libusb-prefix)
   SET(LibUSB_ROOT_DIR ${LibUSB_SRC})
 
-  # PATHS WHERE WE KNOW THE HEADERS WILL BE LOCATED
   SET(LibUSB_INCLUDE_DIRS ${LibUSB_SRC}/include)
   SET(LibUSB_INCLUDES     ${LibUSB_SRC}/include)
   SET(LIBUSB_INCLUDE_DIR  ${LibUSB_SRC}/include)
 
-  # PATH WHERE WE KNOW THE LIBRARY WILL BE LOCATED
   IF(MSVC OR ${CMAKE_GENERATOR} MATCHES "Xcode")
     SET(LibUSB_LIBRARY_DIR  ${LibUSB_SRC}/MS32/dll)
   ELSE ()
@@ -23,7 +21,6 @@ IF (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
   ENDIF ()
   SET(LIBUSB_LIBRARY ${LibUSB_LIBRARY_DIR}/libusb-1.0.lib)
 
-  # DOWNLOAD LIBUSB
   INCLUDE(ExternalProject)
   ExternalProject_Add(LibUSB
     PREFIX     ${LibUSB_PREFIX}
@@ -41,7 +38,10 @@ IF (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 
 ELSE ()
 
-  # LIBUSB LOCATION IF INSTALLED IN LINUX
+  IF (NOT EXISTS "/usr/include/LibUSB-1.0")
+    MESSAGE(FATAL_ERROR "LibUSB required but not found at /usr/include/LibUSB-1.0 Please install LibUSB.")
+  ENDIF ()
+
   # Copied from original repository https://github.com/maartenvds/libseek-thermal
   SET(LibUSB_INCLUDE_DIRS /usr/include/LibUSB-1.0)
   SET(LibUSB_INCLUDES     /usr/include/LibUSB-1.0)

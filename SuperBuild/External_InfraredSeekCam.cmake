@@ -11,7 +11,7 @@ ELSE()
   # SeekCameraLib has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     SeekCameraLib
-    "${GIT_PROTOCOL}://github.com/Ediolot/libseek-thermal.git"
+    "${GIT_PROTOCOL}://github.com/medtec4susdev/libseek-thermal.git"
     master
     )
 
@@ -45,6 +45,6 @@ ELSE()
     BUILD_ALWAYS 1
     #--Install step-----------------
     INSTALL_COMMAND ""
-    DEPENDS ${SeekCameraLib_DEPENDENCIES}
+    DEPENDS LibUSB ${SeekCameraLib_DEPENDENCIES}
    )
 ENDIF()
