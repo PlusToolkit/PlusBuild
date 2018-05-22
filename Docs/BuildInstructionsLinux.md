@@ -7,7 +7,7 @@ This version of Ubuntu is not officially supported
 Ubuntu 16.04 LTS
 ================
 
-Most device manufacturers don't support this platform, there are no drivers available, so turn off the all hardware support options  (PLUS_USE_...) in CMake. All processing and simulation should work on this platform.
+Most device manufacturers don't support this platform, there are no drivers available, so beware using certain devices as they will not work. All processing and simulation should work on this platform.
 
 Prerequisites
 -------------
@@ -25,7 +25,7 @@ Prerequisites
  - Without GUI, only command line interface:
     > sudo apt install git</i></li>
 - VTK dependencies
-  > apt-get install build-essential
+  > sudo apt install build-essential
 	> apt-get build-dep vtk
 - Qt
   > sudo apt install libqt5-dev
