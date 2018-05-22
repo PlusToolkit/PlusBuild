@@ -13,7 +13,7 @@ Required:
   - [VS2013 Community Edition Update 5: works](https://www.visualstudio.com/en-us/news/releasenotes/vs2013-community-vs)
   - [VS2015 Community Edition Update 3: works](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2015-version-history)
   - VS2017 Community Edition: confirmed working with Qt 5.7 msvc2015 and msvc2015_64
-- [**CMake** 3.7.2 or later](https://cmake.org/download)
+- [**CMake** 3.10 or later](https://cmake.org/download)
 - [**Git** (msysgit)](http://msysgit.github.io). Cygwin git is not recommended.
 - **Qt framework** - download binaries for your specific configuration:
   - Building stable branch: Qt 4.8 and Qt 5.5, 5.7 are tested, download from http://www.qt.io/download/ or https://sourceforge.net/projects/qt64ng/files/qt/
@@ -52,7 +52,7 @@ Build Process
   - Enter Qt library location if not detected automatically (an error message will be displayed)
     - Qt5 (only Qt5 is supported for nightly): specify **Qt5_DIR:PATH=_QtInstallDir_/lib/cmake/Qt5** (where Qt5Config.cmake file is located)
     - Qt4: specify **QT_QMAKE_EXECUTABLE:FILEPATH=_QtInstallDir_/bin/qmake.exe** (where qmake.exe is located)
-  - Enable the hardware devices that you need to use:
+  - Enable the hardware devices that you need to use (some examples listed here):
     - PLUS_USE_Ascension3DG: Ascension trakSTAR, driveBAY and medSAFE -- disable for 64-bit build
     - PLUS_USE_BRACHY_TRACKER: Accuseed DS, CIVCO, Burdette Medical Systems brachytherapy steppers
     - PLUS_USE_CERTUS: NDI Certus optical tracker, requires SDK from NDI -- disable for 64-bit build
