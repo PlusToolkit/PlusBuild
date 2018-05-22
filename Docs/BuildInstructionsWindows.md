@@ -11,7 +11,7 @@ Required:
   - VS2010 SP1: works, tested nightly on the dashboard, required by StealthLink2 SDK
     - [VS2010 SP1 Compiler update required](https://www.microsoft.com/en-ca/download/details.aspx?id=4422)
   - [VS2013 Community Edition Update 5: works](https://www.visualstudio.com/en-us/news/releasenotes/vs2013-community-vs)
-  - VS2015 Community Edition Update 3: works
+  - [VS2015 Community Edition Update 3: works](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2015-version-history)
   - VS2017 Community Edition: confirmed working with Qt 5.7 msvc2015 and msvc2015_64
 - [**CMake** 3.7.2 or later](https://cmake.org/download)
 - [**Git** (msysgit)](http://msysgit.github.io). Cygwin git is not recommended.
