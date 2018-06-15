@@ -67,7 +67,7 @@ ELSE()
 
   IF(PLUSBUILD_VTK_VERSION STREQUAL "v9.0.0")
     # VTK v9.0.0 requires more recent opencv
-    SET(PLUSBUILD_OpenCV_VERSION 2244f1722c3aea4e83e9fbbe44f78ec961df26e5 CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])" FORCE)
+    SET(PLUSBUILD_OpenCV_VERSION 0d6518aaa05bc66b5724844938b6920627c5f13c CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])" FORCE)
   ENDIF()
 
   # No OpenCV is specified, so download and build
