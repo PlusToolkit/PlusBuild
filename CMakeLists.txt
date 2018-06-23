@@ -90,11 +90,13 @@ FIND_PROGRAM(BASH_EXECUTABLE bash
     $ENV{${_x86env}}/Git/bin
   )
 MARK_AS_ADVANCED(BASH_EXECUTABLE)
-IF(BASH_EXECUTABLE)
-  EXECUTE_PROCESS(COMMAND "${BASH_EXECUTABLE}" -c "cd ${CMAKE_SOURCE_DIR} && ${CMAKE_SOURCE_DIR}/Utilities/SetupForDevelopment.sh copyOnly"
-    OUTPUT_VARIABLE _bashOutput
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}}
-  )
+IF(BASH_EXECUTABLE AND Git_FOUND)
+  IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/.git)
+    EXECUTE_PROCESS(COMMAND "${BASH_EXECUTABLE}" -c "cd ${CMAKE_SOURCE_DIR} && ${CMAKE_SOURCE_DIR}/Utilities/SetupForDevelopment.sh copyOnly"
+      OUTPUT_VARIABLE _bashOutput
+      WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}}
+    )
+  ENDIF()
 ENDIF()
 
 #-----------------------------------------------------------------------------
