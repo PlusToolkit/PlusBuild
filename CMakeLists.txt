@@ -543,7 +543,7 @@ ENDIF()
 IF(PLUS_USE_INTELREALSENSE)
   FIND_PACKAGE(RSSDK)
   IF(NOT RSSDK_FOUND)
-    MESSAGE(FATAL_ERROR "This project requires Intel RealSense SDK for supporting the Intel RealSense device. One of the components is missing. Please verify configuration or turn off PLUS_USE_INTELREALSENSE.")
+    MESSAGE(FATAL_ERROR "This project requires the Intel RealSense SDK 2.0 for supporting the Intel RealSense device. One of the components is missing. Please verify configuration or turn off PLUS_USE_INTELREALSENSE.")
   ENDIF()
 ENDIF()
 
