@@ -53,7 +53,7 @@ ELSE()
     SET(PLUSBUILD_VTK_VERSION "v7.1.0" CACHE INTERNAL "VTK version chosen to build.")
   ELSEIF(PLUSBUILD_EXTERNAL_VTK_VERSION STREQUAL "v9.0.0")
     # No v9.0.0 tag yet, replace with specific hash
-    SET(PLUSBUILD_EXTERNAL_VTK_VERSION "eee2024889dcaf4ef8168da372b9859b457d66c9" CACHE STRING "Which VTK version to build Plus against" FORCE)
+    SET(PLUSBUILD_EXTERNAL_VTK_VERSION "a3fce4266b2538745cc0b4a8a9a777f2905f68be" CACHE STRING "Which VTK version to build Plus against" FORCE)
     SET(PLUSBUILD_VTK_VERSION "v9.0.0" CACHE INTERNAL "VTK version chosen to build.")
   ELSE()
     SET(PLUSBUILD_VTK_VERSION ${PLUSBUILD_EXTERNAL_VTK_VERSION} CACHE INTERNAL "VTK version chosen to build.")
