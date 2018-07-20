@@ -278,6 +278,11 @@ IF(UNIX AND NOT APPLE)
   ENDIF()
 ENDIF()
 
+OPTION(PLUS_ENABLE_VIDEOSTREAMING "Provide support for streaming compressed video from Plus" OFF)
+IF (PLUS_ENABLE_VIDEOSTREAMING)
+  OPTION(PLUS_USE_VP9 "Compile OpenIGTLink with VP9 support for compressed video streaming" OFF)
+ENDIF()
+
 #-----------------------------------------------------------------------------
 # Other
 SET(PLUSBUILD_VTK_RENDERING_BACKEND "OpenGL2" CACHE STRING "Choose the rendering backend. OpenGL2 is only compatible with more recent graphics cards and does not work on embedded systems like Ultrasonix Windows XPe based systems.")
