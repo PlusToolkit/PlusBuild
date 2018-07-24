@@ -239,6 +239,7 @@ IF(PLUS_USE_CERTUS)
   SET(PLUS_USE_NDI_CERTUS ON CACHE BOOL "Provide support for the NDI Certus" FORCE)
 ENDIF()
 
+
 OPTION(PLUS_USE_MICRONTRACKER "Provide support for the Claron MicronTracker" OFF)
 OPTION(PLUS_USE_INTELREALSENSE "Provide support for Intel RealSense cameras" OFF)
 OPTION(PLUS_USE_ATRACSYS "Provide support for Atracsys optical trackers" OFF)
@@ -253,6 +254,7 @@ OPTION(PLUS_USE_STEALTHLINK "Provide support for the Medtronick StealthLink Serv
 OPTION(PLUS_USE_IntuitiveDaVinci "Provide support for the da Vinci Surgical System" OFF)
 OPTION(PLUS_USE_OvrvisionPro "Provide support for the OvrvisionPro Stereo Camera" OFF)
 OPTION(PLUS_USE_OPENHAPTICS "Provide support of OpenHaptics devices" OFF)
+OPTION(PLUS_USE_WITMOTIONTRACKER "Provide support for the WitMotion Tracker" OFF)
 IF(PLUS_USE_OvrvisionPro)
   OPTION(PLUS_TEST_OvrvisionPro "Enable testing of acquisition of stereo images from the OvrvisionPro" OFF)
 ENDIF()
