@@ -34,9 +34,12 @@ ELSEIF(Capistrano_SDK_VERSION STREQUAL "cSDK2016" OR Capistrano_SDK_VERSION STRE
   SET(Capistrano_WIN64_LIBRARY_DIR_SUFFIX "lib/x64")
 ENDIF()
 
-SET(Capistrano_PATH_HINTS
-  "c:/${Capistrano_SDK_VERSION}"
-  )
+IF(Capistrano_SDK_ROOT)
+  SET(Capistrano_PATH_HINTS ${Capistrano_SDK_ROOT})
+else()
+  SET(Capistrano_PATH_HINTS "c:/${Capistrano_SDK_VERSION}")
+ENDIF()
+
 FIND_PATH(Capistrano_INCLUDE_DIR usbprobedll_net.h
   PATH_SUFFIXES
     "include"
@@ -105,5 +108,7 @@ IF(CAPISTRANO_FOUND)
     SET(CAPISTRANO_LIBRARY_BMODE_NAME "BmodeUSB${Capistrano_LIBRARY_FILE_NAME_SUFFIX}")
   ELSEIF(Capistrano_SDK_VERSION STREQUAL "cSDK2016" OR Capistrano_SDK_VERSION STREQUAL "cSDK2013")
     SET(CAPISTRANO_LIBRARY_BMODE_NAME "Bmode${Capistrano_LIBRARY_FILE_NAME_SUFFIX}")
+  ELSE()
+    MESSAGE(FATAL_ERROR "Unknown version of Capistrano SDK")
   ENDIF()
 ENDIF()
