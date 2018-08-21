@@ -18,6 +18,7 @@ ENDIF()
 IF(PLUSBUILD_USE_Tesseract)
   LIST(APPEND PLUSBUILD_ADDITIONAL_SDK_ARGS
     -Dtesseract_DIR:PATH=${PLUS_tesseract_DIR}
+    -Dtesseract_data_dir:PATH=${PLUS_tessdata_src_DIR}
     )
 ENDIF()
 

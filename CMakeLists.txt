@@ -201,7 +201,7 @@ OPTION(PLUS_USE_VFW_VIDEO "Provide support for the Video-for-Windows video digit
 OPTION(PLUS_USE_MMF_VIDEO "Provide support for the Microsoft Media Foundation video digitizers (requires installation of Windows Platform SDK 7.1 or later)" OFF)
 IF(PLUS_USE_MMF_VIDEO)
   OPTION(PLUS_TEST_MMF_VIDEO "Enable testing of acquisition from MMF video device (webcam). Enable this only if an MMF device is connected to this computer." OFF)
-ENDIF(PLUS_USE_MMF_VIDEO)
+ENDIF()
 OPTION(PLUS_USE_EPIPHAN "Provide support for the Epiphan framegrabber device" OFF)
 OPTION(PLUS_USE_CAPISTRANO_VIDEO "Provide support for the Capistrano Labs USB ultrasound probes" OFF)
 OPTION(PLUS_USE_WINPROBE_VIDEO "Provide support WinProbe ultrasound systems" OFF)
@@ -211,7 +211,7 @@ OPTION(PLUS_USE_TELEMED_VIDEO "Provide support for the Telemed ultrasound probes
 OPTION(PLUS_USE_AGILENT "Provide support for the Agilent digitizer device" OFF)
 IF(PLUS_USE_TELEMED_VIDEO)
   OPTION(PLUS_TEST_TELEMED "Enable testing of acquisition from Telemed ultrasound systems. Enable this only if a Telemed device is connected to this computer. " OFF)
-ENDIF (PLUS_USE_TELEMED_VIDEO)
+ENDIF()
 OPTION(PLUS_USE_THORLABS_VIDEO "Provide support for the ThorLabs Compact Spectrometers" OFF)
 OPTION(PLUS_USE_OpenCV_VIDEO "Provide support for capturing an OpenCV capture stream" OFF)
 OPTION(PLUS_USE_INFRARED_SEEK_CAM "Provide support for capturing an Infrared Seek Camera capture stream" OFF)
@@ -492,6 +492,10 @@ IF(PLUSBUILD_USE_OpenCV)
   MESSAGE(STATUS "If building OpenCV with GPU code enabled, consider setting PLUSBUILD_OpenCV_CUDA_GENERATION as it will significantly reduce build time.")
   MESSAGE(STATUS "------")
   MESSAGE(STATUS "")
+ENDIF()
+
+IF(PLUSBUILD_USE_Tesseract)
+  INCLUDE(SuperBuild/External_Tesseract.cmake)
 ENDIF()
 
 # Infrared Thermal Seek camera

@@ -12,7 +12,7 @@ SetGitRepositoryTag(
 
 IF(leptonica_DIR)
   FIND_PACKAGE(leptonica REQUIRED NO_MODULE)
-  
+
   SET(PLUS_leptonica_DIR ${leptonica_DIR} CACHE INTERNAL "Path to store leptonica binaries.")
 ELSE()
   SET (PLUS_leptonica_src_DIR ${tesseract_ROOT_DIR}/leptonica CACHE INTERNAL "Path to store leptonica contents.")
@@ -78,44 +78,6 @@ ELSE()
   SET(tesseract_DEPENDENCIES ${tesseract_DEPENDENCIES} tessdata)
 ENDIF()
 
-IF( "$ENV{TESSDATA_PREFIX}" STREQUAL "" OR NOT "$ENV{TESSDATA_PREFIX}" STREQUAL "${PLUS_tessdata_src_DIR}")
-  IF( WIN32 )
-    MESSAGE(STATUS "Setting TESSDATA_PREFIX environment variable to enable loading of OCR languages.")
-    EXECUTE_PROCESS(COMMAND setx TESSDATA_PREFIX ${PLUS_tessdata_src_DIR})
-  ELSEIF( UNIX )
-    # Linux GUI environment env variables are not affected by this, so if they close cmake-gui
-    # and re-open it, this env variable will not be found
-    # Perform a more advanced check to see if the export is in the .xsessionrc file, if so, simply
-    # set the ENV for this cmake-gui session
-    IF(EXISTS $ENV{HOME}/.xsessionrc )
-      FILE(READ $ENV{HOME}/.xsessionrc XSESSIONRC_FILE_CONTENTS)
-      STRING(REGEX MATCH "export TESSDATA_PREFIX=(.*)" TESSDATA_PREFIX_MATCH ${XSESSIONRC_FILE_CONTENTS})
-      IF( TESSDATA_PREFIX_MATCH )
-        IF(NOT ${CMAKE_MATCH_1} STREQUAL ${PLUS_tessdata_src_DIR})
-          # modify .xsessionrc file
-          MESSAGE(STATUS "Setting TESSDATA_PREFIX environment variable to enable loading of OCR languages.")
-          STRING(REPLACE ${TESSDATA_PREFIX_MATCH} "" XSESSIONRC_FILE_CONTENTS ${XSESSIONRC_FILE_CONTENTS})
-          FILE(WRITE $ENV{HOME}/.xsessionrc ${XSESSIONRC_FILE_CONTENTS})
-          FILE(APPEND $ENV{HOME}/.xsessionrc "export TESSDATA_PREFIX=${PLUS_tessdata_src_DIR}")
-        ELSE()
-          MESSAGE(STATUS "Using TESSDATA_PREFIX=${PLUS_tessdata_src_DIR}.")
-        ENDIF()
-      ELSE()
-        MESSAGE(STATUS "Setting TESSDATA_PREFIX environment variable to enable loading of OCR languages.")
-        FILE(APPEND $ENV{HOME}/.xsessionrc "export TESSDATA_PREFIX=${PLUS_tessdata_src_DIR}")
-      ENDIF()
-    ELSE()
-      MESSAGE(STATUS "Setting TESSDATA_PREFIX environment variable to enable loading of OCR languages.")
-      FILE(WRITE $ENV{HOME}/.xsessionrc "export TESSDATA_PREFIX=${PLUS_tessdata_src_DIR}")
-    ENDIF()
-  ENDIF()
-
-  # Lastly, set it for this cmake session as well
-  SET(ENV{TESSDATA_PREFIX} ${PLUS_tessdata_src_DIR})
-ELSE()
-  MESSAGE(STATUS "Using TESSDATA_PREFIX=$ENV{TESSDATA_PREFIX}.")
-ENDIF()
-
 # --------------------------------------------------------------------------
 # tesseract
 IF(tesseract_DIR)
@@ -123,7 +85,6 @@ IF(tesseract_DIR)
   
   SET (PLUS_tesseract_DIR ${tesseract_DIR} CACHE INTERNAL "Path to store tesseract binaries")
 ELSE()
-
   SetGitRepositoryTag(
     tesseract
     "${GIT_PROTOCOL}://github.com/PLUSToolkit/tesseract-ocr-cmake.git"
