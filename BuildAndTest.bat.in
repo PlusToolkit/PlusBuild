@@ -3,24 +3,43 @@ REM Hide all your directories from users
 
 SET ORIGPATH=%PATH%
 
+REM Parse arguments
+SET COMMAND=%0
+SET TEST_MODE=%1
+SHIFT
+
+:loop
+IF NOT "%1"=="" (
+    IF "%1"=="--test" (
+        SET INDIVIDUAL_TEST=%2
+        SHIFT
+    )
+    IF "%1"=="--track" (
+        SET TEST_TRACK=--track %2
+        SHIFT
+    )
+    SHIFT
+    GOTO :loop
+)
+
 SET DIRCMD=0 
 
-if "%1" == "" goto experimental
-if "%1" == "-E" goto experimental
-if "%1" == "-N" goto nightly
-if "%1" == "-C" goto continuous
-if "%1" == "-I" goto individual
+if "%TEST_MODE%" == "" goto experimental
+if "%TEST_MODE%" == "-E" goto experimental
+if "%TEST_MODE%" == "-N" goto nightly
+if "%TEST_MODE%" == "-C" goto continuous
+if "%TEST_MODE%" == "-I" goto individual
 
 :experimental
-"${CMAKE_CTEST_COMMAND}" -D Experimental --output-on-failure --build-and-test
+"${CMAKE_CTEST_COMMAND}" -D Experimental --output-on-failure --build-and-test %TEST_TRACK%
 goto END
 
 :nightly
-"${CMAKE_CTEST_COMMAND}" -D Nightly --build-and-test
+"${CMAKE_CTEST_COMMAND}" -D Nightly --build-and-test %TEST_TRACK%
 goto END
 
 :continuous
-"${CMAKE_CTEST_COMMAND}" -D Continuous --build-and-test
+"${CMAKE_CTEST_COMMAND}" -D Continuous --build-and-test %TEST_TRACK%
 @REM Wait for some time before continue to allow checking the results of the executions
 timeout /t 15
 goto END
@@ -28,9 +47,9 @@ goto END
 :individual 
 @REM Run individual tests with regexp search 
 @REM Display the list of tests
-"${CMAKE_CTEST_COMMAND}" -R "%2" -N
+"${CMAKE_CTEST_COMMAND}" -R "%INDIVIDUAL_TEST%" -N
 @REM Run selected tests
-"${CMAKE_CTEST_COMMAND}" -R "%2" -V
+"${CMAKE_CTEST_COMMAND}" -R "%INDIVIDUAL_TEST%" -V
 goto END
 
 :BUILDFAILED

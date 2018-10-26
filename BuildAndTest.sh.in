@@ -4,26 +4,46 @@ ORIGPATH=$PATH
 
 DIRCMD=0
 
-if [ "$1" == "" ] || [ "$1" == "-E" ]; then
-  "${CMAKE_CTEST_COMMAND}" -C Release -D Experimental --output-on-failure --build-and-test
+command=%0
+test_mode=%1
+shift
+
+test_track=""
+individual_test=""
+while [ "${1:-}" != "" ]; do
+  case "$1" in
+    "--test")
+      shift
+      individial_test=$1
+      ;;
+    "--track")
+      shift
+      test_track=track $1
+      ;;
+  esac
+  shift
+done
+
+if [ "$test_mode" == "" ] || [ "$test_mode" == "-E" ]; then
+  "${CMAKE_CTEST_COMMAND}" -C Release -D Experimental --output-on-failure --build-and-test $test_track
 fi
 
-if [ "$1" == "-N" ]; then
-  "${CMAKE_CTEST_COMMAND}" -C Release -D Nightly --build-and-test
+if [ "$test_mode" == "-N" ]; then
+  "${CMAKE_CTEST_COMMAND}" -C Release -D Nightly --build-and-test $test_track
 fi
 
-if [ "$1" == "-C" ]; then
-  "${CMAKE_CTEST_COMMAND}" -C Release -D Continuous --build-and-test
+if [ "$test_mode" == "-C" ]; then
+  "${CMAKE_CTEST_COMMAND}" -C Release -D Continuous --build-and-test $test_track
   # Wait for some time before continue to allow checking the results of the executions
   sleep 15
 fi
 
-if [ "$1" == "-I" ]; then
+if [ "$test_mode" == "-I" ]; then
   # Run individual tests with regexp search
   # Display the list of tests
-  "${CMAKE_CTEST_COMMAND}" -C Release -R "$2" -N
+  "${CMAKE_CTEST_COMMAND}" -C Release -R "$individial_test" -N
   # Run selected tests
-  "${CMAKE_CTEST_COMMAND}" -C Release -R "$2" -V
+  "${CMAKE_CTEST_COMMAND}" -C Release -R "$individial_test" -V
 fi
 
 PATH=$ORIGPATH
