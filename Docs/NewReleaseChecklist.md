@@ -1,4 +1,4 @@
-# Creting new stable version
+# Creating new stable version
 
 A new stable version of Plus is created when significant amount of new features and/or bugfixes are implemented and the library is stable and well tested. Preferably stable versions are released 3-4 times a year. Release schedule is determined by [PlusToolkit core team](https://github.com/orgs/PlusToolkit/teams/core-team).
 
