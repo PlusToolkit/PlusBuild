@@ -173,6 +173,7 @@ ELSE()
   SET(TEMP_OS_ARCH "x64")
 ENDIF()
 
+# ---------- Imaging Hardware ------------
 OPTION(PLUS_USE_ULTRASONIX_VIDEO "Provide support for the Ultrasonix ultrasound systems" OFF)
 IF(PLUS_USE_ULTRASONIX_VIDEO)
   SET(PLUS_ULTRASONIX_SDK_MAJOR_VERSION 5 CACHE STRING "Set Ultrasonix SDK major version (version: [major].[minor].[patch])")
@@ -217,8 +218,15 @@ OPTION(PLUS_USE_THORLABS_VIDEO "Provide support for the ThorLabs Compact Spectro
 OPTION(PLUS_USE_OpenCV_VIDEO "Provide support for capturing an OpenCV capture stream" OFF)
 OPTION(PLUS_USE_INFRARED_SEEK_CAM "Provide support for capturing an Infrared Seek Camera capture stream" OFF)
 OPTION(PLUS_USE_INFRARED_TEQ1_CAM "Provide support for capturing an Infrared Therma Expert Q1 Camera capture stream" OFF)
+OPTION(PLUS_USE_PHILIPS_3D_ULTRASOUND "Provide support for the Philips ie33 3D ultrasound probe" OFF)
+IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
+  OPTION(PLUS_TEST_PHILIPS_3D_ULTRASOUND "Enable testing of acquisition from Philips 3D ultrasound systems. Enable this only if a Philips device is accessible from this computer. " OFF)
+  IF (PLUS_TEST_PHILIPS_3D_ULTRASOUND)
+    SET (PLUS_TEST_PHILIPS_3D_ULTRASOUND_IP_ADDRESS "129.100.44.8" CACHE STRING "IP address of the Philips scanner that is used during testing")
+  ENDIF()
+ENDIF()
 
-# Tracking hardware
+# ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
 OPTION(PLUS_USE_OPTIMET_CONOPROBE "Provide support for the Optimet ConoProbe" OFF)
 
@@ -259,13 +267,8 @@ IF(PLUS_USE_OvrvisionPro)
   OPTION(PLUS_TEST_OvrvisionPro "Enable testing of acquisition of stereo images from the OvrvisionPro" OFF)
 ENDIF()
 
-OPTION(PLUS_USE_PHILIPS_3D_ULTRASOUND "Provide support for the Philips ie33 3D ultrasound probe" OFF)
-IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
-  OPTION(PLUS_TEST_PHILIPS_3D_ULTRASOUND "Enable testing of acquisition from Philips 3D ultrasound systems. Enable this only if a Philips device is accessible from this computer. " OFF)
-  IF (PLUS_TEST_PHILIPS_3D_ULTRASOUND)
-    SET (PLUS_TEST_PHILIPS_3D_ULTRASOUND_IP_ADDRESS "129.100.44.8" CACHE STRING "IP address of the Philips scanner that is used during testing")
-  ENDIF()
-ENDIF()
+# ---------- Other devices ------------
+OPTION(PLUS_USE_TextRecognizer "Enable the text recognizer virtual device" OFF)
 
 OPTION(PLUS_USE_NVIDIA_DVP "Provide support for the NVidia Digital Video Pipeline" OFF)
 IF(PLUS_USE_NVIDIA_DVP)
@@ -476,6 +479,12 @@ ENDIF()
 IF (PLUSBUILD_USE_IGSIO)
   INCLUDE(SuperBuild/External_IGSIO.cmake)
   LIST(APPEND PlusLib_DEPENDENCIES IGSIO)
+ENDIF()
+
+#-- TextRecognizer dependency verification ----------------------------------------------
+IF(PLUS_USE_TextRecognizer AND NOT PLUSBUILD_USE_Tesseract)
+  MESSAGE("PLUS_USE_TextRecognizer requires PLUSBUILD_USE_Tesseract option enabled, enabling.")
+  SET(PLUSBUILD_USE_Tesseract ON CACHE BOOL "Use OCR in PlusLib for recognizing ultrasound imaging parameters by reading text from grabbed images." FORCE)
 ENDIF()
 
 #-- OvrvisionPro/OPTICAL_TRACKER dependency verification ----------------------------------------------
