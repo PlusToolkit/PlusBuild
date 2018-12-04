@@ -128,7 +128,6 @@ OPTION(PLUSBUILD_USE_Tesseract "Use OCR in PlusLib for recognizing ultrasound im
 OPTION(PLUSBUILD_USE_OpenCV "Use OpenCV for optical marker tracking and other features." OFF)
 OPTION(PLUSBUILD_USE_aruco "Use aruco for optical marker tracking." OFF)
 OPTION(PLUSBUILD_DOWNLOAD_PLUSLIBDATA "Download sample and test data. Required for automatic tests." ON)
-OPTION(PLUSBUILD_USE_IGSIO "Use IGSIO" OFF)
 
 # Documentation
 OPTION(PLUSBUILD_DOCUMENTATION "Build Plus documentation (Doxygen)." OFF)
@@ -462,24 +461,11 @@ IF(PLUS_USE_BKPROFOCUS_CAMERALINK)
   INCLUDE(SuperBuild/External_GrabbieLib.cmake)
 ENDIF()
 
-OPTION(PLUS_USE_VTKVIDEOIO_MKV "Use vtkVideoIO for reading/writing MKV files." OFF)
-IF (PLUS_USE_VTKVIDEOIO_MKV)
-  IF (NOT PLUSBUILD_USE_IGSIO)
-    SET (PLUSBUILD_USE_IGSIO ON CACHE BOOL "" FORCE)
-  ENDIF()
-  IF (NOT PLUS_USE_VTKVIDEOIO)
-    SET (PLUS_USE_VTKVIDEOIO ON CACHE BOOL "" FORCE)
-  ENDIF()
-ENDIF()
-
-IF (PLUS_USE_VTKVIDEOIO_MKV)
+OPTION(PLUS_USE_MKV_IO "Enable reading/writing MKV files using libwebm." OFF)
+IF (PLUS_USE_MKV_IO)
   INCLUDE(SuperBuild/External_libwebm.cmake)
 ENDIF()
-
-IF (PLUSBUILD_USE_IGSIO)
-  INCLUDE(SuperBuild/External_IGSIO.cmake)
-  LIST(APPEND PlusLib_DEPENDENCIES IGSIO)
-ENDIF()
+INCLUDE(SuperBuild/External_IGSIO.cmake)
 
 #-- TextRecognizer dependency verification ----------------------------------------------
 IF(PLUS_USE_TextRecognizer AND NOT PLUSBUILD_USE_Tesseract)
@@ -712,6 +698,11 @@ IF(NOT ITK_DIR)
   # ITK_DIR is not supplied, so it is built inside Plus, therefore we need to specify dependencies to make sure it is built early enough
   SET(ITK_DEPENDENCIES)
   LIST(APPEND PlusLib_DEPENDENCIES itk)
+ENDIF()
+
+IF (NOT IGSIO_DIR)
+  SET(IGSIO_DEPENDENCIES)
+  LIST(APPEND PlusLib_DEPENDENCIES IGSIO)
 ENDIF()
 
 IF(PLUSBUILD_USE_OpenIGTLink AND NOT OpenIGTLink_DIR)
