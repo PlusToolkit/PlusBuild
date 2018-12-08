@@ -306,6 +306,7 @@ IF(PLUS_USE_LEAPMOTION)
 ENDIF()
 OPTION(PLUS_USE_BLACKMAGIC_DECKLINK "Provide support for BlackMagic DeckLink capture cards." OFF)
 OPTION(PLUS_USE_STEAMVR "Provide support for SteamVR tracking system" OFF)
+OPTION(PLUS_USE_PICOSCOPE "Provide support for PicoScope 2xxx series oscilloscopes" OFF)
 
 # ---------- Other devices ------------
 OPTION(PLUS_USE_TextRecognizer "Enable the text recognizer virtual device" OFF)
@@ -628,6 +629,13 @@ IF(PLUS_USE_SPINNAKER_VIDEO)
   FIND_PACKAGE(SpinnakerAPI)
   IF(NOT SPINNAKER_API_FOUND)
     MESSAGE(FATAL_ERROR "This project requires the Point Grey Spinnaker API to support the use of Point Grey imaging devices. One of the components is missing. Please verify configuration or turn off PLUS_USE_SPINNAKER_VIDEO")
+  ENDIF()
+ENDIF()
+
+IF(PLUS_USE_PICOSCOPE)
+  FIND_PACKAGE(PicoScopeSDK)
+  IF(NOT PicoScopeSDK_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires the PicoScope SDK for supporting PicoScope oscilloscopes.")
   ENDIF()
 ENDIF()
 
