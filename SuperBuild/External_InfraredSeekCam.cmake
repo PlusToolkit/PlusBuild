@@ -12,7 +12,7 @@ ELSE()
   SetGitRepositoryTag(
     SeekCameraLib
     "${GIT_PROTOCOL}://github.com/medtec4susdev/libseek-thermal.git"
-    master
+    "c4fa40f200ef1277675e882358884049b8934d5e"
     )
 
   SET (PLUS_SeekCameraLib_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/SeekCameraLib")

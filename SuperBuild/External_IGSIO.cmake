@@ -12,7 +12,7 @@ ELSE()
   SetGitRepositoryTag(
     IGSIO
     "${GIT_PROTOCOL}://github.com/IGSIO/IGSIO.git"
-    "master"
+    "93b197fd3f8fb5353ccfdc51c1bca1d6b919d7cb"
     )
 
   SET(PLUS_IGSIO_SRC_DIR ${CMAKE_BINARY_DIR}/Deps/IGSIO CACHE INTERNAL "Path to store IGSIO contents.")

@@ -12,7 +12,7 @@ ELSE()
  SetGitRepositoryTag(
    libwebm
    "${GIT_PROTOCOL}://github.com/Sunderlandkyl/libwebm.git"
-   "master"
+   "e1d4caa3f52d9496a7910b5cbbf280056e994030"
    )
 
  SET (PLUS_libwebm_SRC_DIR ${CMAKE_BINARY_DIR}/Deps/libwebm CACHE INTERNAL "Path to store libwebm contents.")

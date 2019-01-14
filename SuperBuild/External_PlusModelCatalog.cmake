@@ -4,7 +4,7 @@
 SetGitRepositoryTag(
   PlusModelCatalog
   "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusModelCatalog.git"
-  "master"
+  "651be1563b40a3552f18436f580d1c14d1b388f9"
   )
 
 SET (PLUS_PLUSMODELCATALOG_DIR ${CMAKE_BINARY_DIR}/PlusModelCatalog CACHE INTERNAL "Path to store Plus Model Catalog.")

@@ -12,7 +12,7 @@ ELSE()
   SetGitRepositoryTag(
     aruco
     "${GIT_PROTOCOL}://github.com/PlusToolkit/aruco.git"
-    "master"
+    "cf93865edf157aa45c64c8f2084dcef59e58dda3"
     )
 
   SET (PLUS_aruco_src_DIR ${CMAKE_BINARY_DIR}/Deps/aruco CACHE INTERNAL "Path to store aruco contents")
