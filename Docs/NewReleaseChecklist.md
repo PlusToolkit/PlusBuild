@@ -23,6 +23,8 @@ If the major or minor version is updated then a new branch shall be created that
       - External_aruco
       - External_ndicapi
       - Any other dependencies that refer to 'master' version instead of a specific git tag or hash
+    - In the trunk:
+      - Update stable version number in Docs/BuildInstructionsWindows.md
 
 ### PlusLib
   - Create a new branch from the trunk as Plus-X.Y
