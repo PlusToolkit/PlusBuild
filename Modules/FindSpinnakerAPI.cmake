@@ -48,11 +48,26 @@ IF(WIN32)
     "C:/Program Files (x86)/Point Grey Research/Spinnaker"
     )
 ELSEIF(UNIX)
-  #Unix Spinnaker API path hints
+  # Ubuntu Spinnaker API path hints
+
+  # get release codename
+  execute_process(COMMAND lsb_release -cs
+    OUTPUT_VARIABLE _RELEASE_CODENAME
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+  # get bitness suffix
+  IF(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    SET(_SPINNAKER_BITNESS_SUFFIX "win32")
+  ELSE()
+    SET(_SPINNAKER_BITNESS_SUFFIX "x64")
+  ENDIF()
+
   SET(SPINNAKER_API_PATH_HINTS
-    "../PLTools/PointGrey/linux/spinnaker"
-    "../../PLTools/PointGrey/linux/spinnaker"
-    "../trunk/PLTools/PointGrey/linux/spinnaker"
+    "../PLTools/PointGrey/ubuntu_${_RELEASE_CODENAME}/spinnaker_${_SPINNAKER_BITNESS_SUFFIX}"
+    "../../PLTools/PointGrey/ubuntu_${_RELEASE_CODENAME}/spinnaker${_SPINNAKER_BITNESS_SUFFIX}"
+    "../trunk/PLTools/PointGrey/ubuntu_${_RELEASE_CODENAME}/spinnaker${_SPINNAKER_BITNESS_SUFFIX}"
+    "/usr/include/spinnaker"
     )
 ENDIF()
 
@@ -65,17 +80,27 @@ IF (SPINNAKER_DIR)
   set(SPINNAKER_API_INCLUDE_DIR ${SPINNAKER_DIR}/include)
   mark_as_advanced(SPINNAKER_API_INCLUDE_DIR)
 
-  IF(CMAKE_SIZEOF_VOID_P EQUAL 4)
-    # 32 bits
-    set(SPINNAKER_API_LIBRARY_DIR ${SPINNAKER_DIR}/lib/vs2015)
+  IF(WIN32)
+    # Windows
+    IF(CMAKE_SIZEOF_VOID_P EQUAL 4)
+      # 32 bits
+      set(SPINNAKER_API_LIBRARY_DIR ${SPINNAKER_DIR}/lib/vs2015)
+      mark_as_advanced(SPINNAKER_API_LIBRARY_DIR)
+      set(SPINNAKER_API_BINARY_DIR ${SPINNAKER_DIR}/bin/vs2015)
+      mark_as_advanced(SPINNAKER_API_BINARY_DIR)
+    ELSE()
+      # 64 bits
+      set(SPINNAKER_API_LIBRARY_DIR ${SPINNAKER_DIR}/lib64/vs2015)
+      mark_as_advanced(SPINNAKER_API_LIBRARY_DIR)
+      set(SPINNAKER_API_BINARY_DIR ${SPINNAKER_DIR}/bin64/vs2015)
+      mark_as_advanced(SPINNAKER_API_BINARY_DIR)
+    ENDIF()
+
+  ELSEIF(UNIX)
+    # Ubuntu
+    set(SPINNAKER_API_LIBRARY_DIR ${SPINNAKER_DIR}/lib)
     mark_as_advanced(SPINNAKER_API_LIBRARY_DIR)
-    set(SPINNAKER_API_BINARY_DIR ${SPINNAKER_DIR}/bin/vs2015)
-    mark_as_advanced(SPINNAKER_API_BINARY_DIR)
-  ELSE()
-    # 64 bits
-    set(SPINNAKER_API_LIBRARY_DIR ${SPINNAKER_DIR}/lib64/vs2015)
-    mark_as_advanced(SPINNAKER_API_LIBRARY_DIR)
-    set(SPINNAKER_API_BINARY_DIR ${SPINNAKER_DIR}/bin64/vs2015)
+    set(SPINNAKER_API_BINARY_DIR ${SPINNAKER_DIR}/lib)
     mark_as_advanced(SPINNAKER_API_BINARY_DIR)
   ENDIF()
 
