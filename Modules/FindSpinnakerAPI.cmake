@@ -71,6 +71,7 @@ ELSEIF(UNIX)
     )
 ENDIF()
 
+# check for local spinnaker folder
 find_path(SPINNAKER_DIR "/include/System.h"
   PATHS ${SPINNAKER_API_PATH_HINTS}
   DOC "Point Grey Spinnaker API directory")
@@ -107,7 +108,20 @@ IF (SPINNAKER_DIR)
   #Version
   spinnaker_get_version("${SPINNAKER_DIR}/include/System.h")
 
-ENDIF ()
+ELSE()
+  # check if spinnaker is globally installed on Ubuntu
+  IF (UNIX AND EXISTS "/usr/include/spinnaker/System.h")
+    set(SPINNAKER_API_INCLUDE_DIR /usr/include/spinnaker)
+    mark_as_advanced(SPINNAKER_API_INCLUDE_DIR)
+    set(SPINNAKER_API_LIBRARY_DIR /usr/lib)
+    mark_as_advanced(SPINNAKER_API_LIBRARY_DIR)
+    set(SPINNAKER_API_BINARY_DIR /usr/lib)
+    mark_as_advanced(SPINNAKER_API_BINARY_DIR)
+
+    #Version
+    spinnaker_get_version("/usr/include/spinnaker/System.h")
+  ENDIF()
+ENDIF()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(SPINNAKER_API
