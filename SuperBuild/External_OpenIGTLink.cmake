@@ -44,7 +44,7 @@ ELSE()
       -DCMAKE_CXX_FLAGS:STRING=${ep_common_cxx_flags}
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
       -DOpenIGTLink_ENABLE_VIDEOSTREAMING:BOOL=${PLUS_ENABLE_VIDEOSTREAMING}
-      -DOpenIGTLink_USE_VP9:BOOL=${PLUS_USE_VP9}
+      -DOpenIGTLink_USE_VP9:BOOL=OFF
     #--Build step-----------------
     BUILD_ALWAYS 1
     #--Install step-----------------

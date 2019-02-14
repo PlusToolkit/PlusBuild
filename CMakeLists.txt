@@ -283,8 +283,9 @@ IF(UNIX AND NOT APPLE)
 ENDIF()
 
 OPTION(PLUS_ENABLE_VIDEOSTREAMING "Provide support for streaming compressed video from Plus" OFF)
-IF (PLUS_ENABLE_VIDEOSTREAMING)
-  OPTION(PLUS_USE_VP9 "Compile OpenIGTLink with VP9 support for compressed video streaming" OFF)
+OPTION(PLUS_USE_VP9 "Compile OpenIGTLink with VP9 support for compressed video streaming" OFF)
+IF (PLUS_USE_VP9)
+  SET(PLUS_ENABLE_VIDEOSTREAMING ON CACHE BOOL "Provide support for streaming compressed video from Plus" FORCE)
 ENDIF()
 
 #-----------------------------------------------------------------------------
@@ -462,9 +463,6 @@ IF(PLUS_USE_BKPROFOCUS_CAMERALINK)
 ENDIF()
 
 OPTION(PLUS_USE_MKV_IO "Enable reading/writing MKV files using libwebm." OFF)
-IF (PLUS_USE_MKV_IO)
-  INCLUDE(SuperBuild/External_libwebm.cmake)
-ENDIF()
 INCLUDE(SuperBuild/External_IGSIO.cmake)
 
 #-- TextRecognizer dependency verification ----------------------------------------------
