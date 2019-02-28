@@ -15,10 +15,10 @@
 #  MOTIVE_OPENMP_DIR              Location of libiomp5md.dll needed to use Motive API
 
 SET(MOTIVEAPI_PATH_HINTS
-  "../PLTools/OptiTrack/MotiveAPI-2.0.2"
-  "../../PLTools/OptiTrack/MotiveAPI-2.0.2"
-  "../trunk/PLTools/OptiTrack/MotiveAPI-2.0.2"
-  "${CMAKE_CURRENT_BINARY_DIR}/PLTools/OptiTrack/MotiveAPI-2.0.2"
+  "../PLTools/OptiTrack/MotiveAPI-${MOTIVE_VERSION}"
+  "../../PLTools/OptiTrack/MotiveAPI-${MOTIVE_VERSION}"
+  "../trunk/PLTools/OptiTrack/MotiveAPI-${MOTIVE_VERSION}"
+  "${CMAKE_CURRENT_BINARY_DIR}/PLTools/OptiTrack/MotiveAPI-${MOTIVE_VERSION}"
   "$ENV{PROGRAMFILES}/OptiTrack/Motive"
   "$ENV{PROGRAMW6432}/OptiTrack/Motive"
   "C:/Program Files (x86)/OptiTrack/Motive"
@@ -36,7 +36,7 @@ IF (MOTIVE_DIR)
 
   #Version
   #TODO: properly set SDK version using REGEX
-  set(MOTIVE_API_VERSION "2.0.2")
+  set(MOTIVE_API_VERSION ${MOTIVE_VERSION})
 
 ENDIF ()
 
