@@ -228,6 +228,19 @@ ENDIF()
 
 # ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
+IF (PLUS_USE_OPTITRACK) 
+  IF(NOT ${CMAKE_GENERATOR} MATCHES "Win64")
+    SET(MOTIVE_VERSION_DEFAULT "1.10.3")
+  ELSE()
+    SET(MOTIVE_VERSION_DEFAULT "2.1.1")
+  ENDIF()
+  SET(MOTIVE_VERSION ${MOTIVE_VERSION_DEFAULT} CACHE STRING "Choose the motive API version.")
+  IF (TEMP_OS_ARCH MATCHES "x86" AND MOTIVE_VERSION VERSION_GREATER "2.1.0")
+    MESSAGE(FATAL_ERROR "MOTIVE_VERSION cannot be greater than 2.1.0 for 32-bit builds")
+  ENDIF()
+  set_property(CACHE MOTIVE_VERSION PROPERTY STRINGS "1.10.3" "2.1.1")
+ENDIF()
+
 OPTION(PLUS_USE_OPTIMET_CONOPROBE "Provide support for the Optimet ConoProbe" OFF)
 
 OPTION(PLUS_USE_NDI "Provide support for the NDI POLARIS and AURORA" OFF)
