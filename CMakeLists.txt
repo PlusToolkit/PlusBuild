@@ -278,6 +278,13 @@ OPTION(PLUS_USE_WITMOTIONTRACKER "Provide support for the WitMotion IMU Trackers
 IF(PLUS_USE_OvrvisionPro)
   OPTION(PLUS_TEST_OvrvisionPro "Enable testing of acquisition of stereo images from the OvrvisionPro" OFF)
 ENDIF()
+OPTION(PLUS_USE_LEAPMOTION "Provide support for the LeapMotion hand tracker" OFF)
+IF(PLUS_USE_LEAPMOTION)
+  FIND_PACKAGE(LeapSDK 4.0 REQUIRED
+    PATHS 
+    ../VASSTTools/LeapMotion/LeapSDK/lib/cmake/LeapSDK # Convenience for members of the VASST lab
+    )
+ENDIF()
 
 # ---------- Other devices ------------
 OPTION(PLUS_USE_TextRecognizer "Enable the text recognizer virtual device" OFF)
@@ -755,6 +762,10 @@ ENDIF()
 
 IF(PLUS_USE_INFRARED_SEEK_CAM)
   LIST(APPEND PlusLib_DEPENDENCIES SeekCameraLib)
+ENDIF()
+
+IF(PLUS_USE_LEAPMOTION)
+  LIST(APPEND PlusLib_DEPENDENCIES LeapSDK::LeapC)
 ENDIF()
 
 SET(PlusApp_DEPENDENCIES PlusLib)
