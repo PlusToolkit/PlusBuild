@@ -15,18 +15,17 @@ Prerequisites
 - **gcc**: -std=c++11 is used, please make sure your compiler has FULL support, ie.: gcc >= 5.0. Should be installed by default.
   > sudo apt install gcc
 - cmake
- - With GUI:
-   > sudo apt install cmake-qt-gui
- - Without GUI, only command line interface:
-   > sudo apt install cmake
--  git
+  - With GUI:
+    > sudo apt install cmake-qt-gui
+  - Without GUI, only command line interface:
+    > sudo apt install cmake
+- git
   - With GUI:
     > sudo apt install git-cola</i></li>
- - Without GUI, only command line interface:
+  - Without GUI, only command line interface:
     > sudo apt install git</i></li>
 - VTK dependencies
   > sudo apt install build-essential
-  
   > sudo apt build-dep vtk
 - Qt
   > sudo apt install qtbase5-dev qttools5-dev libqt5webkit5-dev libqt5x11extras5-dev
