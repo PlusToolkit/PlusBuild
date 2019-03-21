@@ -4,7 +4,7 @@ This version of Ubuntu is not officially supported
 - The gcc compiler provided by default (4.8.4) does not fully support c++11 and is missing functionality used by PlusLib
 - The default version of Qt provided with the distribution (5.2.1) lacks some functionality required by PlusApp. 
 
-Ubuntu 16.04 LTS
+Ubuntu 16.04 LTS/18.04 LTS
 ================
 
 Most device manufacturers don't support this platform, there are no drivers available, so beware using certain devices as they will not work. All processing and simulation should work on this platform.
@@ -28,7 +28,7 @@ Prerequisites
   > sudo apt install build-essential
 	> apt-get build-dep vtk
 - Qt
-  > sudo apt install libqt5-dev
+  > sudo apt install libqt5-dev qttools5-dev libqt5webkit5-dev libqt5x11extras5-dev
 
 Build Process
 -------------
