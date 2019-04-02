@@ -63,35 +63,72 @@ ExternalProject_Add(PlusApp
   )
 
 # --------------------------------------------------------------------------
-# Copy Qt binaries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
+# If Qt build is shared, copy Qt binaries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
+IF(TARGET Qt5::Core) # redundant, but check anyways
+  GET_TARGET_PROPERTY(_qt_lib_type Qt5::Core TYPE)
+  IF(_qt_lib_type STREQUAL "SHARED_LIBRARY")
+    # Recursively build list of targets to copy
+    LIST(LENGTH PLUSBUILD_QT_COMPONENTS _old_len)
+    SET(_new_len 0)
+    WHILE(NOT _old_len EQUAL _new_len)
+      UNSET(_old_len)
+      LIST(LENGTH _components _old_len)
+      FOREACH(_component ${PLUSBUILD_QT_COMPONENTS})
+        LIST(APPEND _components ${_component} ${_Qt5${_component}_MODULE_DEPENDENCIES})
+      ENDFOREACH()
+      LIST(REMOVE_DUPLICATES _components)
+      UNSET(_new_len)
+      LIST(LENGTH _components _new_len)
+    ENDWHILE()
 
-# Determine shared library extension without the dot (dll instead of .dll)
-STRING(SUBSTRING ${CMAKE_SHARED_LIBRARY_SUFFIX} 1 -1 CMAKE_SHARED_LIBRARY_SUFFIX_NO_SEPARATOR)
+    FOREACH(_component ${_components})
+      FIND_PACKAGE(Qt5 COMPONENTS ${_component})
+      GET_TARGET_PROPERTY(_type Qt5::${_component} TYPE)
+      IF(${_type} STREQUAL "INTERFACE_LIBRARY")
+        CONTINUE()
+      ENDIF()
 
-# Get all Qt shared library names
-SET(RELEASE_REGEX_PATTERN .t5.*[^d][.]${CMAKE_SHARED_LIBRARY_SUFFIX_NO_SEPARATOR})
-SET(DEBUG_REGEX_PATTERN .t5.*d[.]${CMAKE_SHARED_LIBRARY_SUFFIX_NO_SEPARATOR})
-SET(PDB_REGEX_PATTERN .t5.*d[.]pdb)
+      # Release files
+      GET_TARGET_PROPERTY(_release_shared_lib Qt5::${_component} IMPORTED_LOCATION_RELEASE)
+      IF(EXISTS ${_release_shared_lib})
+        IF(MSVC)
+          SET(_suffix "/Release")
+          STRING(REPLACE ${CMAKE_SHARED_LIBRARY_SUFFIX} ".pdb" _release_pdb ${_release_shared_lib})
+          IF(EXISTS ${_release_pdb})
+            FILE(COPY ${_release_pdb}
+              DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}${_suffix}
+              )
+          ENDIF()
+        ENDIF()
+        FILE(COPY ${_release_shared_lib}
+          DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}${_suffix}
+          )
+      ENDIF()
 
-# Copy shared libraries to bin directory to allow running Plus applications in the build tree
-IF(MSVC OR ${CMAKE_GENERATOR} MATCHES "Xcode")
-  FILE(COPY "${QT_BINARY_DIR}/"
-    DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release
-    FILES_MATCHING REGEX ${RELEASE_REGEX_PATTERN}
-    )
-  FILE(COPY "${QT_BINARY_DIR}/"
-    DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug
-    FILES_MATCHING REGEX ${DEBUG_REGEX_PATTERN}
-    )
+      # Debug files
+      GET_TARGET_PROPERTY(_debug_shared_lib Qt5::${_component} IMPORTED_LOCATION_DEBUG)
+      IF(EXISTS ${_debug_shared_lib})
+        IF(MSVC)
+          SET(_suffix "/Debug")
+          STRING(REPLACE ${CMAKE_SHARED_LIBRARY_SUFFIX} ".pdb" _debug_pdb ${_debug_shared_lib})
+          IF(EXISTS ${_debug_pdb})
+            FILE(COPY ${_debug_pdb}
+              DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}${_suffix}
+              )
+          ENDIF()
+        ENDIF()
+        FILE(COPY ${_debug_shared_lib}
+          DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}${_suffix}
+          )
+      ENDIF()
+    ENDFOREACH()
+  ENDIF()
+ENDIF()
+
+
   IF(MSVC)
     FILE(COPY "${QT_BINARY_DIR}/"
       DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug
       FILES_MATCHING REGEX ${PDB_REGEX_PATTERN}
       )
   ENDIF()
-ELSE()
-  FILE(COPY "${QT_BINARY_DIR}/"
-    DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-    FILES_MATCHING REGEX .*${CMAKE_SHARED_LIBRARY_SUFFIX}
-    )
-ENDIF()
