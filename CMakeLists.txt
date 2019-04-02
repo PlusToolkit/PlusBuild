@@ -430,7 +430,7 @@ SET(ep_qt_args) # Arguments that will have to be passed to external projects tha
 SET(PLUSBUILD_QT_COMPONENTS Core Widgets Designer OpenGL Sql Test Xml XmlPatterns Concurrent Network Gui)
 
 IF(PLUSBUILD_BUILD_PLUSAPP OR PLUSBUILD_BUILD_PLUSLIB_WIDGETS)
-  FIND_PACKAGE(Qt5 COMPONENTS ${PLUSBUILD_QT_COMPONENTS} REQUIRED)
+  FIND_PACKAGE(Qt5 COMPONENTS ${PLUSBUILD_QT_COMPONENTS} QUIET)
 
   IF(NOT Qt5_FOUND)
     MESSAGE(FATAL_ERROR "This project requires Qt5 for building PlusApp but Qt was not found. Please specify Qt5_DIR or turn off PLUSBUILD_BUILD_PLUSAPP/PLUSBUILD_BUILD_PLUSLIB_WIDGETS options.")
