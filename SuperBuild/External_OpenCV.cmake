@@ -35,8 +35,11 @@ ELSE()
     ENDIF()
     
     SET(_generations "Fermi" "Kepler" "Maxwell")
-    IF(${CUDA_VERSION} VERSION_GREATER 7)
+    IF(${CUDA_VERSION} VERSION_GREATER_EQUAL 8.0.0)
       LIST(APPEND _generations "Pascal" "Volta")
+    ENDIF()
+    IF(${CUDA_VERSION} VERSION_GREATER_EQUAL 10.0.0)
+      LIST(APPEND _generations "Turing")
     ENDIF()
     IF(NOT CMAKE_CROSSCOMPILING)
       LIST(APPEND _generations "Auto")
@@ -69,9 +72,12 @@ ELSE()
     LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DBUILD_WITH_STATIC_CRT:BOOL=OFF)
   ENDIF()
 
-  IF(PLUSBUILD_VTK_VERSION STREQUAL "v9.0.0")
-    # VTK v9.0.0 requires more recent opencv
-    SET(PLUSBUILD_OpenCV_VERSION 0d6518aaa05bc66b5724844938b6920627c5f13c CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])" FORCE)
+  IF(PLUSBUILD_VTK_VERSION VERSION_GREATER_EQUAL 8.0.0 
+    AND NOT PLUSBUILD_OpenCV_VERSION EQUAL "master"
+    AND PLUSBUILD_OpenCV_VERSION VERSION_LESS 3.4.5
+    )
+    # VTK v8.0.0+ requires more recent opencv
+    SET(PLUSBUILD_OpenCV_VERSION 3.4.5 CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])" FORCE)
   ENDIF()
 
   # No OpenCV is specified, so download and build
