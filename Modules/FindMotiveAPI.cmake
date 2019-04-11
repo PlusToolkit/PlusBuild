@@ -25,9 +25,21 @@ SET(MOTIVEAPI_PATH_HINTS
   "C:/Program Files/OptiTrack/Motive"
   )
 
+SET(Microsoft_VC80_OpenMP_PATH_HINTS
+  "../PLTools/OptiTrack/Microsoft.VC80.OpenMP"
+  "../../PLTools/OptiTrack/Microsoft.VC80.OpenMP"
+  "../trunk/PLTools/OptiTrack/Microsoft.VC80.OpenMP"
+  "${CMAKE_CURRENT_BINARY_DIR}/PLTools/OptiTrack/Microsoft.VC80.OpenMP"
+  )
+
 find_path(MOTIVE_DIR "/inc/NPTrackingTools.h"
   PATHS ${MOTIVEAPI_PATH_HINTS}
   DOC "OptiTrack Motive API directory")
+
+find_path(MOTIVE_MSVC80_OpenMP_DIR
+      NAMES vcomp.dll
+      PATHS ${Microsoft_VC80_OpenMP_PATH_HINTS}
+      DOC "Microsoft VC80 OpenMP directory")
 
 IF (MOTIVE_DIR)
   # Include directories
