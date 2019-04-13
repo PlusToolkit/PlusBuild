@@ -34,7 +34,7 @@ macro(spinnaker_get_version VERSION_FILE)
   set(SPINNAKER_API_VERSION "${_MAJOR}.${_MINOR}.${_TYPE}.${_BUILD}")
 endmacro()
 
-# Path hints
+# path hints
 SET(_x86env "ProgramFiles(x86)")
 IF(WIN32)
   # Windows Spinnaker API path hints
@@ -47,7 +47,7 @@ IF(WIN32)
     "$ENV{${_x86env}}/Point Grey Research/Spinnaker"
     "C:/Program Files (x86)/Point Grey Research/Spinnaker"
     )
-ELSEIF(UNIX)
+ELSEIF(UNIX AND NOT MAC)
   # Ubuntu Spinnaker API path hints
 
   # get release codename
@@ -77,7 +77,7 @@ find_path(SPINNAKER_DIR "/include/System.h"
   DOC "Point Grey Spinnaker API directory")
 
 IF (SPINNAKER_DIR)
-  # Include directories
+  # include directories
   set(SPINNAKER_API_INCLUDE_DIR ${SPINNAKER_DIR}/include)
   mark_as_advanced(SPINNAKER_API_INCLUDE_DIR)
 
@@ -97,7 +97,7 @@ IF (SPINNAKER_DIR)
       mark_as_advanced(SPINNAKER_API_BINARY_DIR)
     ENDIF()
 
-  ELSEIF(UNIX)
+  ELSEIF(UNIX AND NOT MAC)
     # Ubuntu
     set(SPINNAKER_API_LIBRARY_DIR ${SPINNAKER_DIR}/lib)
     mark_as_advanced(SPINNAKER_API_LIBRARY_DIR)
@@ -105,12 +105,12 @@ IF (SPINNAKER_DIR)
     mark_as_advanced(SPINNAKER_API_BINARY_DIR)
   ENDIF()
 
-  #Version
+  # version
   spinnaker_get_version("${SPINNAKER_DIR}/include/System.h")
 
 ELSE()
   # check if spinnaker is globally installed on Ubuntu
-  IF (UNIX AND EXISTS "/usr/include/spinnaker/System.h")
+  IF (UNIX AND NOT MAC AND EXISTS "/usr/include/spinnaker/System.h")
     set(SPINNAKER_API_INCLUDE_DIR /usr/include/spinnaker)
     mark_as_advanced(SPINNAKER_API_INCLUDE_DIR)
     set(SPINNAKER_API_LIBRARY_DIR /usr/lib)
@@ -118,7 +118,7 @@ ELSE()
     set(SPINNAKER_API_BINARY_DIR /usr/lib)
     mark_as_advanced(SPINNAKER_API_BINARY_DIR)
 
-    #Version
+    # version
     spinnaker_get_version("/usr/include/spinnaker/System.h")
   ENDIF()
 ENDIF()
