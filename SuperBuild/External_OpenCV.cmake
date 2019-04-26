@@ -1,4 +1,4 @@
-SET(PLUSBUILD_OpenCV_VERSION "3.3.1" CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])")
+SET(PLUSBUILD_OpenCV_VERSION "3.4" CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])")
 
 IF(OpenCV_DIR)
   FIND_PACKAGE(OpenCV ${PLUSBUILD_OpenCV_VERSION} REQUIRED NO_MODULE)
@@ -70,14 +70,6 @@ ELSE()
 
   IF(NOT PLUSBUILD_BUILD_SHARED_LIBS)
     LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DBUILD_WITH_STATIC_CRT:BOOL=OFF)
-  ENDIF()
-
-  IF(PLUSBUILD_VTK_VERSION VERSION_GREATER_EQUAL 8.0.0 
-    AND NOT PLUSBUILD_OpenCV_VERSION EQUAL "master"
-    AND PLUSBUILD_OpenCV_VERSION VERSION_LESS 3.4.5
-    )
-    # VTK v8.0.0+ requires more recent opencv
-    SET(PLUSBUILD_OpenCV_VERSION 3.4.5 CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])" FORCE)
   ENDIF()
 
   # No OpenCV is specified, so download and build
