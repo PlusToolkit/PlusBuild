@@ -429,6 +429,9 @@ ENDIF()
 #-----------------------------------------------------------------------------
 SET(ep_qt_args) # Arguments that will have to be passed to external projects that use Qt
 SET(PLUSBUILD_QT_COMPONENTS Core Widgets Designer OpenGL Sql Test Xml XmlPatterns Concurrent Network Gui)
+IF(PLUS_USE_OPTITRACK)
+  LIST(APPEND PLUSBUILD_QT_COMPONENTS Multimedia)
+ENDIF()
 
 IF(PLUSBUILD_BUILD_PLUSAPP OR PLUSBUILD_BUILD_PLUSLIB_WIDGETS)
   FIND_PACKAGE(Qt5 COMPONENTS ${PLUSBUILD_QT_COMPONENTS} QUIET)
