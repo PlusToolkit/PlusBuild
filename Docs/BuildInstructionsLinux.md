@@ -28,7 +28,7 @@ Prerequisites
   > sudo apt install build-essential
   > sudo apt build-dep vtk
 - Qt
-  > sudo apt install qtbase5-dev qttools5-dev libqt5webkit5-dev libqt5x11extras5-dev
+  > sudo apt install qtbase5-dev qttools5-dev libqt5webkit5-dev libqt5x11extras5-dev libqt5xmlpatterns5-dev
 
 Build Process
 -------------
