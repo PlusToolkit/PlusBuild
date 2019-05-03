@@ -1,6 +1,6 @@
 IF(ITK_DIR)
   # ITK has been built already
-  FIND_PACKAGE(ITK 4.12.0 REQUIRED PATHS ${ITK_DIR} NO_DEFAULT_PATH)
+  FIND_PACKAGE(ITK 5.0.0 REQUIRED PATHS ${ITK_DIR} NO_DEFAULT_PATH)
 
   MESSAGE(STATUS "Using ITK available at: ${ITK_DIR}")
   
@@ -13,7 +13,7 @@ ELSE()
   SetGitRepositoryTag(
     itk
     "${GIT_PROTOCOL}://itk.org/ITK.git"
-    "v4.12.0"
+    "v5.0rc02"
     )
 
   IF(UNIX AND NOT APPLE)
