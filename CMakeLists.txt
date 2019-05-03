@@ -275,11 +275,11 @@ OPTION(PLUS_USE_3dConnexion_TRACKER "Provide support for the 3dConnexion 3d mous
 OPTION(PLUS_USE_STEALTHLINK "Provide support for the Medtronick StealthLink Server" OFF)
 OPTION(PLUS_USE_IntuitiveDaVinci "Provide support for the da Vinci Surgical System" OFF)
 OPTION(PLUS_USE_OvrvisionPro "Provide support for the OvrvisionPro Stereo Camera" OFF)
-OPTION(PLUS_USE_OPENHAPTICS "Provide support of OpenHaptics devices" OFF)
-OPTION(PLUS_USE_WITMOTIONTRACKER "Provide support for the WitMotion IMU Trackers" OFF)
 IF(PLUS_USE_OvrvisionPro)
   OPTION(PLUS_TEST_OvrvisionPro "Enable testing of acquisition of stereo images from the OvrvisionPro" OFF)
 ENDIF()
+OPTION(PLUS_USE_OPENHAPTICS "Provide support of OpenHaptics devices" OFF)
+OPTION(PLUS_USE_WITMOTIONTRACKER "Provide support for the WitMotion IMU Trackers" OFF)
 OPTION(PLUS_USE_LEAPMOTION "Provide support for the LeapMotion hand tracker" OFF)
 IF(PLUS_USE_LEAPMOTION)
   FIND_PACKAGE(LeapSDK 4.0 REQUIRED
