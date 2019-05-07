@@ -3,17 +3,21 @@ IF(ITK_DIR)
   FIND_PACKAGE(ITK 5.0.0 REQUIRED PATHS ${ITK_DIR} NO_DEFAULT_PATH)
 
   MESSAGE(STATUS "Using ITK available at: ${ITK_DIR}")
-  
+
   # Copy libraries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
   PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${ITK_LIBRARIES})
- 
+
   SET (PLUS_ITK_DIR ${ITK_DIR} CACHE INTERNAL "Path to store itk binaries")
 ELSE()
+
+  SET (PLUS_ITK_VERSION_MAJOR 5)
+  SET (PLUS_ITK_VERSION_MINOR 0)
+  SET (PLUS_ITK_VERSION_PATCH "rc02")
   # ITK has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     itk
     "${GIT_PROTOCOL}://itk.org/ITK.git"
-    "v5.0rc02"
+    "v${PLUS_ITK_VERSION_MAJOR}.${PLUS_ITK_VERSION_MINOR}${PLUS_ITK_VERSION_PATCH}"
     )
 
   IF(UNIX AND NOT APPLE)
@@ -23,18 +27,23 @@ ELSE()
   ENDIF()
 
   SET (PLUS_ITK_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/itk")
-  SET (PLUS_ITK_DIR "${CMAKE_BINARY_DIR}/Deps/itk-bin" CACHE INTERNAL "Path to store itk binaries")
+  SET (PLUS_ITK_BIN_DIR "${CMAKE_BINARY_DIR}/Deps/itk-bin" CACHE INTERNAL "Path to store itk binaries")
+  SET (PLUS_ITK_INSTALL_DIR "${CMAKE_BINARY_DIR}/Deps/itk-int" CACHE INTERNAL "Path to install vtk")
+  SET (PLUS_ITK_DIR "${PLUS_ITK_INSTALL_DIR}/lib/cmake/ITK-${PLUS_ITK_VERSION_MAJOR}.${PLUS_ITK_VERSION_MINOR}" CACHE INTERNAL "Path to installed itk binaries")
+
   ExternalProject_Add( itk
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
     PREFIX "${CMAKE_BINARY_DIR}/Deps/itk-prefix"
     SOURCE_DIR "${PLUS_ITK_SRC_DIR}"
     BINARY_DIR "${PLUS_ITK_DIR}"
+    INSTALL_DIR "${PLUS_ITK_INSTALL_DIR}"
     #--Download step--------------
     GIT_REPOSITORY ${itk_GIT_REPOSITORY}
     GIT_TAG ${itk_GIT_TAG}
     #--Configure step-------------
-    CMAKE_ARGS 
+    CMAKE_ARGS
       ${ep_common_args}
+      -DCMAKE_INSTALL_PREFIX:PATH=${PLUS_ITK_INSTALL_DIR}
       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
       -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
       -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
@@ -48,8 +57,6 @@ ELSE()
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
     #--Build step-----------------
     BUILD_ALWAYS 1
-    #--Install step-----------------
-    INSTALL_COMMAND ""
     DEPENDS ${ITK_DEPENDENCIES}
     )
 ENDIF()

@@ -38,7 +38,7 @@ ELSE()
   IF(PLUSBUILD_USE_Tesseract)
     LIST(APPEND VTK_VERSION_SPECIFIC_ARGS -DModule_vtkzlib:INTERNAL=ON)
   ENDIF()
-  
+
   IF(MSVC)
     LIST(APPEND VTK_VERSION_SPECIFIC_ARGS -DCMAKE_CXX_MP_FLAG:BOOL=ON)
   ENDIF()
@@ -63,6 +63,9 @@ ELSE()
       LIST(GET _version_list 2 _version_patch)
       # List based variable is used elsewhere
       SET(PLUSBUILD_VTK_VERSION ${_version_major}.${_version_minor}.${_version_patch} CACHE INTERNAL "Internal CMake version for VTK.")
+      SET(PLUSBUILD_VTK_VERSION_MAJOR ${_version_major})
+      SET(PLUSBUILD_VTK_VERSION_MINOR ${_version_minor})
+      SET(PLUSBUILD_VTK_VERSION_PATCH ${_version_patch})
     ENDIF()
   ENDIF()
 
@@ -73,26 +76,30 @@ ELSE()
     )
 
   SET (PLUS_VTK_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/vtk")
-  SET (PLUS_VTK_DIR "${CMAKE_BINARY_DIR}/Deps/vtk-bin" CACHE INTERNAL "Path to store vtk binaries")
+  SET (PLUS_VTK_BIN_DIR "${CMAKE_BINARY_DIR}/Deps/vtk-bin" CACHE INTERNAL "Path to store vtk binaries")
+  SET (PLUS_VTK_INSTALL_DIR "${CMAKE_BINARY_DIR}/Deps/vtk-int" CACHE INTERNAL "Path to install vtk")
+  SET (PLUS_VTK_DIR "${PLUS_VTK_INSTALL_DIR}/lib/cmake/vtk-${PLUSBUILD_VTK_VERSION_MAJOR}.${PLUSBUILD_VTK_VERSION_MINOR}")
 
   ExternalProject_Add( vtk
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
     PREFIX "${CMAKE_BINARY_DIR}/Deps/vtk-prefix"
     SOURCE_DIR "${PLUS_VTK_SRC_DIR}"
-    BINARY_DIR "${PLUS_VTK_DIR}"
+    BINARY_DIR "${PLUS_VTK_BIN_DIR}"
+    INSTALL_DIR "${PLUS_VTK_INSTALL_DIR}"
     #--Download step--------------
     GIT_REPOSITORY ${VTK_GIT_REPOSITORY}
     GIT_TAG ${VTK_GIT_TAG}
     #--Configure step-------------
-    CMAKE_ARGS 
+    CMAKE_ARGS
       ${ep_common_args}
       ${ep_qt_args}
       ${VTK_VERSION_SPECIFIC_ARGS}
+      -DCMAKE_INSTALL_PREFIX:PATH=${PLUS_VTK_INSTALL_DIR}
       -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
       -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
       -DBUILD_SHARED_LIBS:BOOL=${PLUSBUILD_BUILD_SHARED_LIBS}
-      -DBUILD_TESTING:BOOL=OFF 
+      -DBUILD_TESTING:BOOL=OFF
       -DBUILD_EXAMPLES:BOOL=OFF
       -DCMAKE_CXX_FLAGS:STRING=${ep_common_cxx_flags}
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
@@ -101,8 +108,6 @@ ELSE()
       -DVTK_RENDERING_BACKEND:STRING=${PLUSBUILD_VTK_RENDERING_BACKEND}
     #--Build step-----------------
     BUILD_ALWAYS 1
-    #--Install step-----------------
-    INSTALL_COMMAND ""
     DEPENDS ${VTK_DEPENDENCIES}
     )
 
