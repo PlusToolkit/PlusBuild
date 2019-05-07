@@ -32,8 +32,8 @@ ELSE()
   # OpenIGTLink has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     OpenIGTLink
-    "${GIT_PROTOCOL}://github.com/openigtlink/OpenIGTLink.git"
-    "63d0a14ba8d7e1fce0d2b813e6b33a4e4f196486"
+    "${GIT_PROTOCOL}://github.com/Sunderlandkyl/OpenIGTLink.git"
+    "01cbcb083780ad46bfe2ffabd8e0128053e0f6c6"
     )
 
   SET (PLUS_OpenIGTLink_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/OpenIGTLink")
