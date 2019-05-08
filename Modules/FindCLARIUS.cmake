@@ -7,6 +7,8 @@
 # CLARIUS_FOUND
 
 SET(CLARIUS_PATH_HINTS
+  "../PLTools/Clarius/clarius_listen_plugin/clarius_listen_sdk"
+  "../../PLTools/Clarius/clarius_listen_plugin/clarius_listen_sdk"
   "C:/Users/$ENV{USERNAME}/Documents/clarius_listen_plugin/clarius_listen_sdk"
   "C:/Program Files/clarius_listen_plugin/clarius_listen_sdk"
   )
