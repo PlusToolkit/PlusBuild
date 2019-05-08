@@ -54,6 +54,8 @@ ExternalProject_Add(PlusApp
     -DPLUSBUILD_DOWNLOAD_PLUSLIBDATA:BOOL=${PLUSBUILD_DOWNLOAD_PLUSLIBDATA}
     -DCMAKE_CXX_FLAGS:STRING=${ep_common_cxx_flags}
     -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
+    -DVTK_BIN_DIR:PATH=${PLUS_VTK_BIN_DIR} #TODO: Remove when VTK_DIR packages correctly
+    -DITK_BIN_DIR:PATH=${PLUS_ITK_BIN_DIR} #TODO: Remove when ITK_DIR packages correctly
     ${PLUSBUILD_ADDITIONAL_SDK_ARGS}
   #--Build step-----------------
   BUILD_ALWAYS 1
