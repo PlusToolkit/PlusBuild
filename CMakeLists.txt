@@ -287,6 +287,7 @@ IF(PLUS_USE_LEAPMOTION)
     ../VASSTTools/LeapMotion/LeapSDK/lib/cmake/LeapSDK # Convenience for members of the VASST lab
     )
 ENDIF()
+OPTION(PLUS_USE_BLACKMAGIC_DECKLINK "Provide support for BlackMagic DeckLink capture cards." OFF)
 
 # ---------- Other devices ------------
 OPTION(PLUS_USE_TextRecognizer "Enable the text recognizer virtual device" OFF)
@@ -679,6 +680,13 @@ IF(PLUS_USE_OPENHAPTICS)
   FIND_PACKAGE(OpenHaptics)
   IF(NOT OPENHAPTICS_FOUND)
     MESSAGE(FATAL_ERROR "This project requires the OpenHaptics  SDK for supporting the Geomagic Touch devices. One of the components is missing. Please verify configuration or turn off PLUS_USE_OPENHAPTICS.")
+  ENDIF()
+ENDIF()
+
+IF(PLUS_USE_BLACKMAGIC_DECKLINK)
+  FIND_PACKAGE(DeckLinkSDK)
+  IF(NOT DECKLINK_SDK_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires the BlackMagic DeckLink SDK to provide support for DeckLink capture cards. Please select the BlackMagic SDK directory, or turn off PLUS_USE_BLACKMAGIC_DECKLINK.")
   ENDIF()
 ENDIF()
 
