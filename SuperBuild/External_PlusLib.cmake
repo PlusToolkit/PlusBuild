@@ -394,6 +394,7 @@ IF(UNIX AND NOT APPLE)
     -DPLUS_USE_V4L2:BOOL=${PLUS_USE_V4L2}
     )
 ENDIF()
+
 # --------------------------------------------------------------------------
 # PlusLib
 SET (PLUS_PLUSLIB_DIR ${CMAKE_BINARY_DIR}/PlusLib CACHE INTERNAL "Path to store PlusLib contents.")
