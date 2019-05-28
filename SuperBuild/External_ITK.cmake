@@ -55,6 +55,7 @@ ELSE()
       -DITK_USE_REVIEW:BOOL=ON
       -DCMAKE_CXX_FLAGS:STRING=${itk_common_cxx_flags}
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
+      -DCMAKE_DEBUG_POSTFIX:STRING=D
     #--Build step-----------------
     BUILD_ALWAYS 1
     DEPENDS ${ITK_DEPENDENCIES}
