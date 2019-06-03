@@ -12,7 +12,7 @@ ELSE()
 
   SET (PLUS_ITK_VERSION_MAJOR 5)
   SET (PLUS_ITK_VERSION_MINOR 0)
-  SET (PLUS_ITK_VERSION_PATCH "rc02")
+  SET (PLUS_ITK_VERSION_PATCH 0)
   # ITK has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     itk
