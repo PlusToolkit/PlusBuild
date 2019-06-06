@@ -78,7 +78,19 @@ ELSE()
   SET (PLUS_VTK_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/vtk")
   SET (PLUS_VTK_BIN_DIR "${CMAKE_BINARY_DIR}/Deps/vtk-bin" CACHE INTERNAL "Path to store vtk binaries")
   SET (PLUS_VTK_INSTALL_DIR "${CMAKE_BINARY_DIR}/Deps/vtk-int" CACHE INTERNAL "Path to install vtk")
-  SET (PLUS_VTK_DIR "${PLUS_VTK_INSTALL_DIR}/lib/cmake/vtk-${PLUSBUILD_VTK_VERSION_MAJOR}.${PLUSBUILD_VTK_VERSION_MINOR}")
+  SET (PLUS_VTK_DIR ${PLUS_VTK_BIN_DIR})
+
+  SET (VTK_INSTALL_OPTIONS "")
+  IF (PLUSBUILD_INSTALL_VTK)
+    LIST (APPEND VTK_INSTALL_OPTIONS 
+      INSTALL_DIR "${PLUS_VTK_INSTALL_DIR}"
+      )
+    SET (PLUS_VTK_DIR "${PLUS_VTK_INSTALL_DIR}/lib/cmake/vtk-${PLUSBUILD_VTK_VERSION_MAJOR}.${PLUSBUILD_VTK_VERSION_MINOR}")
+  ELSE()
+    LIST (APPEND VTK_INSTALL_OPTIONS 
+      INSTALL_COMMAND ""
+      )    
+  ENDIF()
 
   ExternalProject_Add( vtk
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
@@ -110,6 +122,8 @@ ELSE()
     #--Build step-----------------
     BUILD_ALWAYS 1
     DEPENDS ${VTK_DEPENDENCIES}
+    #--Install step-----------------
+    ${VTK_INSTALL_OPTIONS}
     )
 
   SET(VTK_BUILD_DEPENDENCY_TARGET vtk CACHE INTERNAL "The name of the target to list as a dependency to ensure build order correctness.")
