@@ -97,7 +97,6 @@ ELSE()
     PREFIX "${CMAKE_BINARY_DIR}/Deps/vtk-prefix"
     SOURCE_DIR "${PLUS_VTK_SRC_DIR}"
     BINARY_DIR "${PLUS_VTK_BIN_DIR}"
-    INSTALL_DIR "${PLUS_VTK_INSTALL_DIR}"
     #--Download step--------------
     GIT_REPOSITORY ${VTK_GIT_REPOSITORY}
     GIT_TAG ${VTK_GIT_TAG}
