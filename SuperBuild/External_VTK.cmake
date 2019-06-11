@@ -80,16 +80,13 @@ ELSE()
   SET (PLUS_VTK_INSTALL_DIR "${CMAKE_BINARY_DIR}/Deps/vtk-int" CACHE INTERNAL "Path to install vtk")
   SET (PLUS_VTK_DIR ${PLUS_VTK_BIN_DIR})
 
-  SET (VTK_INSTALL_OPTIONS "")
+  SET (VTK_INSTALL_COMMAND "")
   IF (PLUSBUILD_INSTALL_VTK)
-    LIST (APPEND VTK_INSTALL_OPTIONS 
-      INSTALL_DIR "${PLUS_VTK_INSTALL_DIR}"
-      )
     SET (PLUS_VTK_DIR "${PLUS_VTK_INSTALL_DIR}/lib/cmake/vtk-${PLUSBUILD_VTK_VERSION_MAJOR}.${PLUSBUILD_VTK_VERSION_MINOR}")
   ELSE()
-    LIST (APPEND VTK_INSTALL_OPTIONS 
+    SET (VTK_INSTALL_COMMAND 
       INSTALL_COMMAND ""
-      )    
+      )
   ENDIF()
 
   ExternalProject_Add( vtk
@@ -97,6 +94,7 @@ ELSE()
     PREFIX "${CMAKE_BINARY_DIR}/Deps/vtk-prefix"
     SOURCE_DIR "${PLUS_VTK_SRC_DIR}"
     BINARY_DIR "${PLUS_VTK_BIN_DIR}"
+    INSTALL_DIR ${PLUS_VTK_INSTALL_DIR}
     #--Download step--------------
     GIT_REPOSITORY ${VTK_GIT_REPOSITORY}
     GIT_TAG ${VTK_GIT_TAG}
@@ -121,8 +119,7 @@ ELSE()
     #--Build step-----------------
     BUILD_ALWAYS 1
     DEPENDS ${VTK_DEPENDENCIES}
-    #--Install step-----------------
-    ${VTK_INSTALL_OPTIONS}
+    "${VTK_INSTALL_COMMAND}"
     )
 
   SET(VTK_BUILD_DEPENDENCY_TARGET vtk CACHE INTERNAL "The name of the target to list as a dependency to ensure build order correctness.")
