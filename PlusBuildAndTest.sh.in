@@ -9,15 +9,18 @@
 # if "$1" == "-C" goto continuous
 # if "$1" == "-I" goto individual
 
-# Run PlusBuild tests 
+CURRENTDIR=$(pwd)
+
+# Run PlusBuild tests
+cd ${CMAKE_BINARY_DIR}
 /bin/bash BuildAndTest.sh $1 $2 $3 $4
 
-# Run PlusLib tests 
+# Run PlusLib tests
 cd ${PLUSLIB_DIR}
 /bin/bash BuildAndTest.sh $1 $2 $3 $4
 
-# Run PlusApp tests 
+# Run PlusApp tests
 cd ${PLUSAPP_DIR}
 /bin/bash BuildAndTest.sh $1 $2 $3 $4
 
-cd ${CMAKE_BINARY_DIR}
+cd $CURRENTDIR
