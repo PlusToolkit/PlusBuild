@@ -23,7 +23,7 @@ ELSE()
   
   # Since OvrvisionPro SDK uses #pragma comment(lib...) commands, we need to pass in the directories containing the requested libraries directly...
   #   ippicvmt.lib
-  IF( MSVC AND ${CMAKE_GENERATOR} MATCHES "Win64" )
+  IF( MSVC AND ${BUILD_ARCHITECTURE} MATCHES "x64" )
     SET(OvrvisionPro_PRAGMA_HACK -DPragmaHack_DIR:PATH=${PLUS_OpenCV_src_DIR}/3rdparty/ippicv/unpack/ippicv_win/lib/intel64)
   ELSEIF(MSVC)
     SET(OvrvisionPro_PRAGMA_HACK -DPragmaHack_DIR:PATH=${PLUS_OpenCV_src_DIR}/3rdparty/ippicv/unpack/ippicv_win/lib/ia32)
