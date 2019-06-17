@@ -110,13 +110,18 @@ ENDIF()
 # Options to control build process
 #-----------------------------------------------------------------------------
 
+SET(BUILD_ARCHITECTURE "x64")
+IF(CMAKE_SIZEOF_VOID_P EQUAL 4)
+  SET(BUILD_ARCHITECTURE "x86")
+ENDIF()
+
 # Determine the operating system to set default values accordingly
 SET(ENABLED_BY_DEFAULT_ON_WINDOWS_ONLY OFF)
 SET(ENABLED_BY_DEFAULT_ON_WINDOWS32_ONLY OFF)
 SET(ENABLED_BY_DEFAULT_ON_WINDOWS64_ONLY OFF)
 IF(CMAKE_HOST_WIN32)
   SET(ENABLED_BY_DEFAULT_ON_WINDOWS_ONLY ON)
-  IF(NOT CMAKE_CL_64)
+  IF(BUILD_ARCHITECTURE MATCHES "x86")
     SET(ENABLED_BY_DEFAULT_ON_WINDOWS32_ONLY ON)
   ELSE()
     SET(ENABLED_BY_DEFAULT_ON_WINDOWS64_ONLY ON)
@@ -196,7 +201,7 @@ IF(PLUS_USE_BKPROFOCUS_VIDEO)
   OPTION(PLUS_USE_BKPROFOCUS_CAMERALINK "Enable acquisition from BK ProFocus ultrasound systems through CameraLink interface" OFF)
   OPTION(PLUS_TEST_BKPROFOCUS "Enable testing of acquisition from BK ProFocus ultrasound systems. Enable this only if a BK ProFocus device is connected to this computer. " OFF)
 ENDIF()
-IF((NOT ${CMAKE_GENERATOR} MATCHES "Win64") AND TEMP_OS_ARCH MATCHES "x64" AND PLUS_USE_BKPROFOCUS_CAMERALINK)
+IF((NOT BUILD_ARCHITECTURE MATCHES "x64") AND TEMP_OS_ARCH MATCHES "x64" AND PLUS_USE_BKPROFOCUS_CAMERALINK)
   # warning regarding cross compilation of bkprofocus
   MESSAGE("BK ProFocus support on a 64-bit OS requires 64-bit Plus build. A 64-bit OS and a 32-bit Plus build configuration is detected. Compilation will be successful, but the resulting executables will fail to start.")
 ENDIF()
@@ -233,10 +238,11 @@ IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
 ENDIF()
 OPTION(PLUS_USE_CLARIUS "Provide support for Clarius Ultrasound devices" OFF)
 
+message(${BUILD_ARCHITECTURE})
 # ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
 IF (PLUS_USE_OPTITRACK) 
-  IF(NOT ${CMAKE_GENERATOR} MATCHES "Win64")
+  IF(NOT BUILD_ARCHITECTURE MATCHES "x64")
     SET(MOTIVE_VERSION_DEFAULT "1.10.3")
   ELSE()
     SET(MOTIVE_VERSION_DEFAULT "2.1.1")
@@ -797,7 +803,6 @@ SET(PlusModelCatalog_DEPENDENCIES PlusLib)
 #------------------------------------------------------------------------------
 # Construct a descriptive build name
 #------------------------------------------------------------------------------
-SET(BUILD_ARCHITECTURE "x64")
 
 IF(UNIX AND NOT APPLE)
   SET(LINUX TRUE)
@@ -859,9 +864,6 @@ ENDIF()
 
 IF(WIN32)
   SET(SYSTEM_NAME "${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}")
-  IF(NOT ${CMAKE_GENERATOR} MATCHES "Win64")
-    SET(BUILD_ARCHITECTURE "x86")
-  ENDIF()
 ENDIF()
 
 SET(PLUSBUILD_BUILDNAME_POSTFIX "" CACHE STRING "Postfix that will be appended to the build name on the dashboard. If defined then BUILDNAME variable is always overwritten.")
