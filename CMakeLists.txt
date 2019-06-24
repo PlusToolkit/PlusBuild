@@ -238,7 +238,6 @@ IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
 ENDIF()
 OPTION(PLUS_USE_CLARIUS "Provide support for Clarius Ultrasound devices" OFF)
 
-message(${BUILD_ARCHITECTURE})
 # ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
 IF (PLUS_USE_OPTITRACK) 
