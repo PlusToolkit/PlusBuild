@@ -697,7 +697,7 @@ ENDIF()
 
 IF(PLUS_USE_BLACKMAGIC_DECKLINK)
   FIND_PACKAGE(DeckLinkSDK)
-  IF(NOT DECKLINK_SDK_FOUND)
+  IF(NOT DeckLinkSDK_FOUND)
     MESSAGE(FATAL_ERROR "This project requires the BlackMagic DeckLink SDK to provide support for DeckLink capture cards. Please select the BlackMagic SDK directory, or turn off PLUS_USE_BLACKMAGIC_DECKLINK.")
   ENDIF()
 ENDIF()
