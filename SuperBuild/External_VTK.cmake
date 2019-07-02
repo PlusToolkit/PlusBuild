@@ -89,11 +89,9 @@ ELSE()
       )
   ENDIF()
 
-  SET (PLUS_VTK_OPTIONS "")
+  SET (PLUS_VTK_OPTIONS -DVTK_Group_Rendering:BOOL=ON)
   IF(PLUSBUILD_VTK_RENDERING_BACKEND STREQUAL None)
-    LIST(APPEND PLUS_VTK_OPTIONS
-      -DVTK_Group_Rendering:BOOL=OFF
-      )
+    SET(PLUS_VTK_OPTIONS -DVTK_Group_Rendering:BOOL=OFF)
   ENDIF()
 
   ExternalProject_Add( vtk
