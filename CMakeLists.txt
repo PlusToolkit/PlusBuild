@@ -326,7 +326,7 @@ ENDIF()
 #-----------------------------------------------------------------------------
 # Other
 SET(PLUSBUILD_VTK_RENDERING_BACKEND "OpenGL2" CACHE STRING "Choose the rendering backend. OpenGL2 is only compatible with more recent graphics cards and does not work on embedded systems like Ultrasonix Windows XPe based systems.")
-set_property(CACHE PLUSBUILD_VTK_RENDERING_BACKEND PROPERTY STRINGS "OpenGL" "OpenGL2")
+set_property(CACHE PLUSBUILD_VTK_RENDERING_BACKEND PROPERTY STRINGS "None" "OpenGL2")
 
 OPTION(PLUSAPP_TEST_GUI "Enable GUI tests" ON)
 
