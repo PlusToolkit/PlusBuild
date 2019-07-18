@@ -294,6 +294,7 @@ OPTION(PLUS_USE_OPENHAPTICS "Provide support of OpenHaptics devices" OFF)
 OPTION(PLUS_USE_WITMOTIONTRACKER "Provide support for the WitMotion IMU Trackers" OFF)
 OPTION(PLUS_USE_LEAPMOTION "Provide support for the LeapMotion hand tracker" OFF)
 IF(PLUS_USE_LEAPMOTION)
+  OPTION(PLUS_TEST_LEAPMOTION "Enable testing of LeapMotion device" OFF)
   FIND_PACKAGE(LeapSDK 4.0 REQUIRED
     PATHS 
     ../VASSTTools/LeapMotion/LeapSDK/lib/cmake/LeapSDK # Convenience for members of the VASST lab
