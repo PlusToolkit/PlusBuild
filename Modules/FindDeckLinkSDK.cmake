@@ -33,7 +33,7 @@
 # ...
 # CMakeLists.txt:
 #    FIND_PACKAGE(DeckLinkSDK REQUIRED)
-     TARGET_LINK_LIBRARIES(${your_app} ${your_libs} "${DeckLinkSDK_LIBS}")
+#    TARGET_LINK_LIBRARIES(${your_app} ${your_libs} "${DeckLinkSDK_LIBS}")
 #
 # You can do the following in your DeckLink related sources;
 #define _stringify(x) #x
