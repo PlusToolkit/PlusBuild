@@ -31,28 +31,61 @@
 # Typical usage is:
 # > cmake -DDECKLINK_SDK_ROOT:PATH="<some_path_here>"
 # ...
+#
 # CMakeLists.txt:
+#    PROJECT(XYZ)
+#    ...
 #    FIND_PACKAGE(DeckLinkSDK REQUIRED)
-#    TARGET_LINK_LIBRARIES(${your_app} ${your_libs} "${DeckLinkSDK_LIBS}")
+#    DeckLinkGenerateAPIFiles(${PROJECT_NAME})
+#    target_sources(vtk${PROJECT_NAME} PRIVATE ${MIDL_OUTPUT})
+#    LIST(APPEND BlackMagicDeckLink_SRCS ${MIDL_OUTPUT})
+#    TARGET_LINK_LIBRARIES(XYZ ${your_libs} ${DeckLinkSDK_LIBS})
 #
 # You can do the following in your DeckLink related sources;
-#define _stringify(x) #x
-#define STRINGIFY(x) _stringify(x)
-#include STRINGIFY(DeckLinkSDK_INCLUDE_FILE)
-#undef STRINGIFY
-#undef _stringify
+# #include <DeckLinkAPI.h>
 #
 # You can optionally provide version argument, for example;
 #  FIND_PACKAGE(DeckLinkSDK 10.5 REQUIRED)
+
+MACRO(DeckLinkGenerateAPIFiles _project_name)
+  IF(NOT WIN32)
+    return()
+  ENDIF()
+
+  SET(MIDL_OUTPUT
+    ${CMAKE_CURRENT_BINARY_DIR}/DeckLinkAPI.h
+    ${CMAKE_CURRENT_BINARY_DIR}/DeckLinkAPI_i.c
+    )
+  SET(_midl_file
+    ${DeckLinkSDK_INCLUDE_DIR}/DeckLinkAPI.idl
+    )
+  ADD_CUSTOM_COMMAND(
+    OUTPUT ${MIDL_OUTPUT}
+    COMMAND midl /h ${CMAKE_CURRENT_BINARY_DIR}/DeckLinkAPI.h /iid ${CMAKE_CURRENT_BINARY_DIR}/DeckLinkAPI_i.c ${_midl_file}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    DEPENDS ${_midl_file}
+    VERBATIM
+    )
+  ADD_CUSTOM_TARGET(${_project_name}-midl-cmplr
+    DEPENDS ${MIDL_OUTPUT}
+    )
+  ADD_DEPENDENCIES(${_project_name}
+    ${_project_name}-midl-cmplr
+    )
+  SET_SOURCE_FILES_PROPERTIES(
+    ${MIDL_OUTPUT}
+      PROPERTIES
+        GENERATED TRUE
+        SKIP_AUTOGEN ON
+    )
+ENDMACRO()
 
 SET(DeckLink_DEFAULT "/src/Blackmagic_SDK")
 
 IF(WIN32)
   SET(_platform "Win")
-  SET(__src_file DeckLinkAPI.idl)
   SET(__include_file DeckLinkAPI.idl)
 ELSE()
-  SET(__src_file DeckLinkAPIDispatch.cpp)
   SET(__include_file DeckLinkAPI.h)
 
   IF(APPLE)
@@ -92,12 +125,6 @@ ELSE()
   UNSET(DeckLinkSDK_PATH)
 ENDIF()
 
-IF(WIN32)
-  SET(DeckLinkSDK_INCLUDE_FILE DeckLinkAPI_h.h)
-ELSE()
-  SET(DeckLinkSDK_INCLUDE_FILE ${DeckLinkSDK_INCLUDE_DIR}/DeckLinkAPI.h)
-ENDIF()
-
 SET(_version_h "${DeckLinkSDK_INCLUDE_DIR}/DeckLinkAPIVersion.h")
 IF(EXISTS "${_version_h}")
   FILE(STRINGS "${_version_h}" _tmpstr REGEX "^#define[\t ]+BLACKMAGIC_DECKLINK_API_VERSION_STRING[\t ]+\".*\"")
@@ -108,7 +135,7 @@ ENDIF()
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(
   DeckLinkSDK
-  REQUIRED_VARS DeckLinkSDK_PATH DeckLinkSDK_INCLUDE_DIR DeckLinkSDK_INCLUDE_FILE
+  REQUIRED_VARS DeckLinkSDK_PATH DeckLinkSDK_INCLUDE_DIR
   VERSION_VAR DeckLinkSDK_VERSION_STRING
   FAIL_MESSAGE "DeckLink SDK not found. Please set DECKLINK_SDK_ROOT to the root folder of your DeckLink SDK install.")
 
@@ -118,17 +145,15 @@ IF(WIN32)
   ADD_LIBRARY(NVIDIA_GPUDirect SHARED IMPORTED)
   set_target_properties(NVIDIA_GPUDirect
                         PROPERTIES
-                          IMPORTED_IMPLIB "${DeckLinkSDK_PATH}/Win/NVIDIA_GPUDirect/lib/${BUILD_ARCHITECTURE}/dvp.lib"
-                          IMPORTED_LOCATION "${DeckLinkSDK_PATH}/Win/NVIDIA_GPUDirect/bin/${BUILD_ARCHITECTURE}/dvp.dll"
-                          INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/Win/NVIDIA_GPUDirect/include"
+                          IMPORTED_IMPLIB "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/lib/${BUILD_ARCHITECTURE}/dvp.lib"
+                          IMPORTED_LOCATION "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/bin/${BUILD_ARCHITECTURE}/dvp.dll"
+                          INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/include"
                         )
 
   set_target_properties(DeckLinkSDK 
                         PROPERTIES 
-                          INTERFACE_SOURCES
-                            "${DeckLinkSDK_PATH}/Win/include/${__src_file}"
                           INTERFACE_INCLUDE_DIRECTORIES
-                            "${DeckLinkSDK_PATH}/Win/include;${DeckLinkSDK_PATH}/Win/DirectShow/include"
+                            "${DeckLinkSDK_PATH}/${_platform}/include;${DeckLinkSDK_PATH}/${_platform}/DirectShow/include"
                         )
   SET(DeckLinkSDK_LIBS DeckLinkSDK NVIDIA_GPUDirect)
 ELSE()
@@ -141,8 +166,8 @@ ELSE()
     ADD_LIBRARY(NVIDIA_GPUDirect SHARED IMPORTED)
     set_target_properties(NVIDIA_GPUDirect
                           PROPERTIES
-                            IMPORTED_LOCATION "${DeckLinkSDK_PATH}/linux/NVIDIA_GPUDirect/${BUILD_ARCHITECTURE}/libdvp.so"
-                            INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/linux/NVIDIA_GPUDirect/include"
+                            IMPORTED_LOCATION "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/${BUILD_ARCHITECTURE}/libdvp.so"
+                            INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/include"
                           )
     set_target_properties(DeckLinkSDK 
                           PROPERTIES
@@ -157,11 +182,5 @@ ELSE()
     SET(DeckLinkSDK_LIBS DeckLinkSDK CoreFoundation)
   ENDIF()
 ENDIF()
-
-set_target_properties(DeckLinkSDK
-                      PROPERTIES
-                        INTERFACE_COMPILE_DEFINITIONS
-                          DeckLinkSDK_INCLUDE_FILE=${DeckLinkSDK_INCLUDE_FILE}
-                      )
 
 MARK_AS_ADVANCED(DeckLinkSDK_LIBS)
