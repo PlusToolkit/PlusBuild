@@ -32,9 +32,9 @@ ELSE()
     SET(itk_common_cxx_flags "${itk_common_cxx_flags} /MP ")
   ENDIF()
 
-  SET (PLUS_ITK_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/itk")
-  SET (PLUS_ITK_BIN_DIR "${CMAKE_BINARY_DIR}/Deps/itk-bin" CACHE INTERNAL "Path to store itk binaries")
-  SET (PLUS_ITK_INSTALL_DIR "${CMAKE_BINARY_DIR}/Deps/itk-int" CACHE INTERNAL "Path to install vtk")
+  SET (PLUS_ITK_SRC_DIR "${CMAKE_BINARY_DIR}/itk")
+  SET (PLUS_ITK_BIN_DIR "${CMAKE_BINARY_DIR}/itk-bin" CACHE INTERNAL "Path to store itk binaries")
+  SET (PLUS_ITK_INSTALL_DIR "${CMAKE_BINARY_DIR}/itk-int" CACHE INTERNAL "Path to install vtk")
   SET (PLUS_ITK_DIR ${PLUS_ITK_BIN_DIR})
 
   SET (ITK_INSTALL_COMMAND "")
@@ -48,7 +48,7 @@ ELSE()
 
   ExternalProject_Add( itk
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
-    PREFIX "${CMAKE_BINARY_DIR}/Deps/itk-prefix"
+    PREFIX "${CMAKE_BINARY_DIR}/itk-prefix"
     SOURCE_DIR "${PLUS_ITK_SRC_DIR}"
     BINARY_DIR "${PLUS_ITK_BIN_DIR}"
     INSTALL_DIR "${PLUS_ITK_INSTALL_DIR}"

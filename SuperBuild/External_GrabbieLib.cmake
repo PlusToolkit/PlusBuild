@@ -31,7 +31,7 @@ IF (PLUS_USE_BKPROFOCUS_CAMERALINK)
 ENDIF()
 
 ExternalProject_Add( GrabbieLib
-  PREFIX "${CMAKE_BINARY_DIR}/Deps/GrabbieLib-prefix"
+  PREFIX "${CMAKE_BINARY_DIR}/GrabbieLib-prefix"
   SOURCE_DIR "${PLUS_GRABBIELIB_SOURCE_DIR}" 
   BINARY_DIR "Deps/GrabbieLib-bin"
   #--Download step--------------

@@ -79,9 +79,9 @@ ELSE()
     ${PLUSBUILD_OpenCV_VERSION}
     )
 
-  SET (PLUS_OpenCV_src_DIR ${CMAKE_BINARY_DIR}/Deps/OpenCV CACHE INTERNAL "Path to store OpenCV contents.")
-  SET (PLUS_OpenCV_prefix_DIR ${CMAKE_BINARY_DIR}/Deps/OpenCV-prefix CACHE INTERNAL "Path to store OpenCV prefix data.")
-  SET (PLUS_OpenCV_DIR ${CMAKE_BINARY_DIR}/Deps/OpenCV-bin CACHE INTERNAL "Path to store OpenCV binaries")
+  SET (PLUS_OpenCV_src_DIR ${CMAKE_BINARY_DIR}/OpenCV CACHE INTERNAL "Path to store OpenCV contents.")
+  SET (PLUS_OpenCV_prefix_DIR ${CMAKE_BINARY_DIR}/OpenCV-prefix CACHE INTERNAL "Path to store OpenCV prefix data.")
+  SET (PLUS_OpenCV_DIR ${CMAKE_BINARY_DIR}/OpenCV-bin CACHE INTERNAL "Path to store OpenCV binaries")
   ExternalProject_Add( OpenCV
     PREFIX ${PLUS_OpenCV_prefix_DIR}
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"

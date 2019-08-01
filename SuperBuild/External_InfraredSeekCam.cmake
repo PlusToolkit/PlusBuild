@@ -15,12 +15,12 @@ ELSE()
     master
     )
 
-  SET (PLUS_SeekCameraLib_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/SeekCameraLib")
-  SET (PLUS_SeekCameraLib_DIR "${CMAKE_BINARY_DIR}/Deps/SeekCameraLib-bin" CACHE INTERNAL "Path to store SeekCameraLib binaries")
+  SET (PLUS_SeekCameraLib_SRC_DIR "${CMAKE_BINARY_DIR}/SeekCameraLib")
+  SET (PLUS_SeekCameraLib_DIR "${CMAKE_BINARY_DIR}/SeekCameraLib-bin" CACHE INTERNAL "Path to store SeekCameraLib binaries")
 
   ExternalProject_Add( SeekCameraLib
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
-    PREFIX "${CMAKE_BINARY_DIR}/Deps/SeekCameraLib-prefix"
+    PREFIX "${CMAKE_BINARY_DIR}/SeekCameraLib-prefix"
     SOURCE_DIR "${PLUS_SeekCameraLib_SRC_DIR}"
     BINARY_DIR "${PLUS_SeekCameraLib_DIR}"
     #--Download step--------------

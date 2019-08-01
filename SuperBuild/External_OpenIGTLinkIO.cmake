@@ -16,11 +16,11 @@ ELSE()
     "master"
     )
 
-  SET (PLUS_OpenIGTLinkIO_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/OpenIGTLinkIO")
-  SET (PLUS_OpenIGTLinkIO_DIR "${CMAKE_BINARY_DIR}/Deps/OpenIGTLinkIO-bin" CACHE INTERNAL "Path to store OpenIGTLinkIO binaries")
+  SET (PLUS_OpenIGTLinkIO_SRC_DIR "${CMAKE_BINARY_DIR}/OpenIGTLinkIO")
+  SET (PLUS_OpenIGTLinkIO_DIR "${CMAKE_BINARY_DIR}/OpenIGTLinkIO-bin" CACHE INTERNAL "Path to store OpenIGTLinkIO binaries")
   ExternalProject_Add( OpenIGTLinkIO
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
-    PREFIX "${CMAKE_BINARY_DIR}/Deps/OpenIGTLinkIO-prefix"
+    PREFIX "${CMAKE_BINARY_DIR}/OpenIGTLinkIO-prefix"
     SOURCE_DIR "${PLUS_OpenIGTLinkIO_SRC_DIR}"
     BINARY_DIR "${PLUS_OpenIGTLinkIO_DIR}"
     #--Download step--------------

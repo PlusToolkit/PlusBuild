@@ -23,10 +23,10 @@ ELSE()
     "819d620052be7e9b232e12d8946793c15cfbf5a3"
     )
 
-  SET (PLUS_IntersonSDKCxx_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/IntersonSDKCxx")
-  SET (PLUS_IntersonSDKCxx_DIR "${CMAKE_BINARY_DIR}/Deps/IntersonSDKCxx-bin" CACHE INTERNAL "Path to store IntersonSDKCxx binaries")
+  SET (PLUS_IntersonSDKCxx_SRC_DIR "${CMAKE_BINARY_DIR}/IntersonSDKCxx")
+  SET (PLUS_IntersonSDKCxx_DIR "${CMAKE_BINARY_DIR}/IntersonSDKCxx-bin" CACHE INTERNAL "Path to store IntersonSDKCxx binaries")
   ExternalProject_Add( IntersonSDKCxx
-    PREFIX "${CMAKE_BINARY_DIR}/Deps/IntersonSDKCxx-prefix"
+    PREFIX "${CMAKE_BINARY_DIR}/IntersonSDKCxx-prefix"
     SOURCE_DIR "${PLUS_IntersonSDKCxx_SRC_DIR}"
     BINARY_DIR "${PLUS_IntersonSDKCxx_DIR}"
     #--Download step--------------

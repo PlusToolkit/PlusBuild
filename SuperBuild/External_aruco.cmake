@@ -15,9 +15,9 @@ ELSE()
     "master"
     )
 
-  SET (PLUS_aruco_src_DIR ${CMAKE_BINARY_DIR}/Deps/aruco CACHE INTERNAL "Path to store aruco contents")
-  SET (PLUS_aruco_prefix_DIR ${CMAKE_BINARY_DIR}/Deps/aruco-prefix CACHE INTERNAL "Path to store aruco prefix data.")
-  SET (PLUS_aruco_DIR ${CMAKE_BINARY_DIR}/Deps/aruco-bin CACHE INTERNAL "Path to store aruco binaries.")
+  SET (PLUS_aruco_src_DIR ${CMAKE_BINARY_DIR}/aruco CACHE INTERNAL "Path to store aruco contents")
+  SET (PLUS_aruco_prefix_DIR ${CMAKE_BINARY_DIR}/aruco-prefix CACHE INTERNAL "Path to store aruco prefix data.")
+  SET (PLUS_aruco_DIR ${CMAKE_BINARY_DIR}/aruco-bin CACHE INTERNAL "Path to store aruco binaries.")
 
   ExternalProject_Add( aruco
     PREFIX ${PLUS_aruco_prefix_DIR}

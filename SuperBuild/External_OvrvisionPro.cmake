@@ -17,9 +17,9 @@ ELSE()
 
   # --------------------------------------------------------------------------
   # OvrvisionPro SDK
-  SET (PLUS_OvrvisionPro_src_DIR ${CMAKE_BINARY_DIR}/Deps/OvrvisionPro CACHE INTERNAL "Path to store OvrvisionPro contents.")
-  SET (PLUS_OvrvisionPro_prefix_DIR ${CMAKE_BINARY_DIR}/Deps/OvrvisionPro-prefix CACHE INTERNAL "Path to store OvrvisionPro prefix data.")
-  SET (PLUS_OvrvisionPro_DIR ${CMAKE_BINARY_DIR}/Deps/OvrvisionPro-bin CACHE INTERNAL "Path to store OvrvisionPro binaries")
+  SET (PLUS_OvrvisionPro_src_DIR ${CMAKE_BINARY_DIR}/OvrvisionPro CACHE INTERNAL "Path to store OvrvisionPro contents.")
+  SET (PLUS_OvrvisionPro_prefix_DIR ${CMAKE_BINARY_DIR}/OvrvisionPro-prefix CACHE INTERNAL "Path to store OvrvisionPro prefix data.")
+  SET (PLUS_OvrvisionPro_DIR ${CMAKE_BINARY_DIR}/OvrvisionPro-bin CACHE INTERNAL "Path to store OvrvisionPro binaries")
   
   # Since OvrvisionPro SDK uses #pragma comment(lib...) commands, we need to pass in the directories containing the requested libraries directly...
   #   ippicvmt.lib

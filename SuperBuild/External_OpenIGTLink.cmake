@@ -19,11 +19,11 @@ ELSE()
     "master"
     )
 
-  SET (PLUS_OpenIGTLink_SRC_DIR "${CMAKE_BINARY_DIR}/Deps/OpenIGTLink")
-  SET (PLUS_OpenIGTLink_DIR "${CMAKE_BINARY_DIR}/Deps/OpenIGTLink-bin" CACHE INTERNAL "Path to store OpenIGTLink binaries")
+  SET (PLUS_OpenIGTLink_SRC_DIR "${CMAKE_BINARY_DIR}/OpenIGTLink")
+  SET (PLUS_OpenIGTLink_DIR "${CMAKE_BINARY_DIR}/OpenIGTLink-bin" CACHE INTERNAL "Path to store OpenIGTLink binaries")
   ExternalProject_Add( OpenIGTLink
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
-    PREFIX "${CMAKE_BINARY_DIR}/Deps/OpenIGTLink-prefix"
+    PREFIX "${CMAKE_BINARY_DIR}/OpenIGTLink-prefix"
     SOURCE_DIR "${PLUS_OpenIGTLink_SRC_DIR}"
     BINARY_DIR "${PLUS_OpenIGTLink_DIR}"
     #--Download step--------------
