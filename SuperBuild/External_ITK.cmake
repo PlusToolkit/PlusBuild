@@ -12,7 +12,7 @@ ELSE()
 
   SET (PLUS_ITK_VERSION_MAJOR 5)
   SET (PLUS_ITK_VERSION_MINOR 0)
-  SET (PLUS_ITK_VERSION_PATCH 0)
+  SET (PLUS_ITK_VERSION_PATCH 1)
   IF (PLUS_ITK_VERSION EQUAL 4)
     MESSAGE(WARNING "ITK 4.12.0 is not recommended! It should only be used to build Plus with support for devices which require Visual Studio 2013!")
     SET (PLUS_ITK_VERSION_MAJOR 4)
