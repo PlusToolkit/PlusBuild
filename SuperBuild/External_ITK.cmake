@@ -68,6 +68,8 @@ ELSE()
       -DITK_LEGACY_REMOVE:BOOL=ON
       -DKWSYS_USE_MD5:BOOL=ON
       -DITK_USE_REVIEW:BOOL=ON
+      -DITK_CXX_OPTIMIZATION_FLAGS:STRING= # Force compiler-default instruction set to ensure compatibility with older CPUs
+      -DITK_C_OPTIMIZATION_FLAGS:STRING=  # Force compiler-default instruction set to ensure compatibility with older CPUs
       -DCMAKE_CXX_FLAGS:STRING=${itk_common_cxx_flags}
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
       -DCMAKE_DEBUG_POSTFIX:STRING=D
