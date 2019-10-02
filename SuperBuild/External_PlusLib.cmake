@@ -483,6 +483,7 @@ ExternalProject_Add(PlusLib
     -DPLUS_USE_MKV_IO:BOOL=${PLUS_USE_MKV_IO}
     -DPLUS_USE_LEAPMOTION:BOOL=${PLUS_USE_LEAPMOTION}
     -DPLUS_USE_CLARIUS:BOOL=${PLUS_USE_CLARIUS}
+    -DVTK_SRC_DIR=${PLUS_VTK_SRC_DIR} // Currently required to access private vtkpng headers for BK ultrasound device
     ${PLUSBUILD_ADDITIONAL_SDK_ARGS}
   LIST_SEPARATOR "|"
   #--Build step-----------------
