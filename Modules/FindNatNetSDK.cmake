@@ -12,10 +12,10 @@
 #  NATNET_SDK_BINARY_DIR           Binaries needed to use NatNet SDK
 
 SET(NATNET_SDK_PATH_HINTS
-  "../PLTools/OptiTrack/NatNet-2.10"
-  "../../PLTools/OptiTrack/NatNet-2.10"
-  "../trunk/PLTools/OptiTrack/NatNet-2.10"
-  "${CMAKE_CURRENT_BINARY_DIR}/PLTools/OptiTrack/NatNet-2.10"
+  "../PLTools/OptiTrack/NatNet-3.1"
+  "../../PLTools/OptiTrack/NatNet-3.1"
+  "../trunk/PLTools/OptiTrack/NatNet-3.1"
+  "${CMAKE_CURRENT_BINARY_DIR}/PLTools/OptiTrack/NatNet-3.1"
   "$ENV{PROGRAMFILES}/OptiTrack/NatNetSDK"
   "$ENV{PROGRAMW6432}/OptiTrack/NatNetSDK"
   "C:/Program Files (x86)/OptiTrack/NatNetSDK"
@@ -54,7 +54,7 @@ if (NATNET_SDK_DIR)
 
   #Version
   #TODO: properly set SDK version using REGEX from NatNetTypes.h
-  set(NATNET_SDK_VERSION "2.10.0")
+  set(NATNET_SDK_VERSION "3.1")
 
 endif()
 
