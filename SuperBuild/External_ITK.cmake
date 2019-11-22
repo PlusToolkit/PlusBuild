@@ -1,6 +1,6 @@
 IF(ITK_DIR)
   # ITK has been built already
-  FIND_PACKAGE(ITK 5.0.0 REQUIRED PATHS ${ITK_DIR} NO_DEFAULT_PATH)
+  FIND_PACKAGE(ITK 5.1.b01 REQUIRED PATHS ${ITK_DIR} NO_DEFAULT_PATH)
 
   MESSAGE(STATUS "Using ITK available at: ${ITK_DIR}")
 
@@ -11,8 +11,8 @@ IF(ITK_DIR)
 ELSE()
 
   SET (PLUS_ITK_VERSION_MAJOR 5)
-  SET (PLUS_ITK_VERSION_MINOR 0)
-  SET (PLUS_ITK_VERSION_PATCH 1)
+  SET (PLUS_ITK_VERSION_MINOR 1)
+  SET (PLUS_ITK_VERSION_PATCH b01)
   IF (PLUS_ITK_VERSION EQUAL 4)
     MESSAGE(WARNING "ITK 4.12.0 is not recommended! It should only be used to build Plus with support for devices which require Visual Studio 2013!")
     SET (PLUS_ITK_VERSION_MAJOR 4)
@@ -22,7 +22,7 @@ ELSE()
   # ITK has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     itk
-    "${GIT_PROTOCOL}://itk.org/ITK.git"
+    "${GIT_PROTOCOL}://github.com/InsightSoftwareConsortium/ITK"
     "v${PLUS_ITK_VERSION_MAJOR}.${PLUS_ITK_VERSION_MINOR}.${PLUS_ITK_VERSION_PATCH}"
     )
 
@@ -41,9 +41,9 @@ ELSE()
   IF (PLUSBUILD_INSTALL_ITK)
     SET (PLUS_ITK_DIR "${PLUS_ITK_INSTALL_DIR}/lib/cmake/ITK-${PLUS_ITK_VERSION_MAJOR}.${PLUS_ITK_VERSION_MINOR}" CACHE INTERNAL "Path to installed itk binaries")
   ELSE()
-    SET (ITK_INSTALL_COMMAND 
+    SET (ITK_INSTALL_COMMAND
       INSTALL_COMMAND ""
-      )    
+      )
   ENDIF()
 
   ExternalProject_Add( itk
