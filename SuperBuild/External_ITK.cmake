@@ -13,17 +13,19 @@ ELSE()
   SET (PLUS_ITK_VERSION_MAJOR 5)
   SET (PLUS_ITK_VERSION_MINOR 1)
   SET (PLUS_ITK_VERSION_PATCH b01)
+  SET (PLUS_ITK_VERSION_STRING "v${PLUS_ITK_VERSION_MAJOR}.${PLUS_ITK_VERSION_MINOR}${PLUS_ITK_VERSION_PATCH}")
   IF (PLUS_ITK_VERSION EQUAL 4)
     MESSAGE(WARNING "ITK 4.12.0 is not recommended! It should only be used to build Plus with support for devices which require Visual Studio 2013!")
     SET (PLUS_ITK_VERSION_MAJOR 4)
     SET (PLUS_ITK_VERSION_MINOR 12)
     SET (PLUS_ITK_VERSION_PATCH 0)
+    SET (PLUS_ITK_VERSION_STRING "v${PLUS_ITK_VERSION_MAJOR}.${PLUS_ITK_VERSION_MINOR}.${PLUS_ITK_VERSION_PATCH}")
   ENDIF()
   # ITK has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     itk
     "${GIT_PROTOCOL}://github.com/InsightSoftwareConsortium/ITK"
-    "v${PLUS_ITK_VERSION_MAJOR}.${PLUS_ITK_VERSION_MINOR}${PLUS_ITK_VERSION_PATCH}"
+    ${PLUS_ITK_VERSION_STRING}
     )
 
   IF(UNIX AND NOT APPLE)
