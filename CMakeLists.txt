@@ -301,6 +301,7 @@ IF(PLUS_USE_LEAPMOTION)
     )
 ENDIF()
 OPTION(PLUS_USE_BLACKMAGIC_DECKLINK "Provide support for BlackMagic DeckLink capture cards." OFF)
+OPTION(PLUS_USE_STEAMVR "Provide support for SteamVR tracking system" OFF)
 
 # ---------- Other devices ------------
 OPTION(PLUS_USE_TextRecognizer "Enable the text recognizer virtual device" OFF)
@@ -742,6 +743,10 @@ IF(PLUS_USE_CLARIUS)
   ENDIF()
 ENDIF()
 
+IF(PLUS_USE_STEAMVR)
+  INCLUDE(SuperBuild/External_OVR.cmake)
+ENDIF()
+
 #------------------------------------------------------------------------------
 # Specify target dependencies
 #------------------------------------------------------------------------------
@@ -807,6 +812,10 @@ ENDIF()
 
 IF(PLUS_USE_LEAPMOTION)
   LIST(APPEND PlusLib_DEPENDENCIES LeapSDK::LeapC)
+ENDIF()
+
+IF(PLUS_USE_STEAMVR AND NOT OVR_DIR)
+  LIST(APPEND PlusLib_DEPENDENCIES OVR)
 ENDIF()
 
 SET(PlusApp_DEPENDENCIES PlusLib)
