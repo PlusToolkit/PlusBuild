@@ -3,7 +3,7 @@ MACRO(PlusCopyLibrariesToDirectory _destination)
     IF(NOT TARGET ${lib})
       continue()
     ENDIF()
-    
+
     GET_TARGET_PROPERTY(_lib_type ${lib} TYPE)
 
     IF(NOT ${_lib_type} STREQUAL "INTERFACE_LIBRARY")

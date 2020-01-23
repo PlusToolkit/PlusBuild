@@ -744,7 +744,7 @@ IF(PLUS_USE_CLARIUS)
 ENDIF()
 
 IF(PLUS_USE_STEAMVR)
-  INCLUDE(SuperBuild/External_OVR.cmake)
+  INCLUDE(SuperBuild/External_OpenVR.cmake)
 ENDIF()
 
 #------------------------------------------------------------------------------
@@ -814,8 +814,8 @@ IF(PLUS_USE_LEAPMOTION)
   LIST(APPEND PlusLib_DEPENDENCIES LeapSDK::LeapC)
 ENDIF()
 
-IF(PLUS_USE_STEAMVR AND NOT OVR_DIR)
-  LIST(APPEND PlusLib_DEPENDENCIES OVR)
+IF(PLUS_USE_STEAMVR AND NOT OpenVR_DIR)
+  LIST(APPEND PlusLib_DEPENDENCIES OpenVR)
 ENDIF()
 
 SET(PlusApp_DEPENDENCIES PlusLib)
