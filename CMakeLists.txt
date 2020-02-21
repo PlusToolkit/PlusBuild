@@ -533,6 +533,11 @@ IF (PLUS_USE_CLARIUS)
 ENDIF()
 #-- END OvrvisionPro/OPTICAL_TRACKER dependency verification ------------------------------------------
 
+# ArUco dependency, must come before OpenCV (clones OpenCV_contrib)
+IF(PLUSBUILD_USE_aruco)
+  INCLUDE(SuperBuild/External_aruco.cmake)
+ENDIF()
+
 # OpenCV dependency, MUST COME AFTER VTK external inclusion
 IF(PLUSBUILD_USE_OpenCV)
   MESSAGE(STATUS "")
@@ -551,11 +556,6 @@ ENDIF()
 IF(PLUS_USE_INFRARED_SEEK_CAM)
   INCLUDE(SuperBuild/External_libusb.cmake)
   INCLUDE(SuperBuild/External_InfraredSeekCam.cmake)
-ENDIF()
-
-# ArUco dependency
-IF(PLUSBUILD_USE_aruco)
-  INCLUDE(SuperBuild/External_aruco.cmake)
 ENDIF()
 
 # OvrvisionPro dependency
@@ -790,8 +790,8 @@ IF(PLUS_USE_OvrvisionPro AND NOT OvrvisionPro_DIR)
   LIST(APPEND PlusLib_DEPENDENCIES OvrvisionPro)
 ENDIF()
 
-IF(PLUSBUILD_USE_aruco AND NOT aruco_DIR)
-  LIST(APPEND PlusLib_DEPENDENCIES aruco)
+IF(PLUSBUILD_USE_aruco AND NOT OpenCV_DIR)
+  LIST(APPEND PlusLib_DEPENDENCIES OpenCV)
 ENDIF()
 
 IF(PLUSBUILD_USE_Tesseract)

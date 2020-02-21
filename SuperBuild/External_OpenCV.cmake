@@ -1,4 +1,4 @@
-SET(PLUSBUILD_OpenCV_VERSION "3.4.7" CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])")
+SET(PLUSBUILD_OpenCV_VERSION "4.2.0" CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])")
 
 IF(OpenCV_DIR)
   FIND_PACKAGE(OpenCV ${PLUSBUILD_OpenCV_VERSION} REQUIRED NO_MODULE)
@@ -7,7 +7,9 @@ IF(OpenCV_DIR)
   PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${OpenCV_LIBS})
 
   SET(PLUS_OpenCV_DIR ${OpenCV_DIR} CACHE INTERNAL "Path to store OpenCV binaries")
- 
+
+  MESSAGE(STATUS "Using OpenCV available at: ${OpenCV_DIR}")
+
   # Superbuild relies on existence of OpenCV target for dependency graph
   # Create a dummy target
   ADD_CUSTOM_TARGET(OpenCV)
@@ -79,6 +81,11 @@ ELSE()
     ${PLUSBUILD_OpenCV_VERSION}
     )
 
+  IF(PLUSBUILD_USE_aruco)
+    LIST(APPEND OPENCV_DEPENDENCIES aruco)
+    LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DBUILD_opencv_objdetect:BOOL=FALSE) # No idea why this fails, but prevents aruco from building
+  ENDIF()
+
   SET (PLUS_OpenCV_src_DIR ${CMAKE_BINARY_DIR}/OpenCV CACHE INTERNAL "Path to store OpenCV contents.")
   SET (PLUS_OpenCV_prefix_DIR ${CMAKE_BINARY_DIR}/OpenCV-prefix CACHE INTERNAL "Path to store OpenCV prefix data.")
   SET (PLUS_OpenCV_DIR ${CMAKE_BINARY_DIR}/OpenCV-bin CACHE INTERNAL "Path to store OpenCV binaries")
@@ -113,6 +120,6 @@ ELSE()
     #--Install step-----------------
     INSTALL_COMMAND "" # Do not install, we have access to ${PLUS_OpenCV_DIR}/OpenCVConfig.cmake
     #--Dependencies-----------------
-    DEPENDS ${VTK_BUILD_DEPENDENCY_TARGET}
+    DEPENDS ${VTK_BUILD_DEPENDENCY_TARGET} ${OPENCV_DEPENDENCIES}
     )
 ENDIF()
