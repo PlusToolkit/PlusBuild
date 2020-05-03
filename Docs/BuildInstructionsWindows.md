@@ -23,7 +23,7 @@ Required:
 
 Required for packaging and documentation generation:
 
-- [**NSIS**](http://sourceforge.net/projects/nsis/files/NSIS%202/2.46/nsis-2.46-setup.exe/download): required for building installation packages.
+- [**NSIS**](https://nsis.sourceforge.io/Download): required for building installation packages.
 - [**Doxygen**](http://doxygen.nl/download.html): required for building documentation. Version 1.8.7 is currently used and detected automatically. Other versions may work as well.
 - [**Graphviz**](https://graphviz.gitlab.io/download/): required for building documentation. Version 2.38 is currently used and detected automatically. Other versions may work as well, if not them update PlusLib/src/CMakeLists.txt to add support for other versions.
 - [**Microsoft HTML Help 1.4**](http://go.microsoft.com/fwlink/p/?linkid=154968): required for building documentation in .chm Windows Help file format. Documentation is available [here](https://msdn.microsoft.com/en-us/library/windows/desktop/ms670169(v=vs.85).aspx).
