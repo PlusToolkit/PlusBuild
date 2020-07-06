@@ -13,22 +13,24 @@ Prerequisites
 -------------
 
 - **gcc**: -std=c++11 is used, please make sure your compiler has FULL support, ie.: gcc >= 5.0. Should be installed by default.
-  > sudo apt install gcc
+  `sudo apt install gcc`
 - cmake
   - With GUI:
-    > sudo apt install cmake-qt-gui
+    `sudo apt install cmake-qt-gui`
   - Without GUI, only command line interface:
-    > sudo apt install cmake
+    `sudo apt install cmake`
 - git
   - With GUI:
-    > sudo apt install git-cola</i></li>
+    `sudo apt install git-cola`
   - Without GUI, only command line interface:
-    > sudo apt install git</i></li>
+    `sudo apt install git`
 - VTK dependencies
-  > sudo apt install build-essential
-  > sudo apt build-dep vtk
+  ```
+  sudo apt install build-essential
+  sudo apt build-dep vtk
+  ```
 - Qt
-  > sudo apt install qtbase5-dev qttools5-dev libqt5webkit5-dev libqt5x11extras5-dev libqt5xmlpatterns5-dev
+  `sudo apt install qtbase5-dev qttools5-dev libqt5webkit5-dev libqt5x11extras5-dev libqt5xmlpatterns5-dev`
 
 Build Process
 -------------
@@ -49,7 +51,7 @@ Build Process
 	- If you want to build a Slicer loadable module using Plus then turn on PLUSBUILD_USE_3DSlicer option and set the PLUSBUILD_SLICER_BIN_DIRECTORY to your 3D Slicer binary folder.
 - Generate the PlusBuild project with CMake
 - Build Plus:
-  - Change directory to _Plus-bin_
+  - Change directory to _PlusBuild-bin_
 	- Type `make`
 
 Troubleshooting
