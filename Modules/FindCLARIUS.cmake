@@ -6,12 +6,16 @@
 # CLARIUS_LIB_DIR
 # CLARIUS_FOUND
 
-SET(CLARIUS_PATH_HINTS
-  "../PLTools/Clarius/clarius_listen_plugin/clarius_listen_sdk"
-  "../../PLTools/Clarius/clarius_listen_plugin/clarius_listen_sdk"
-  "C:/Users/$ENV{USERNAME}/Documents/clarius_listen_plugin/clarius_listen_sdk"
-  "C:/Program Files/clarius_listen_plugin/clarius_listen_sdk"
-  )
+IF(WIN32)
+  SET(CLARIUS_PATH_HINTS
+    "../PLTools/Clarius/listener-7.1.0/windows"
+    "../../PLTools/Clarius/listener-7.1.0/windows"
+    "C:/Users/$ENV{USERNAME}/Documents/clarius_listen_plugin/clarius_listen_sdk"
+    "C:/Program Files/clarius_listen_plugin/clarius_listen_sdk"
+    )
+ELSE()
+  MESSAGE(FATAL_ERROR "Clarius is currently only supported on Windows")
+ENDIF()
 
 FIND_PATH(CLARIUS_DIR include/listen/listen.h
   PATHS ${CLARIUS_PATH_HINTS}
