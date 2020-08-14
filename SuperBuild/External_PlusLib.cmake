@@ -408,6 +408,11 @@ IF(UNIX AND NOT APPLE)
     )
 ENDIF()
 
+SET(_pluslib_submodules "")
+IF(PLUSBUILD_PLUSLIB_DOCUMENTATION)
+  SET(_pluslib_submodules "PlusDoc")
+ENDIF()
+
 # --------------------------------------------------------------------------
 # PlusLib
 SET (PLUS_PLUSLIB_DIR ${CMAKE_BINARY_DIR}/PlusLib CACHE INTERNAL "Path to store PlusLib contents.")
@@ -419,6 +424,7 @@ ExternalProject_Add(PlusLib
   #--Download step--------------
   GIT_REPOSITORY ${PLUSLIB_GIT_REPOSITORY}
   GIT_TAG ${PLUSLIB_GIT_REVISION}
+  GIT_SUBMODULES "${_pluslib_submodules}"
   #--Configure step-------------
   CMAKE_ARGS
     ${ep_common_args}

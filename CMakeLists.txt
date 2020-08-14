@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.3.0)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.16.0)
 
 PROJECT(PlusBuild)
 
@@ -10,6 +10,7 @@ MARK_AS_ADVANCED(CMAKE_CXX_STANDARD)
 
 IF(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
+  cmake_policy(SET CMP0097 NEW) # Empty string in git submodules means no submodules, cmake 3.16+
 ENDIF(COMMAND cmake_policy)
 
 SET(CMAKE_MODULE_PATH
@@ -172,6 +173,8 @@ IF(PLUSBUILD_DOCUMENTATION)
   SET(PLUSBUILD_DOCUMENTATION_GOOGLE_ANALYTICS_TRACKING_ID "" CACHE STRING "Tracking ID used for reporting documentation usage to Google Analytics. Only usable on web servers. If left empty, Google Analytics will not be included in the documentation HTML.")
   MARK_AS_ADVANCED(PLUSBUILD_DOCUMENTATION_GOOGLE_ANALYTICS_TRACKING_ID)
 ENDIF()
+
+OPTION(PLUSBUILD_PLUSLIB_DOCUMENTATION "Clone the PlusDoc submodule in PlusLib" ON)
 
 # Determine current OS
 IF("$ENV{PROCESSOR_ARCHITEW6432}" STREQUAL "")
