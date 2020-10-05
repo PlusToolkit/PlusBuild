@@ -44,7 +44,7 @@ ELSE()
   ENDIF()
 
   SET(PLUSBUILD_EXTERNAL_VTK_VERSION "v8.2.0" CACHE STRING "User-selected VTK version to build Plus against")
-  SET(_vtk_versions "v8.2.0")
+  SET(_vtk_versions "v8.2.0" "v9.0.0" "v9.0.1")
   set_property( CACHE PLUSBUILD_EXTERNAL_VTK_VERSION PROPERTY STRINGS "" ${_vtk_versions} )
 
   IF(PLUSBUILD_EXTERNAL_VTK_VERSION STREQUAL "")
