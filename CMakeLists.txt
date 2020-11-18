@@ -240,6 +240,7 @@ IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
   ENDIF()
 ENDIF()
 OPTION(PLUS_USE_CLARIUS "Provide support for Clarius Ultrasound devices" OFF)
+OPTION(PLUS_USE_ANDOR_CAMERA "Provide support for the Andor cameras capture stream" OFF)
 
 # ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
@@ -536,6 +537,13 @@ IF (PLUS_USE_CLARIUS)
 ENDIF()
 #-- END OvrvisionPro/OPTICAL_TRACKER dependency verification ------------------------------------------
 
+#-- ANDOR dependency on opencv -----
+IF (PLUS_USE_ANDOR_CAMERA AND NOT PLUSBUILD_USE_OpenCV)
+  MESSAGE("PLUSE_USE_ANDOR_CAMERA requires openCV option enabled, enabling.")
+  SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
+ENDIF()	
+#--- END ANDOR dependency on opencv
+
 # OpenCV dependency, MUST COME AFTER VTK external inclusion
 IF(PLUSBUILD_USE_OpenCV)
   MESSAGE(STATUS "")
@@ -743,6 +751,13 @@ ENDIF()
 
 IF(PLUS_USE_STEAMVR)
   INCLUDE(SuperBuild/External_OpenVR.cmake)
+ENDIF()
+
+IF(PLUS_USE_ANDOR_CAMERA)
+ FIND_PACKAGE(ANDOR)
+  IF(NOT ANDOR_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires ANDOR SDK for supporting the Andor Camera. One of the components is missing. Please verify configuration or turn off PLUS_USE_ANDOR_CAMERA.")
+  ENDIF()
 ENDIF()
 
 #------------------------------------------------------------------------------
