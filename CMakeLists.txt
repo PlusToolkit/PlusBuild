@@ -539,8 +539,8 @@ ENDIF()
 
 #-- ANDOR dependency on opencv -----
 IF (PLUS_USE_ANDOR_CAMERA AND NOT PLUSBUILD_USE_OpenCV)
-	MESSAGE("PLUSE_USE_ANDOR_CAMERA requires openCV option enabled, enabling.")
-	SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
+  MESSAGE("PLUSE_USE_ANDOR_CAMERA requires openCV option enabled, enabling.")
+  SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
 ENDIF()	
 #--- END ANDOR dependency on opencv
 
