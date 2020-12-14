@@ -423,24 +423,17 @@ IF(PLUSBUILD_USE_3DSlicer)
   # The Slicer4 config file complains if these are set.
   UNSET (VTK_DIR CACHE)
   UNSET (ITK_DIR CACHE)
-  UNSET (OpenIGTLink_DIR CACHE)
 
   # Try to find Slicer4
   FIND_PACKAGE(Slicer PATHS ${PLUSBUILD_SLICER_BIN_DIRECTORY} NO_DEFAULT_PATH QUIET)
   IF(Slicer_FOUND)
     SET(Slicer_SKIP_EXTENSION_NAME_CHECK TRUE)
     INCLUDE( ${Slicer_USE_FILE})
-    IF(PLUSBUILD_USE_OpenIGTLink)
-      FIND_PACKAGE(OpenIGTLink REQUIRED PATHS "${Slicer_BINARY_DIR}/../OpenIGTLink-build" NO_DEFAULT_PATH)
-    ENDIF()
   ENDIF()
 
   IF(NOT Slicer_FOUND)
     MESSAGE(FATAL_ERROR "Unable to find Slicer at ${PLUSBUILD_SLICER_BIN_DIRECTORY} directory. Please verify configuration")
   ENDIF()
-
-  # For some reason, UNSET(VTK_DIR CACHE) does not work
-  SET(VTK_DIR "VTK_DIR-NOTFOUND" CACHE PATH "Location of pre-built VTK" FORCE) # VTK is built against Qt
 ENDIF()
 
 #-----------------------------------------------------------------------------
