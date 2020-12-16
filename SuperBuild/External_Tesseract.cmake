@@ -113,6 +113,7 @@ ELSE()
       -DCMAKE_PREFIX_PATH:STRING=${CMAKE_PREFIX_PATH}
       -DCMAKE_INSTALL_PREFIX:PATH=${PLUS_tesseract_DIR}
       -DLeptonica_DIR:PATH=${PLUS_leptonica_DIR}
+      -Dtesseract_DATA_DIR:PATH=${PLUS_tessdata_src_DIR}
     #--Build step-----------------
     BUILD_ALWAYS 1
     #--Install step-----------------
