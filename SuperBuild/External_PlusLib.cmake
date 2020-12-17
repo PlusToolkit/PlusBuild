@@ -18,7 +18,7 @@ ENDIF()
 IF(PLUS_USE_TextRecognizer)
   LIST(APPEND PLUSBUILD_ADDITIONAL_SDK_ARGS
     -Dtesseract_DIR:PATH=${PLUS_tesseract_DIR}
-    -Dtesseract_data_dir:PATH=${PLUS_tessdata_src_DIR}
+    -Dtesseract_DATA_DIR:PATH=${PLUS_tessdata_src_DIR}
     )
 ENDIF()
 
