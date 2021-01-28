@@ -140,41 +140,45 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS(
   FAIL_MESSAGE "DeckLink SDK not found. Please set DECKLINK_SDK_ROOT to the root folder of your DeckLink SDK install.")
 
 # Create CMake targets
-ADD_LIBRARY(DeckLinkSDK INTERFACE IMPORTED)
-IF(WIN32)
-  ADD_LIBRARY(NVIDIA_GPUDirect SHARED IMPORTED)
-  set_target_properties(NVIDIA_GPUDirect
-                        PROPERTIES
-                          IMPORTED_IMPLIB "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/lib/${BUILD_ARCHITECTURE}/dvp.lib"
-                          IMPORTED_LOCATION "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/bin/${BUILD_ARCHITECTURE}/dvp.dll"
-                          INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/include"
-                        )
-
-  set_target_properties(DeckLinkSDK 
-                        PROPERTIES 
-                          INTERFACE_INCLUDE_DIRECTORIES
-                            "${DeckLinkSDK_PATH}/${_platform}/include;${DeckLinkSDK_PATH}/${_platform}/DirectShow/include"
-                        )
-  SET(DeckLinkSDK_LIBS DeckLinkSDK NVIDIA_GPUDirect)
-ELSE()
-  set_target_properties(DeckLinkSDK 
-                        PROPERTIES 
-                          INTERFACE_INCLUDE_DIRECTORIES
-                            "${DeckLinkSDK_PATH}/${_platform}/include"
-                        )
-  IF(NOT APPLE)
-    ADD_LIBRARY(NVIDIA_GPUDirect SHARED IMPORTED)
-    set_target_properties(NVIDIA_GPUDirect
-                          PROPERTIES
-                            IMPORTED_LOCATION "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/${BUILD_ARCHITECTURE}/libdvp.so"
-                            INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/include"
-                          )
+IF(NOT TARGET DeckLinkSDK)
+  ADD_LIBRARY(DeckLinkSDK INTERFACE IMPORTED)
+  IF(WIN32)
+    IF(NOT TARGET NVIDIA_GPUDirect)
+      ADD_LIBRARY(NVIDIA_GPUDirect SHARED IMPORTED)
+      set_target_properties(NVIDIA_GPUDirect
+                            PROPERTIES
+                              IMPORTED_IMPLIB "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/lib/${BUILD_ARCHITECTURE}/dvp.lib"
+                              IMPORTED_LOCATION "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/bin/${BUILD_ARCHITECTURE}/dvp.dll"
+                              INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/include"
+                            )
+      
+      set_target_properties(DeckLinkSDK 
+                            PROPERTIES 
+                              INTERFACE_INCLUDE_DIRECTORIES
+                                "${DeckLinkSDK_PATH}/${_platform}/include;${DeckLinkSDK_PATH}/${_platform}/DirectShow/include"
+                            )
+      SET(DeckLinkSDK_LIBS DeckLinkSDK NVIDIA_GPUDirect)
+    ENDIF()
+  ELSE()
     set_target_properties(DeckLinkSDK 
-                          PROPERTIES
-                            IMPORTED_LINK_INTERFACE_LIBRARIES 
-                              NVIDIA_GPUDirect
+                          PROPERTIES 
+                            INTERFACE_INCLUDE_DIRECTORIES
+                              "${DeckLinkSDK_PATH}/${_platform}/include"
                           )
-    SET(DeckLinkSDK_LIBS DeckLinkSDK NVIDIA_GPUDirect)
+    IF(NOT APPLE)
+      ADD_LIBRARY(NVIDIA_GPUDirect SHARED IMPORTED)
+      set_target_properties(NVIDIA_GPUDirect
+                            PROPERTIES
+                              IMPORTED_LOCATION "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/${BUILD_ARCHITECTURE}/libdvp.so"
+                              INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/include"
+                            )
+      set_target_properties(DeckLinkSDK 
+                            PROPERTIES
+                              IMPORTED_LINK_INTERFACE_LIBRARIES 
+                                NVIDIA_GPUDirect
+                            )
+      SET(DeckLinkSDK_LIBS DeckLinkSDK NVIDIA_GPUDirect)
+    ENDIF()
   ELSE()
     set_target_properties(DeckLinkSDK 
                           PROPERTIES
@@ -182,5 +186,4 @@ ELSE()
     SET(DeckLinkSDK_LIBS DeckLinkSDK CoreFoundation)
   ENDIF()
 ENDIF()
-
 MARK_AS_ADVANCED(DeckLinkSDK_LIBS)
