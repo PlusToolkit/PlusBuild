@@ -178,12 +178,12 @@ IF(NOT TARGET DeckLinkSDK)
                                 NVIDIA_GPUDirect
                             )
       SET(DeckLinkSDK_LIBS DeckLinkSDK NVIDIA_GPUDirect)
+    ELSE()
+      set_target_properties(DeckLinkSDK 
+                            PROPERTIES
+                            )
+      SET(DeckLinkSDK_LIBS DeckLinkSDK CoreFoundation)
     ENDIF()
-  ELSE()
-    set_target_properties(DeckLinkSDK 
-                          PROPERTIES
-                          )
-    SET(DeckLinkSDK_LIBS DeckLinkSDK CoreFoundation)
   ENDIF()
 ENDIF()
 MARK_AS_ADVANCED(DeckLinkSDK_LIBS)
