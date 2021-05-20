@@ -32,7 +32,7 @@ Recommended tools:
 
 - [TortoiseGit](https://tortoisegit.org/download/): provides convenient graphical user interface to manage git repositories.
 - Visual Studio extensions:
-  - AStyle formatter - Quickly format a file to PLUS standards. PLUS format: --style=allman --indent=spaces=2 --align-pointer=type --indent-namespaces --indent-col1-comments --pad-oper --unpad-paren --add-brackets --add-one-line-brackets --keep-one-line-blocks --convert-tabs --mode=c
+  - AStyle formatter - Quickly format a file to PLUS standards. PLUS format: https://github.com/PlusToolkit/PlusLib/blob/master/.astylerc
   - [Visual Assist X](http://www.wholetomato.com/): Add extra functionality to Visual Studio. Not free.
   - [DoxygenComments](https://visualstudiogallery.msdn.microsoft.com/11a30c1c-593b-4399-a702-f23a56dd8548): Syntax highlighting of doxygen comments.
     - **WARNING:** It may not work with other extensions that changes syntax highlighting (Visual Assist, etc).
