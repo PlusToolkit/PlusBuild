@@ -16,6 +16,15 @@ ELSE()
     "master"
     )
 
+  SET(PLUSBUILD_ADDITIONAL_SDK_ARGS)
+
+  IF(PLUSBUILD_BUILD_PLUSLIB_WIDGETS AND (${PLUSBUILD_VTK_VERSION} GREATER 8))
+    # If VTK9 is configured Qt enabled then we need to provide Qt5_DIR
+    LIST(APPEND PLUSBUILD_ADDITIONAL_SDK_ARGS
+      -DQt5_DIR:PATH=${Qt5_DIR}
+      )
+  ENDIF()
+
   SET (PLUS_OpenIGTLinkIO_SRC_DIR "${CMAKE_BINARY_DIR}/OpenIGTLinkIO")
   SET (PLUS_OpenIGTLinkIO_DIR "${CMAKE_BINARY_DIR}/OpenIGTLinkIO-bin" CACHE INTERNAL "Path to store OpenIGTLinkIO binaries")
   ExternalProject_Add( OpenIGTLinkIO
@@ -40,6 +49,7 @@ ELSE()
       -DIGTLIO_USE_GUI:BOOL=OFF
       -DCMAKE_CXX_FLAGS:STRING=${ep_common_cxx_flags}
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
+      ${PLUSBUILD_ADDITIONAL_SDK_ARGS}
     #--Build step-----------------
     #--Install step-----------------
     INSTALL_COMMAND ""
