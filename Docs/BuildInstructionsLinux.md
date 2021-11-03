@@ -1,8 +1,20 @@
-Ubuntu 14.04 LTS
+Ubuntu 20.04 LTS
 ================
-This version of Ubuntu is not officially supported
-- The gcc compiler provided by default (4.8.4) does not fully support c++11 and is missing functionality used by PlusLib
-- The default version of Qt provided with the distribution (5.2.1) lacks some functionality required by PlusApp. 
+
+PlusBuild project contains a CMake project that builds the Plus library, applications, and all their dependencies.
+These commands install all prerequisites and builds Plus using default settings:
+
+```
+sudo apt update && sudo apt install git build-essential cmake \
+  qt5-default qtmultimedia5-dev qttools5-dev libqt5xmlpatterns5-dev qtbase5-private-dev libqt5x11extras5-dev libxt-dev
+
+git clone git://github.com/PlusToolkit/PlusBuild.git
+mkdir PlusBuild-bin
+cd PlusBuild-bin
+cmake ../PlusBuild
+
+make
+```
 
 Ubuntu 16.04 LTS/18.04 LTS
 ================
@@ -63,3 +75,9 @@ Troubleshooting
   - Solution: see [this patch file](https://issues.itk.org/jira/browse/ITK-3361)
 - "vtkPlusConfig.cxx" error
   - Solution: #include "unistd.h" at the top and report the error
+
+Ubuntu 14.04 LTS
+================
+This version of Ubuntu is not officially supported
+- The gcc compiler provided by default (4.8.4) does not fully support c++11 and is missing functionality used by PlusLib
+- The default version of Qt provided with the distribution (5.2.1) lacks some functionality required by PlusApp. 
