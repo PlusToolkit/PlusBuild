@@ -307,6 +307,7 @@ ENDIF()
 OPTION(PLUS_USE_BLACKMAGIC_DECKLINK "Provide support for BlackMagic DeckLink capture cards." OFF)
 OPTION(PLUS_USE_STEAMVR "Provide support for SteamVR tracking system" OFF)
 OPTION(PLUS_USE_PICOSCOPE "Provide support for PicoScope 2xxx series oscilloscopes" OFF)
+OPTION(PLUS_USE_AZUREKINECT "Provide support for Azure Kinect cameras" OFF)
 
 # ---------- Other devices ------------
 OPTION(PLUS_USE_TextRecognizer "Enable the text recognizer virtual device" OFF)
@@ -762,6 +763,13 @@ IF(PLUS_USE_ANDOR_CAMERA)
  FIND_PACKAGE(ANDOR)
   IF(NOT ANDOR_FOUND)
     MESSAGE(FATAL_ERROR "This project requires ANDOR SDK for supporting the Andor Camera. One of the components is missing. Please verify configuration or turn off PLUS_USE_ANDOR_CAMERA.")
+  ENDIF()
+ENDIF()
+
+IF(PLUS_USE_AZUREKINECT)
+ FIND_PACKAGE(K4A)
+  IF(NOT K4A_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires Azure Kinect SDK (k4a) for supporting the Azure Kinect Camera. One of the components is missing. Please verify configuration or turn off PLUS_USE_AZUREKINECT.")
   ENDIF()
 ENDIF()
 
