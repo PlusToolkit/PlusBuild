@@ -308,6 +308,7 @@ OPTION(PLUS_USE_BLACKMAGIC_DECKLINK "Provide support for BlackMagic DeckLink cap
 OPTION(PLUS_USE_STEAMVR "Provide support for SteamVR tracking system" OFF)
 OPTION(PLUS_USE_PICOSCOPE "Provide support for PicoScope 2xxx series oscilloscopes" OFF)
 OPTION(PLUS_USE_AZUREKINECT "Provide support for Azure Kinect cameras" OFF)
+OPTION(PLUS_USE_REVOPOINT3DCAMERA "Provide support for Revopoint 3D cameras" OFF)
 
 # ---------- Other devices ------------
 OPTION(PLUS_USE_TextRecognizer "Enable the text recognizer virtual device" OFF)
@@ -770,6 +771,13 @@ IF(PLUS_USE_AZUREKINECT)
  FIND_PACKAGE(K4A)
   IF(NOT K4A_FOUND)
     MESSAGE(FATAL_ERROR "This project requires Azure Kinect SDK (k4a) for supporting the Azure Kinect Camera. One of the components is missing. Please verify configuration or turn off PLUS_USE_AZUREKINECT.")
+  ENDIF()
+ENDIF()
+
+IF(PLUS_USE_REVOPOINT3DCAMERA)
+  FIND_PACKAGE(REVOPOINT3DSDK)
+  IF(NOT REVOPOINT3DSDK_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires RevoPoint 3D SDK for supporting the Revopoint 3D cameras. One of the components is missing. Please verify configuration or turn off PLUS_USE_REVOPOINT3DCAMERA.")
   ENDIF()
 ENDIF()
 
