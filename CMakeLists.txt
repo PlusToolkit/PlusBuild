@@ -307,6 +307,7 @@ ENDIF()
 OPTION(PLUS_USE_BLACKMAGIC_DECKLINK "Provide support for BlackMagic DeckLink capture cards." OFF)
 OPTION(PLUS_USE_STEAMVR "Provide support for SteamVR tracking system" OFF)
 OPTION(PLUS_USE_PICOSCOPE "Provide support for PicoScope 2xxx series oscilloscopes" OFF)
+OPTION(PLUS_USE_GENERIC_SENSOR_TRACKER "Provide support for generic sensor data collection" OFF)
 OPTION(PLUS_USE_AZUREKINECT "Provide support for Azure Kinect cameras" OFF)
 
 # ---------- Other devices ------------
@@ -763,6 +764,13 @@ IF(PLUS_USE_ANDOR_CAMERA)
  FIND_PACKAGE(ANDOR)
   IF(NOT ANDOR_FOUND)
     MESSAGE(FATAL_ERROR "This project requires ANDOR SDK for supporting the Andor Camera. One of the components is missing. Please verify configuration or turn off PLUS_USE_ANDOR_CAMERA.")
+  ENDIF()
+ENDIF()
+
+IF(PLUS_USE_GENERIC_SENSOR_TRACKER)
+  FIND_PACKAGE(WindowsSensorAPI)
+  IF(NOT WindowsSensorAPI_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires the Windows Sensor API for supporting the generic sensor tracker. One of the components is missing. Please verify configuration or turn off PLUS_USE_GENERIC_SENSOR_TRACKER.")
   ENDIF()
 ENDIF()
 
