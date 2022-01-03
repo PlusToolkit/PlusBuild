@@ -7,10 +7,10 @@
 # Find Telemed SDK include directory
 
 SET( Telemed_PATH_HINTS
-  ../PLTools/Telemed/USGFW2-4.00
-  ../../PLTools/Telemed/USGFW2-4.00
-  ../PLTools/trunk/Telemed/USGFW2-4.00
-  ${CMAKE_CURRENT_BINARY_DIR}/PLTools/Telemed/USGFW2-4.00
+  ../PLTools/Telemed/USGFW2-4.1.0
+  ../../PLTools/Telemed/USGFW2-4.1.0
+  ../PLTools/trunk/Telemed/USGFW2-4.1.0
+  ${CMAKE_CURRENT_BINARY_DIR}/PLTools/Telemed/USGFW2-4.1.0
   "C:/Program Files/Telemed SDK"
   "C:/Telemed SDK"
   "C:/Users/$ENV{USERNAME}/Documents"
