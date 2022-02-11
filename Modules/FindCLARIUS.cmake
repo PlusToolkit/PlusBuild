@@ -8,21 +8,19 @@
 
 IF(WIN32)
   SET(CLARIUS_PATH_HINTS
-    "../PLTools/Clarius/listener-7.1.0/windows"
-    "../../PLTools/Clarius/listener-7.1.0/windows"
-    "C:/Users/$ENV{USERNAME}/Documents/clarius_listen_plugin/clarius_listen_sdk"
-    "C:/Program Files/clarius_listen_plugin/clarius_listen_sdk"
+    "../PLTools/Clarius/cast-9.0.0/windows"
+    "../../PLTools/Clarius/cast-9.0.0/windows"
     )
 ELSE()
   MESSAGE(FATAL_ERROR "Clarius is currently only supported on Windows")
 ENDIF()
 
-FIND_PATH(CLARIUS_DIR include/listen/listen.h
+FIND_PATH(CLARIUS_DIR include/cast/cast.h
   PATHS ${CLARIUS_PATH_HINTS}
   DOC "Clarius API dir")
 
 IF(CLARIUS_DIR)
-  SET(CLARIUS_INCLUDE_DIR ${CLARIUS_DIR}/include/listen)
+  SET(CLARIUS_INCLUDE_DIR ${CLARIUS_DIR}/include/cast)
   SET(CLARIUS_LIB_DIR ${CLARIUS_DIR}/lib)
 ENDIF()
 
