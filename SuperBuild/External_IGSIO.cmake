@@ -63,6 +63,7 @@ ELSE()
       -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
       -DBUILD_SHARED_LIBS:BOOL=${PLUSBUILD_BUILD_SHARED_LIBS}
       -DVTK_DIR:PATH=${PLUS_VTK_DIR}
+      -DITK_DIR:PATH=${PLUS_ITK_DIR}
       -DBUILD_TESTING:BOOL=OFF
       ${IGSIO_BUILD_OPTIONS}
     #--Build step-----------------
