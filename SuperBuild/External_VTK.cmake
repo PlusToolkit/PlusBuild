@@ -2,8 +2,8 @@ IF(VTK_DIR)
   # VTK has been built already
   FIND_PACKAGE(VTK REQUIRED)
 
-  IF(NOT ${VTK_VERSION_MAJOR} GREATER 6)
-    MESSAGE(FATAL_ERROR "VTK7+ required for Plus. Found VTK ${VTK_VERSION_MAJOR}.${VTK_VERSION_MINOR}.${VTK_VERSION_PATH}.")
+  IF(NOT ${VTK_VERSION_MAJOR} GREATER 7)
+    MESSAGE(FATAL_ERROR "VTK8+ required for Plus. Found VTK ${VTK_VERSION_MAJOR}.${VTK_VERSION_MINOR}.${VTK_VERSION_PATH}.")
     SET(VTK_DIR VTK-DIR_NOTFOUND FORCE)
   ENDIF()
 
@@ -46,7 +46,7 @@ ELSE()
   ENDIF()
 
   SET(PLUSBUILD_EXTERNAL_VTK_VERSION "v8.2.0" CACHE STRING "User-selected VTK version to build Plus against")
-  SET(_vtk_versions "v8.2.0" "v9.0.0" "v9.0.1")
+  SET(_vtk_versions "v8.2.0" "v9.0.0" "v9.0.1" "v9.1.0")
   set_property( CACHE PLUSBUILD_EXTERNAL_VTK_VERSION PROPERTY STRINGS "" ${_vtk_versions} )
 
   IF(PLUSBUILD_EXTERNAL_VTK_VERSION STREQUAL "")
