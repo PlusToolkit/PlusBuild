@@ -1,5 +1,7 @@
 SET(tesseract_DEPENDENCIES leptonica)
-SET(leptonica_DEPENDENCIES vtk) #for vtkzlib
+IF(TARGET vtk)
+  SET(leptonica_DEPENDENCIES vtk) #for vtkzlib
+ENDIF()
 SET(tesseract_ROOT_DIR ${CMAKE_BINARY_DIR})
 
 # --------------------------------------------------------------------------

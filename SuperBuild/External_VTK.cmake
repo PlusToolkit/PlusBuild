@@ -22,6 +22,11 @@ IF(VTK_DIR)
 
   # No target necessary, VTK is provided
   SET(VTK_BUILD_DEPENDENCY_TARGET CACHE INTERNAL "The name of the target to list as a dependency to ensure build order correctness.")
+  
+  SET(PLUSBUILD_VTK_VERSION ${VTK_VERSION})
+  SET(PLUSBUILD_VTK_VERSION_MAJOR ${VTK_VERSION_MAJOR})
+  SET(PLUSBUILD_VTK_VERSION_MINOR ${VTK_VERSION_MINOR})
+  SET(PLUSBUILD_VTK_VERSION_PATCH ${VTK_VERSION_PATCH})
 ELSE()
   # VTK has not been built yet, so download and build it as an external project
   IF(Qt5_FOUND)
