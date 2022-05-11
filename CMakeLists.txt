@@ -5,8 +5,13 @@ PROJECT(PlusBuild)
 # Configure the build to work (although with limited functionalities) if only
 # src directory of the repository is available
 
-SET(CMAKE_CXX_STANDARD 11 CACHE INTERNAL "Use C++11 standard")
-MARK_AS_ADVANCED(CMAKE_CXX_STANDARD)
+# Cache C++ standard to allow setting externally
+SET(_minimum_cxx_standard "11")
+SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard")
+IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
+  MESSAGE(FATAL_ERROR "CMAKE_CXX_STANDARD must be equal or larger than ${_minimum_cxx_standard}")
+ENDIF()
+SET(CMAKE_CXX_STANDARD_REQUIRED ON CACHE STRING "C++ standard required")
 
 IF(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
@@ -239,7 +244,8 @@ IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
     SET (PLUS_TEST_PHILIPS_3D_ULTRASOUND_IP_ADDRESS "129.100.44.8" CACHE STRING "IP address of the Philips scanner that is used during testing")
   ENDIF()
 ENDIF()
-OPTION(PLUS_USE_CLARIUS "Provide support for Clarius Ultrasound devices" OFF)
+OPTION(PLUS_USE_CLARIUS "Provide support for Clarius Ultrasound devices via the Listen API" OFF)
+OPTION(PLUS_USE_CLARIUS_OEM "Provide support for Clarius OEM SDK interface to Clarius Ultrasound devices." OFF)
 OPTION(PLUS_USE_ANDOR_CAMERA "Provide support for the Andor cameras capture stream" OFF)
 
 # ---------- Tracking Hardware ------------
@@ -448,6 +454,10 @@ IF(PLUS_USE_OPTITRACK)
   LIST(APPEND PLUSBUILD_QT_COMPONENTS Multimedia)
 ENDIF()
 
+IF(PLUS_USE_CLARIUS_OEM)
+  LIST(APPEND PLUSBUILD_QT_COMPONENTS Bluetooth)
+ENDIF()
+
 IF(PLUSBUILD_BUILD_PLUSAPP OR PLUSBUILD_BUILD_PLUSLIB_WIDGETS)
   FIND_PACKAGE(Qt5 COMPONENTS ${PLUSBUILD_QT_COMPONENTS} QUIET)
 
@@ -527,7 +537,7 @@ IF(PLUS_USE_OPTICAL_MARKER_TRACKER)
 ENDIF()
 IF (PLUS_USE_CLARIUS)
     IF (NOT PLUSBUILD_USE_OpenCV)
-    MESSAGE("PLUS_USE_CLARIUS requires PLUSBUILD_USE_OpenCV option enabled, enabling.")
+    MESSAGE("PLUS_USE_CLARIUS (Listen API) requires PLUSBUILD_USE_OpenCV option enabled, enabling.")
     SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for Clarius device and other features." FORCE)
   ENDIF()
 ENDIF()
@@ -752,8 +762,24 @@ ENDIF()
 IF(PLUS_USE_CLARIUS)
   FIND_PACKAGE(CLARIUS)
   IF(NOT CLARIUS_FOUND)
-    MESSAGE(FATAL_ERROR "This project requires Clarius API for supporting Clarius Ultrasound scanner")
+    MESSAGE(FATAL_ERROR "This project requires Clarius Listen API for supporting Clarius Ultrasound scanner")
   ENDIF()
+ENDIF()
+
+IF(PLUS_USE_CLARIUS_OEM)
+  # Check Win32, Clarius OEM is only supported on Windows
+  IF(NOT WIN32)
+    message(FATAL_ERROR "Clarius OEM device is only available on Windows. Please use Windows to compile PLUS, or set PLUS_USE_CLARIUS_OEM to OFF.")
+  ENDIF()
+
+  # ClariusOEM device uses C++/WinRT interface for managing Bluetooth LE connection to the probe, this requires C++ 17
+  SET(_minimum_cxx_standard "17")
+  IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
+    MESSAGE("The C++17 standard is required for the Clarius OEM device, updating CMAKE_CXX_STANDARD to 17")
+    SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
+  ENDIF()
+
+  INCLUDE(Superbuild/External_ClariusOEM.cmake)
 ENDIF()
 
 IF(PLUS_USE_STEAMVR)
