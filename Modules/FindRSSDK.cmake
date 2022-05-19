@@ -26,11 +26,11 @@ if(RSSDK_DIR)
   # Include directories
   set(RSSDK_INCLUDE_DIR ${RSSDK_DIR}/include/librealsense2 CACHE FILEPATH "RealSense header files directory.")
   mark_as_advanced(RSSDK_INCLUDE_DIR)
-  
+
   # Libraries
   set(RSSDK_LIB_NAME realsense2${CMAKE_STATIC_LIBRARY_SUFFIX})
   set(RSSDK_BIN_NAME realsense2${CMAKE_SHARED_LIBRARY_SUFFIX})
-  
+
   SET(PLATFORM_SUFFIX "x86")
   IF (CMAKE_HOST_WIN32 AND CMAKE_CL_64 )
     SET(PLATFORM_SUFFIX "x64")
@@ -40,7 +40,7 @@ if(RSSDK_DIR)
                NAMES ${RSSDK_LIB_NAME}
                PATHS "${RSSDK_DIR}/lib/${PLATFORM_SUFFIX}/" NO_DEFAULT_PATH
                PATH_SUFFIXES ${PLATFORM_SUFFIX})
-  
+
   find_path(RSSDK_BINARY_DIR
                NAMES ${RSSDK_BIN_NAME}
                PATHS "${RSSDK_DIR}/bin/${PLATFORM_SUFFIX}/" NO_DEFAULT_PATH
@@ -48,13 +48,17 @@ if(RSSDK_DIR)
 
   set(RSSDK_LIB ${RSSDK_LIBRARY})
   mark_as_advanced(RSSDK_LIB)
-  set(RSSDK_BIN ${RSSDK_BINARY_DIR}/${RSSDK_BIN_NAME})
+  if(WIN32)
+    set(RSSDK_BIN ${RSSDK_BINARY_DIR}/${RSSDK_BIN_NAME})
+  else()
+    set(RSSDK_BIN ${RSSDK_LIB})
+  endif()
   mark_as_advanced(RSSDK_BIN)
-  
+
   # Version
   set(RSSDK_VERSION "2.0")
-  
-endif()  
+
+endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(RSSDK
