@@ -13,6 +13,15 @@ IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
 ENDIF()
 SET(CMAKE_CXX_STANDARD_REQUIRED ON CACHE STRING "C++ standard required")
 
+IF (PLUS_USE_CLARIUS_OEM)
+  # ClariusOEM device uses C++/WinRT interface for managing Bluetooth LE connection to the probe, this requires C++ 17
+  SET(_minimum_cxx_standard "17")
+  IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
+    MESSAGE("The C++17 standard is required for the Clarius OEM device, updating CMAKE_CXX_STANDARD to 17")
+    SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
+  ENDIF()
+ENDIF()
+
 IF(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
   cmake_policy(SET CMP0097 NEW) # Empty string in git submodules means no submodules, cmake 3.16+
@@ -455,10 +464,6 @@ IF(PLUS_USE_OPTITRACK)
   LIST(APPEND PLUSBUILD_QT_COMPONENTS Multimedia)
 ENDIF()
 
-IF(PLUS_USE_CLARIUS_OEM)
-  LIST(APPEND PLUSBUILD_QT_COMPONENTS Bluetooth)
-ENDIF()
-
 IF(PLUSBUILD_BUILD_PLUSAPP OR PLUSBUILD_BUILD_PLUSLIB_WIDGETS)
   FIND_PACKAGE(Qt5 COMPONENTS ${PLUSBUILD_QT_COMPONENTS} QUIET)
 
@@ -771,13 +776,6 @@ IF(PLUS_USE_CLARIUS_OEM)
   # Check Win32, Clarius OEM is only supported on Windows
   IF(NOT WIN32)
     message(FATAL_ERROR "Clarius OEM device is only available on Windows. Please use Windows to compile PLUS, or set PLUS_USE_CLARIUS_OEM to OFF.")
-  ENDIF()
-
-  # ClariusOEM device uses C++/WinRT interface for managing Bluetooth LE connection to the probe, this requires C++ 17
-  SET(_minimum_cxx_standard "17")
-  IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
-    MESSAGE("The C++17 standard is required for the Clarius OEM device, updating CMAKE_CXX_STANDARD to 17")
-    SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
   ENDIF()
 
   INCLUDE(Superbuild/External_ClariusOEM.cmake)

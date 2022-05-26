@@ -1,4 +1,4 @@
-IF(ClariusOEM_DIR)
+IF(ClariusOEM_DIR AND NOT DEFINED ${SUPERBUILD_ClariusOEM})
   
   FIND_PACKAGE(ClariusOEM REQUIRED)
 
@@ -11,19 +11,23 @@ ELSE()
 
   # git clone of OEM interface
   
+  SET(SUPERBUILD_ClariusOEM ON CACHE BOOL "Should ClariusOEM be downloaded using ExternalProject")
+  MARK_AS_ADVANCED(SUPERBUILD_ClariusOEM)
+  
   SetGitRepositoryTag(
     ClariusOEM
     "${GIT_PROTOCOL}://github.com/clariusdev/oem.git"
     "v9.1.0"
     )
 
-  SET(ClariusOEM_DIR "${CMAKE_BINARY_DIR}/ClariusOEM" CACHE PATH "Path to Clarius OEM SDK")
-  SET(ClariusOEM_PREFIX_DIR "${ClariusOEM_DIR}-prefix")
+  SET(ClariusOEM_OUTER_SRC_DIR "${CMAKE_BINARY_DIR}/ClariusOEM")
+  SET(ClariusOEM_DIR "${ClariusOEM_OUTER_SRC_DIR}/src" CACHE PATH "Path to Clarius OEM SDK")
+  SET(ClariusOEM_PREFIX_DIR "${CMAKE_BINARY_DIR}/ClariusOEM-prefix")
 
   ExternalProject_Add(ClariusOEM
     ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}
     PREFIX ${ClariusOEM_PREFIX_DIR}
-    SOURCE_DIR ${ClariusOEM_DIR}
+    SOURCE_DIR ${ClariusOEM_OUTER_SRC_DIR}
     #--Download step--------------
     GIT_REPOSITORY ${ClariusOEM_GIT_REPOSITORY}
     GIT_TAG ${ClariusOEM_GIT_TAG}
@@ -31,7 +35,7 @@ ELSE()
     CONFIGURE_COMMAND ""
     #--Build step-----------------
     BUILD_COMMAND ""
-    #--Install step-----------------
+    #--Install step---------------
     INSTALL_COMMAND ""
     DEPENDS ""
     )
@@ -44,7 +48,7 @@ ELSE()
   ExternalProject_Add(ClariusOEM-Libs
     ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}
     PREFIX ${ClariusOEM_PREFIX_DIR}
-    SOURCE_DIR ${ClariusOEM_DIR}/src/lib
+    SOURCE_DIR ${ClariusOEM_DIR}/lib
     #--Download step--------------
     URL ${CLARIUS_OEM_PACKAGE_URL}
     URL_HASH SHA256=${CLARIUS_OEM_PACKAGE_SHA256}
@@ -52,7 +56,7 @@ ELSE()
     CONFIGURE_COMMAND ""
     #--Build step-----------------
     BUILD_COMMAND ""
-    #--Install step-----------------
+    #--Install step---------------
     INSTALL_COMMAND ""
     DEPENDS ClariusOEM
     )

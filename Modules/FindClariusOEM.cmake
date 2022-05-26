@@ -17,8 +17,8 @@ IF(NOT DEFINED ClariusOEM_DIR)
   # path hints
   IF(WIN32)
     SET(ClariusOEM_PATH_HINTS
-      "../oem"
-      "../../oem"
+      "../oem/src"
+      "../../oem/src"
       )
   ELSE()
     MESSAGE(FATAL_ERROR "Clarius OEM SDK is currently only supported on Windows")
