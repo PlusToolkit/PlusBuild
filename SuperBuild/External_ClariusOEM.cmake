@@ -42,8 +42,8 @@ ELSE()
 
   # download zipped lib/dll files
   
-  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/oem/releases/download/v9.1.0/clarius-oem-v910-windows.zip")
-  SET(CLARIUS_OEM_PACKAGE_SHA256 "534C1B25AA01C436911EC73B286AD46A488BCC02DBA9A6542EB749F961CA2DC1")
+  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/oem/releases/download/v9.3.0/clarius-oem-v930-windows.zip")
+  SET(CLARIUS_OEM_PACKAGE_SHA256 "65d08864ec24c16c83290ca82b82f5f36889e7b4b0b4b9e8c7479a7d5aa15505")
 
   ExternalProject_Add(ClariusOEM-Libs
     ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}
