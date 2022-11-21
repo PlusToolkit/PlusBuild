@@ -8,11 +8,12 @@ Install one of the following software packages. Note that other packages or vers
 Required:
 
 - **C++ compiler**
-  - VS2010 SP1: works, tested nightly on the dashboard, required by StealthLink2 SDK
-    - [VS2010 SP1 Compiler update required](https://www.microsoft.com/en-ca/download/details.aspx?id=4422)
-  - [VS2013 Community Edition Update 5: works](https://www.visualstudio.com/en-us/news/releasenotes/vs2013-community-vs)
-  - [VS2015 Community Edition Update 3: works](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2015-version-history)
-  - VS2017 Community Edition: confirmed working with Qt 5.7 msvc2015 and msvc2015_64
+  - [Visual Studio](https://visualstudio.microsoft.com/downloads/): any edition can be used (including the free Community edition), when configuring the installer:
+    - Enable `Desktop development with C++` and in installation details
+    - Enable the `MSVC v143 - VS2022 C++ x64...` (Visual Studio 2022 v143 toolset with 64-bit support) component - in some distributions, this option is not enabled by default.
+    - Enable the latest Windows SDK component - without this CMake might not find a compiler during configuration step
+  - (StealthLink only)
+    - Latest version of [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013&wt.mc_id=o~msft~vscom~older-downloads), or [Visual Studio 2010](https://my.visualstudio.com/Downloads?q=visual%20studio%202012&wt.mc_id=o~msft~vscom~older-downloads) ([SP1 Compiler update required](https://www.microsoft.com/en-ca/download/details.aspx?id=4422))
 - [**CMake** 3.10 or later](https://cmake.org/download)
 - [**Git** (msysgit)](http://msysgit.github.io). Cygwin git is not recommended.
 - **Qt framework** - download binaries for your specific configuration:
