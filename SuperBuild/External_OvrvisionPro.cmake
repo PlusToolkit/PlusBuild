@@ -2,7 +2,7 @@ IF(OvrvisionPro_DIR)
   FIND_PACKAGE(OvrvisionPro REQUIRED NO_MODULE)
 
   MESSAGE(STATUS "Using OvrvisionPro available at: ${OvrvisionPro_DIR}")
-  
+
   # Copy libraries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
   PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} OvrvisionPro)
 
@@ -20,7 +20,7 @@ ELSE()
   SET (PLUS_OvrvisionPro_src_DIR ${CMAKE_BINARY_DIR}/OvrvisionPro CACHE INTERNAL "Path to store OvrvisionPro contents.")
   SET (PLUS_OvrvisionPro_prefix_DIR ${CMAKE_BINARY_DIR}/OvrvisionPro-prefix CACHE INTERNAL "Path to store OvrvisionPro prefix data.")
   SET (PLUS_OvrvisionPro_DIR ${CMAKE_BINARY_DIR}/OvrvisionPro-bin CACHE INTERNAL "Path to store OvrvisionPro binaries")
-  
+
   # Since OvrvisionPro SDK uses #pragma comment(lib...) commands, we need to pass in the directories containing the requested libraries directly...
   #   ippicvmt.lib
   IF( MSVC AND ${BUILD_ARCHITECTURE} MATCHES "x64" )

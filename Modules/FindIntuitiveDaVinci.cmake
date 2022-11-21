@@ -2,7 +2,7 @@
 # This module defines
 #
 
-SET(IntuitiveDaVinci_SDK_PATH_HINTS 
+SET(IntuitiveDaVinci_SDK_PATH_HINTS
   ../IntuitiveDaVinci
   ../PLTools/IntuitiveDaVinci
   ../../PLTools/IntuitiveDaVinci
@@ -22,12 +22,12 @@ FIND_LIBRARY(IntuitiveDaVinci_LIBRARY
   DOC "Library file for ISI API"
 )
 
-# handle the QUIETLY and REQUIRED arguments and set ISIAPI_FOUND to TRUE if 
+# handle the QUIETLY and REQUIRED arguments and set ISIAPI_FOUND to TRUE if
 # all listed variables are TRUE
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(IntuitiveDaVinci DEFAULT_MSG  IntuitiveDaVinci_LIBRARY  IntuitiveDaVinci_INCLUDE_DIR  )
 
-SET(IntuitiveDaVinci_FOUND ${INTUITIVEDAVINCI_FOUND}) 
+SET(IntuitiveDaVinci_FOUND ${INTUITIVEDAVINCI_FOUND})
 IF(IntuitiveDaVinci_FOUND)
   SET( IntuitiveDaVinci_LIBRARY ${IntuitiveDaVinci_LIBRARY} )
   SET( IntuitiveDaVinci_INCLUDE_DIR ${IntuitiveDaVinci_INCLUDE_DIR} )

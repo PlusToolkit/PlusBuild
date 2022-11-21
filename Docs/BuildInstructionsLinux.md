@@ -68,7 +68,7 @@ Build Process
 
 Troubleshooting
 ---------------
-  
+
 - "GLintptr has not been declared"
   - Solution: In the vtkxOpenGLRenderWindow.cxx uncomment "#define GLX_GLXEXT_LEGACY"
 - "Dunno about this gcc" error from Modules/ThirdParty/VNL/src/vxl/vcl/vcl_compiler.h
@@ -80,4 +80,4 @@ Ubuntu 14.04 LTS
 ================
 This version of Ubuntu is not officially supported
 - The gcc compiler provided by default (4.8.4) does not fully support c++11 and is missing functionality used by PlusLib
-- The default version of Qt provided with the distribution (5.2.1) lacks some functionality required by PlusApp. 
+- The default version of Qt provided with the distribution (5.2.1) lacks some functionality required by PlusApp.

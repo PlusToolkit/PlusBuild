@@ -36,7 +36,7 @@ ENDIF()
 
 
 IF(ClariusOEM_DIR)
-  
+
   # set path to Clarius OEM SDK include directory
   SET(ClariusOEM_INCLUDE_DIRS ${ClariusOEM_DIR}/include/oem CACHE PATH "Clarius OEM SDK include directories")
   MARK_AS_ADVANCED(ClariusOEM_INCLUDE_DIRS)

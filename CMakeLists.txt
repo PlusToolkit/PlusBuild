@@ -260,7 +260,7 @@ OPTION(PLUS_USE_ANDOR_CAMERA "Provide support for the Andor cameras capture stre
 
 # ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
-IF (PLUS_USE_OPTITRACK) 
+IF (PLUS_USE_OPTITRACK)
   IF(NOT BUILD_ARCHITECTURE MATCHES "x64")
     SET(MOTIVE_VERSION_DEFAULT "1.10.3")
   ELSE()
@@ -316,7 +316,7 @@ OPTION(PLUS_USE_LEAPMOTION "Provide support for the LeapMotion hand tracker" OFF
 IF(PLUS_USE_LEAPMOTION)
   OPTION(PLUS_TEST_LEAPMOTION "Enable testing of LeapMotion device" OFF)
   FIND_PACKAGE(LeapSDK 4.0 REQUIRED
-    PATHS 
+    PATHS
     ../VASSTTools/LeapMotion/LeapSDK/lib/cmake/LeapSDK # Convenience for members of the VASST lab
     )
 ENDIF()
@@ -554,7 +554,7 @@ ENDIF()
 IF (PLUS_USE_ANDOR_CAMERA AND NOT PLUSBUILD_USE_OpenCV)
   MESSAGE("PLUSE_USE_ANDOR_CAMERA requires openCV option enabled, enabling.")
   SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
-ENDIF()	
+ENDIF()
 #--- END ANDOR dependency on opencv
 
 # OpenCV dependency, MUST COME AFTER VTK external inclusion

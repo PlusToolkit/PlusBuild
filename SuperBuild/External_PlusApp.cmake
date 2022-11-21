@@ -25,16 +25,16 @@ IF(PLUSBUILD_DOCUMENTATION)
 ENDIF()
 
 SET (PLUS_PLUSAPP_DIR ${CMAKE_BINARY_DIR}/PlusApp CACHE INTERNAL "Path to store PlusApp contents.")
-SET (PLUSAPP_DIR ${CMAKE_BINARY_DIR}/PlusApp-bin CACHE PATH "The directory containing PlusApp binaries" FORCE)                
+SET (PLUSAPP_DIR ${CMAKE_BINARY_DIR}/PlusApp-bin CACHE PATH "The directory containing PlusApp binaries" FORCE)
 ExternalProject_Add(PlusApp
   "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"
-  SOURCE_DIR "${PLUS_PLUSAPP_DIR}" 
+  SOURCE_DIR "${PLUS_PLUSAPP_DIR}"
   BINARY_DIR "${PLUSAPP_DIR}"
   #--Download step--------------
   GIT_REPOSITORY ${PLUSAPP_GIT_REPOSITORY}
   GIT_TAG ${PLUSAPP_GIT_REVISION}
   #--Configure step-------------
-  CMAKE_ARGS 
+  CMAKE_ARGS
     ${ep_common_args}
     ${ep_qt_args}
     -DGIT_EXECUTABLE:FILEPATH=${GIT_EXECUTABLE}

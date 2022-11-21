@@ -1,13 +1,13 @@
 # --------------------------------------------------------------------------
-# GrabbieLib 
-FIND_PATH(PLUS_GRABBIELIB_SOURCE_DIR GrabbieLibInfo.txt 
+# GrabbieLib
+FIND_PATH(PLUS_GRABBIELIB_SOURCE_DIR GrabbieLibInfo.txt
   PATHS
     "../GrabbieLib-1.1.0"
     "../PLTools/BK/ProFocus/GrabbieLib-1.1.0"
     "../../PLTools/BK/ProFocus/GrabbieLib-1.1.0"
     "../trunk/PLTools/BK/ProFocus/GrabbieLib-1.1.0"
     "${CMAKE_CURRENT_BINARY_DIR}/PLTools/BK/ProFocus/GrabbieLib-1.1.0"
-  DOC "Path to the BK GrabbieLib source directory."    
+  DOC "Path to the BK GrabbieLib source directory."
 )
 
 SET(GRABBIELIB_ADDITIONAL_SDK_ARGS)
@@ -18,7 +18,7 @@ ENDIF()
 
 # Find the DALSA Sapera framegrabber SDK files from here to let the user fully configure all the external dependencies now
 LIST(APPEND CMAKE_MODULE_PATH ${PLUS_GRABBIELIB_SOURCE_DIR})
- 
+
 IF (PLUS_USE_BKPROFOCUS_CAMERALINK)
   FIND_PACKAGE (DALSASAPERA)
   IF (NOT DALSASAPERA_FOUND)
@@ -32,7 +32,7 @@ ENDIF()
 
 ExternalProject_Add( GrabbieLib
   PREFIX "${CMAKE_BINARY_DIR}/GrabbieLib-prefix"
-  SOURCE_DIR "${PLUS_GRABBIELIB_SOURCE_DIR}" 
+  SOURCE_DIR "${PLUS_GRABBIELIB_SOURCE_DIR}"
   BINARY_DIR "Deps/GrabbieLib-bin"
   #--Download step--------------
   DOWNLOAD_COMMAND ""
@@ -43,7 +43,7 @@ ExternalProject_Add( GrabbieLib
     -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
     -DCMAKE_CXX_FLAGS:STRING=${ep_common_cxx_flags}
     -DCMAKE_C_FLAGS:STRING=${ep_common_c_flags}
-    -DGRABBIE_USE_CAMERALINK:BOOL=${PLUS_USE_BKPROFOCUS_CAMERALINK}    
+    -DGRABBIE_USE_CAMERALINK:BOOL=${PLUS_USE_BKPROFOCUS_CAMERALINK}
     ${GRABBIELIB_ADDITIONAL_SDK_ARGS}
   #--Build step-----------------
   BUILD_ALWAYS 1

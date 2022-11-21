@@ -34,7 +34,7 @@ if (NatNetSDK_DIR)
   # Libraries
   SET(PLATFORM_SUFFIX "/x86/")
   IF (CMAKE_HOST_WIN32 AND CMAKE_CL_64)
-    SET(PLATFORM_SUFFIX "/x64/")   
+    SET(PLATFORM_SUFFIX "/x64/")
   ENDIF()
 
   find_path(NatNetSDK_LIBRARY_DIR

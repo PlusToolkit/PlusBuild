@@ -1,5 +1,5 @@
 IF(ClariusOEM_DIR AND NOT DEFINED ${SUPERBUILD_ClariusOEM})
-  
+
   FIND_PACKAGE(ClariusOEM REQUIRED)
 
   MESSAGE(STATUS "Using Clarius OEM library available at: ${ClariusOEM_DIR}")
@@ -10,10 +10,10 @@ IF(ClariusOEM_DIR AND NOT DEFINED ${SUPERBUILD_ClariusOEM})
 ELSE()
 
   # git clone of OEM interface
-  
+
   SET(SUPERBUILD_ClariusOEM ON CACHE BOOL "Should ClariusOEM be downloaded using ExternalProject")
   MARK_AS_ADVANCED(SUPERBUILD_ClariusOEM)
-  
+
   SetGitRepositoryTag(
     ClariusOEM
     "${GIT_PROTOCOL}://github.com/clariusdev/oem.git"
@@ -41,7 +41,7 @@ ELSE()
     )
 
   # download zipped lib/dll files
-  
+
   SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/oem/releases/download/v9.3.0/clarius-oem-v930-windows.zip")
   SET(CLARIUS_OEM_PACKAGE_SHA256 "65d08864ec24c16c83290ca82b82f5f36889e7b4b0b4b9e8c7479a7d5aa15505")
 

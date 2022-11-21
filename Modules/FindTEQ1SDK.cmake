@@ -1,5 +1,5 @@
 ###############################################################################
-# Find Thermal Expert Q1 SDK 
+# Find Thermal Expert Q1 SDK
 #
 #     find_package(TEQ1SDK)
 #
@@ -22,7 +22,7 @@ SET(TEQ1_SDK_PATH_HINTS
 find_path(TEQ1_SDK_DIR include/i3system_TE.h
   PATHS ${TEQ1_SDK_PATH_HINTS}
   DOC "Thermal Expert Q1 SDK directory")
-  
+
 if (TEQ1_SDK_DIR)
   # Include directories
   set(TEQ1_SDK_INCLUDE_DIR ${TEQ1_SDK_DIR}/include)
@@ -33,7 +33,7 @@ if (TEQ1_SDK_DIR)
   SET(PLATFORM_SUFFIX "")
   SET(BIN_FILENAME "")
   SET(FILENAME "i3system_TE")
-  
+
   IF (CMAKE_HOST_WIN32 AND CMAKE_CL_64 )
     SET(PLATFORM_SUFFIX "x64")
 	SET(SDK_FILENAME "i3system_TE_x64.dll")
@@ -41,13 +41,13 @@ if (TEQ1_SDK_DIR)
 	SET(SDK_FILENAME_USB "i3system_USB_DLL_x64.dll")
 	SET(LIB_FILENAME "i3system_TE_x64.lib")
   ENDIF (CMAKE_HOST_WIN32 AND CMAKE_CL_64 )
-  
+
   IF (CMAKE_HOST_WIN32 AND NOT CMAKE_CL_64 )
     SET(PLATFORM_SUFFIX "x86")
 	SET(BIN_FILENAME "${PLATFORM_SUFFIX}_${FILENAME}")
 	SET(SDK_FILENAME "${BIN_FILENAME}.dll")
 	SET(LIB_FILENAME "${FILENAME}.lib")
-	
+
 	SET(SDK_FILENAME "x86_i3system_TE.dll")
 	SET(SDK_FILENAME_IMG "x86_i3system_imgproc.dll")
 	SET(SDK_FILENAME_USB "x86_i3system_USB_DLL_V2_1.dll")
@@ -57,10 +57,10 @@ if (TEQ1_SDK_DIR)
   find_library(TEQ1_SDK_LIBRARY
             NAMES ${LIB_FILENAME}
             PATHS "${TEQ1_SDK_DIR}/lib/lib${PLATFORM_SUFFIX}/" NO_DEFAULT_PATH
-            PATH_SUFFIXES ${PLATFORM_SUFFIX}) 
+            PATH_SUFFIXES ${PLATFORM_SUFFIX})
 
   set(TEQ1_BIN_FILE ${TEQ1_SDK_BINARY} "/" ${SDK_FILENAME})
-  
+
   find_path(TEQ1_SDK_BINARY
             NAMES ${SDK_FILENAME}
             PATHS "${TEQ1_SDK_DIR}/bin/bin${PLATFORM_SUFFIX}/" NO_DEFAULT_PATH

@@ -1,4 +1,4 @@
-# Find the RevoPoint 3D Camera SDK 
+# Find the RevoPoint 3D Camera SDK
 # This module defines
 # REVOPOINT3DSDK_FOUND - Revopoint 3D camera SDK has been found on this system
 # REVOPOINT3DSDK_INCLUDE_DIR - Revopoint 3D camera SDK headers directory
@@ -43,7 +43,7 @@ FOREACH(_rtlib ${_revopoint3d_libs})
 ENDFOREACH()
 
 INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(REVOPOINT3DSDK DEFAULT_MSG 
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(REVOPOINT3DSDK DEFAULT_MSG
   REVOPOINT3DSDK_INCLUDE_DIR
   REVOPOINT3DSDK_BINARY_DIR
   REVOPOINT3DSDK_LIBRARIES

@@ -1,4 +1,4 @@
-# Find the Claron MicronTracker SDK 
+# Find the Claron MicronTracker SDK
 # This module defines
 # MicronTracker_FOUND - MicronTracker SDK has been found on this system
 # MicronTracker_INCLUDE_DIR - where to find the header files
@@ -19,7 +19,7 @@ IF(PLUSBUILD_PREFER_MicronTracker_36)
     ../PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../../PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../trunk/PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
-    ${CMAKE_CURRENT_BINARY_DIR}/PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker  
+    ${CMAKE_CURRENT_BINARY_DIR}/PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../Claron/MTC_3.6.1.6_x86_win/MicronTracker
     ../PLTools/Claron/MTC_3.6.1.6_x86_win/MicronTracker
     ../../PLTools/Claron/MTC_3.6.1.6_x86_win/MicronTracker
@@ -43,7 +43,7 @@ ELSE()
     ../PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../../PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../trunk/PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
-    ${CMAKE_CURRENT_BINARY_DIR}/PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker  
+    ${CMAKE_CURRENT_BINARY_DIR}/PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../Claron/MTC_3.6.1.6_x86_win/MicronTracker
     ../PLTools/Claron/MTC_3.6.1.6_x86_win/MicronTracker
     ../../PLTools/Claron/MTC_3.6.1.6_x86_win/MicronTracker
@@ -64,36 +64,36 @@ LIST(APPEND MicronTracker_PATH_HINTS
     SET(PLATFORM_SUFFIX "")
   ENDIF()
 
-FIND_PATH(MicronTracker_INCLUDE_DIR MTC.h 
+FIND_PATH(MicronTracker_INCLUDE_DIR MTC.h
   PATH_SUFFIXES
     Dist${PLATFORM_SUFFIX}
-    inc	
+    inc
   DOC "MicronTracker include directory (contains MTC.h)"
   PATHS ${MicronTracker_PATH_HINTS}
   )
 
-FIND_LIBRARY(MicronTracker_LIBRARY 
+FIND_LIBRARY(MicronTracker_LIBRARY
   NAMES MTC${CMAKE_STATIC_LIBRARY_SUFFIX}
   PATH_SUFFIXES
     Dist${PLATFORM_SUFFIX}
     lib
   DOC "Path to MicronTracker base library (MTC.lib)"
-  PATHS ${MicronTracker_PATH_HINTS} 
+  PATHS ${MicronTracker_PATH_HINTS}
   )
 
 FIND_PATH(MicronTracker_BINARY_DIR MTC${CMAKE_SHARED_LIBRARY_SUFFIX}
-  PATH_SUFFIXES 
+  PATH_SUFFIXES
     Dist${PLATFORM_SUFFIX}
     bin
-  PATHS ${MicronTracker_PATH_HINTS} 
+  PATHS ${MicronTracker_PATH_HINTS}
   DOC "Path to MicronTracker base shared library (MTC.dll)"
   NO_DEFAULT_PATH # avoid finding installed DLLs in the system folders
   )
 
-# handle the QUIETLY and REQUIRED arguments and set MicronTracker_FOUND to TRUE if 
+# handle the QUIETLY and REQUIRED arguments and set MicronTracker_FOUND to TRUE if
 # all listed variables are TRUE
 INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(MicronTracker DEFAULT_MSG 
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(MicronTracker DEFAULT_MSG
   MicronTracker_LIBRARY
   MicronTracker_INCLUDE_DIR
   MicronTracker_BINARY_DIR

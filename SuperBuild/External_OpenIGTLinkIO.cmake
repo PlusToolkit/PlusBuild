@@ -3,7 +3,7 @@ IF(OpenIGTLinkIO_DIR)
   FIND_PACKAGE(OpenIGTLinkIO REQUIRED PATHS ${OpenIGTLinkIO_DIR} NO_DEFAULT_PATH)
 
   MESSAGE(STATUS "Using OpenIGTLinkIO available at: ${OpenIGTLinkIO_DIR}")
-  
+
   # Copy libraries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
   PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${OpenIGTLinkIO_LIBRARIES})
 
@@ -36,7 +36,7 @@ ELSE()
     GIT_REPOSITORY ${OpenIGTLinkIO_GIT_REPOSITORY}
     GIT_TAG ${OpenIGTLinkIO_GIT_TAG}
     #--Configure step-------------
-    CMAKE_ARGS 
+    CMAKE_ARGS
       ${ep_common_args}
       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
       -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
@@ -54,5 +54,5 @@ ELSE()
     #--Install step-----------------
     INSTALL_COMMAND ""
     DEPENDS ${OpenIGTLinkIO_DEPENDENCIES}
-    )  
+    )
 ENDIF()
