@@ -17,7 +17,7 @@ Required:
   - Building stable branch: Qt 4.8 and Qt 5.5, 5.7 are tested, download from http://www.qt.io/download/ or https://sourceforge.net/projects/qt64ng/files/qt/
   - Building master branch: Qt 5.5+ is supported. Download from [Qt website](http://www.qt.io/download). Make sure the Visual Studio version (e.g. 2013) and configuration (e.g. x64) you use is selected during installation.
 - **Device SDKs**: The SDK of some devices are not publicly available. These SDKs has to be obtained from the device manufacturer.
-  - Developers at Queen, UBC, Robarts, and other collaborators: Request access to the PLTools repository from <a href="https://github.com/PerkLab">PerkLab</a>, which contains the SDKs for Ultrasonix, BK, NDI, etc. and clone the repository in the same directory where PlusBuild folder is located. During the build process, required SDK files will be loaded automatically from the PLTools directory. Example: C:\Users\Joe\devel\PLTools and C:\Users\Joe\devel\PlusBuild.
+  - Developers at Queen, UBC, Robarts, and other collaborators: Request access to the PLTools repository from <a href="https://github.com/PerkLab">PerkLab</a>, which contains the SDKs for BK, NDI, etc. and clone the repository in the same directory where PlusBuild folder is located. During the build process, required SDK files will be loaded automatically from the PLTools directory. Example: C:\Users\Joe\devel\PLTools and C:\Users\Joe\devel\PlusBuild.
 
 Required for packaging and documentation generation:
 
@@ -57,7 +57,6 @@ Build Process
     - PLUS_USE_ICCAPTURING_VIDEO: ImagingControl USB framegrabber, requires license key from ImagingControl
     - PLUS_USE_MICRONTRACKER: Claron MicronTracker -- disable for 64-bit build
     - PLUS_USE_POLARIS: NDI Polaris and NDI Aurora optical tracker -- disable for 64-bit build
-    - PLUS_USE_ULTRASONIX_VIDEO: Ultrasonix ultrasound system, requires SDK from Ultrasonix -- disable for 64-bit build
     - PLUS_USE_BKPROFOCUS_VIDEO: BK ultrasound system connection through the OEM interface, requires SDK from BK (also enable PLUS_USE_BKPROFOCUS_CAMERALINK to connect through CameraLink interface)
   - Optional: set advanced build options
     - If you want to use a specific Plus revision then set it in PLUSLIB_GIT_REVISION and PLUSAPP_GIT_REVISION. Default is `master`, which means the latest version.
