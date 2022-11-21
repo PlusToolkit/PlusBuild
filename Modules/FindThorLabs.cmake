@@ -26,7 +26,7 @@ ENDIF()
 FIND_PATH(ThorLabs_LIBRARY_DIR TLCCS_32${CMAKE_STATIC_LIBRARY_SUFFIX}
   PATH_SUFFIXES "WinNT/lib/msc"
   DOC "ThorLabs CCS VISA library directory (contains TLCCS_32.lib)"
-  PATHS ${ThorLabs_PATH_HINTS} 
+  PATHS ${ThorLabs_PATH_HINTS}
   )
 IF(NOT ThorLabs_LIBRARY_DIR)
   MESSAGE( SEND_ERROR "Please specify the ThorLabs CCS VISA include directory in the variable ThorLabs_LIBRARY_DIR, or turn off PLUS_USE_THORLABS_VIDEO (this include directory contains TLCCS_32.lib).")
@@ -40,7 +40,7 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS(ThorLabs DEFAULT_MSG
   ThorLabs_LIBRARY_DIR
   )
 
-IF(THORLABS_FOUND)  
+IF(THORLABS_FOUND)
   SET( THORLABS_INCLUDE_DIR ${ThorLabs_INCLUDE_DIR} )
   SET( THORLABS_LIBRARY_DIR ${ThorLabs_LIBRARY_DIR} )
 ENDIF()

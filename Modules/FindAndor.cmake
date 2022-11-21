@@ -11,10 +11,10 @@ SET( ANDOR_PATH_HINTS
 FIND_PATH(ANDOR_INCLUDE_DIR ATMCD32D.h
   DOC "ANDOR include directory (contains ATMCD32D.h)"
   PATHS ${ANDOR_PATH_HINTS}
-  )  
+  )
 
-if( CMAKE_SIZEOF_VOID_P EQUAL 8 ) 
-  set(bitness 64) 
+if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+  set(bitness 64)
 else()
   set(bitness 32)
 endif()

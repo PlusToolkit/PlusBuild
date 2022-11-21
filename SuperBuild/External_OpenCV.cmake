@@ -7,13 +7,13 @@ IF(OpenCV_DIR)
   PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${OpenCV_LIBS})
 
   SET(PLUS_OpenCV_DIR ${OpenCV_DIR} CACHE INTERNAL "Path to store OpenCV binaries")
- 
+
   # Superbuild relies on existence of OpenCV target for dependency graph
   # Create a dummy target
   ADD_CUSTOM_TARGET(OpenCV)
 ELSE()
   FIND_PACKAGE(CUDA QUIET)
-  
+
   SET(OpenCV_PLATFORM_SPECIFIC_ARGS)
   SET(_cuda OFF)
   IF(CUDA_FOUND)
@@ -33,7 +33,7 @@ ELSE()
     ELSE()
       LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DWITH_CUDA:BOOL=OFF)
     ENDIF()
-    
+
     SET(_generations "Fermi" "Kepler" "Maxwell")
     IF(${CUDA_VERSION} VERSION_GREATER_EQUAL 8.0.0)
       LIST(APPEND _generations "Pascal" "Volta")
@@ -54,12 +54,12 @@ ELSE()
         MESSAGE(FATAL_ERROR "ERROR: Only CUDA ${_generations} generations are supported.")
       ENDIF()
     ENDIF()
-    
+
     LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DCUDA_GENERATION:STRING=${PLUSBUILD_OpenCV_CUDA_GENERATION})
   ELSE()
     LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DWITH_CUDA:BOOL=OFF)
   ENDIF()
-  
+
   IF(Qt5_FOUND)
     LIST(APPEND OpenCV_PLATFORM_SPECIFIC_ARGS -DWITH_QT:BOOL=ON -DQt5_DIR:PATH=${Qt5_DIR})
   ENDIF()

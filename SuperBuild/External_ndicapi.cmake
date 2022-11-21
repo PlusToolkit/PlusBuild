@@ -19,7 +19,7 @@ ELSE()
   SET (PLUS_ndicapi_src_DIR ${CMAKE_BINARY_DIR}/ndicapi CACHE INTERNAL "Path to store ndicapi contents.")
   SET (PLUS_ndicapi_prefix_DIR ${CMAKE_BINARY_DIR}/ndicapi-prefix CACHE INTERNAL "Path to store ndicapi prefix data.")
   SET (PLUS_ndicapi_DIR ${CMAKE_BINARY_DIR}/ndicapi-bin CACHE INTERNAL "Path to store ndicapi binaries")
-  
+
   ExternalProject_Add( ndicapi
     PREFIX ${PLUS_ndicapi_prefix_DIR}
     "${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}"

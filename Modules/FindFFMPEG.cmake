@@ -80,9 +80,9 @@ MACRO(FFMPEG_FIND varname shortname headername)
         ENDIF()
       ENDFOREACH()
     ELSEIF(UNIX AND NOT APPLE)
-    
+
     ELSEIF(APPLE)
-    
+
     ENDIF()
   ENDIF()
 
@@ -162,10 +162,10 @@ LIST(REMOVE_DUPLICATES FFMPEG_TARGETS)
 SET(FFMPEG_TARGETS ${FFMPEG_TARGETS} CACHE STRING "Names of the ffmpeg:: targets.")
 MARK_AS_ADVANCED(FFMPEG_TARGETS)
 
-# handle the QUIETLY and REQUIRED arguments and set FFMPEG_FOUND to TRUE if 
+# handle the QUIETLY and REQUIRED arguments and set FFMPEG_FOUND to TRUE if
 # all listed variables are TRUE
 INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(FFMPEG 
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(FFMPEG
   FAIL_MESSAGE "Unable to locate FFMPEG. Please set FFMPEG_ROOT to a valid location."
   REQUIRED_VARS FFMPEG_INCLUDE_DIRS FFMPEG_LIBRARIES
   )

@@ -25,9 +25,9 @@ int main() {
     return 1;
   }
   IPortableDeviceKeyCollection* pKeys = NULL;
-  hr = CoCreateInstance(CLSID_PortableDeviceKeyCollection, 
-                                NULL, 
-                                CLSCTX_INPROC_SERVER,                                 
+  hr = CoCreateInstance(CLSID_PortableDeviceKeyCollection,
+                                NULL,
+                                CLSCTX_INPROC_SERVER,
                                 IID_PPV_ARGS(&pKeys));
   if(FAILED(hr)){
 	  return 1;

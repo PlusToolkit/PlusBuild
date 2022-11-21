@@ -85,7 +85,7 @@ FIND_LIBRARY(OPENVR_LIBRARY_TEMP
   NAMES openvr_api
   HINTS
   PATH_SUFFIXES ${_libpath}
-  PATHS 
+  PATHS
     ${OPENVR_ROOT_DIR}
     ${OpenVR_DIR}
 )
@@ -112,7 +112,7 @@ if(OPENVR_FOUND)
   mark_as_advanced(OPENVR_ROOT_DIR OPENVR_HEADERS_ROOT_DIR)
 
   add_library(OpenVR SHARED IMPORTED)
-  set_target_properties(OpenVR 
+  set_target_properties(OpenVR
     PROPERTIES
       IMPORTED_IMPLIB ${OPENVR_LIBRARY}
       IMPORTED_LOCATION ${OPENVR_ROOT_DIR}/bin/${OPENVR_PLATFORM}/openvr_api${CMAKE_SHARED_LIBRARY_SUFFIX}

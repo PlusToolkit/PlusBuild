@@ -6,7 +6,7 @@ IF(OpenIGTLink_DIR)
   ENDIF()
 
   MESSAGE(STATUS "Using OpenIGTLink available at: ${OpenIGTLink_DIR}")
-  
+
   # Copy libraries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
   PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${OpenIGTLink_LIBRARIES})
 
@@ -30,7 +30,7 @@ ELSE()
     GIT_REPOSITORY ${OpenIGTLink_GIT_REPOSITORY}
     GIT_TAG ${OpenIGTLink_GIT_TAG}
     #--Configure step-------------
-    CMAKE_ARGS 
+    CMAKE_ARGS
       ${ep_common_args}
       -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
       -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
@@ -50,5 +50,5 @@ ELSE()
     #--Install step-----------------
     INSTALL_COMMAND ""
     DEPENDS ${OpenIGTLink_DEPENDENCIES}
-    )  
+    )
 ENDIF()

@@ -22,7 +22,7 @@ IF NOT "%1"=="" (
     GOTO :loop
 )
 
-SET DIRCMD=0 
+SET DIRCMD=0
 
 if "%TEST_MODE%" == "" goto experimental
 if "%TEST_MODE%" == "-E" goto experimental
@@ -44,8 +44,8 @@ goto END
 timeout /t 15
 goto END
 
-:individual 
-@REM Run individual tests with regexp search 
+:individual
+@REM Run individual tests with regexp search
 @REM Display the list of tests
 "${CMAKE_CTEST_COMMAND}" -R "%INDIVIDUAL_TEST%" -N
 @REM Run selected tests
@@ -54,7 +54,7 @@ goto END
 
 :BUILDFAILED
 ECHO ERROR: Build failed...
-GOTO END 
+GOTO END
 
 :END
 SET PATH=%ORIGPATH%

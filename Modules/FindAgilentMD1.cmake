@@ -19,15 +19,15 @@ IF(CMAKE_HOST_WIN32 AND CMAKE_CL_64)
 ELSE()
   SET(PLATFORM_SUFFIX "")
 ENDIF()
-  
+
 FIND_PATH(AgilentMD1_INCLUDE_DIR AgMD1Fundamental.h
   PATH_SUFFIXES
     include
   DOC "U10xx_Digitizers include directory (contains AgMD1Fundamental.h)"
-  PATHS ${AgilentMD1_PATH_HINTS} 
+  PATHS ${AgilentMD1_PATH_HINTS}
   )
 
-FIND_LIBRARY(AgilentMD1_LIBRARY 
+FIND_LIBRARY(AgilentMD1_LIBRARY
   NAMES AgMD1Fundamental${PLATFORM_SUFFIX}${CMAKE_STATIC_LIBRARY_SUFFIX}
   PATH_SUFFIXES
     lib
@@ -35,19 +35,19 @@ FIND_LIBRARY(AgilentMD1_LIBRARY
   PATHS ${AgilentMD1_PATH_HINTS}
   )
 
-FIND_PATH(AgilentMD1_BINARY_DIR 
+FIND_PATH(AgilentMD1_BINARY_DIR
   AgMD1Fundamental${PLATFORM_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX}
-  PATH_SUFFIXES 
+  PATH_SUFFIXES
     bin
-  PATHS ${AgilentMD1_PATH_HINTS} 
+  PATHS ${AgilentMD1_PATH_HINTS}
   DOC "Path to Agilent MD1 base shared library (AgMD1Fundamental${CMAKE_SHARED_LIBRARY_SUFFIX})"
   NO_DEFAULT_PATH # avoid finding installed DLLs in the system folders
   )
 
-# handle the QUIETLY and REQUIRED arguments and set MicronTracker_FOUND to TRUE if 
+# handle the QUIETLY and REQUIRED arguments and set MicronTracker_FOUND to TRUE if
 # all listed variables are TRUE
 INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(AgilentMD1 DEFAULT_MSG 
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(AgilentMD1 DEFAULT_MSG
   AgilentMD1_INCLUDE_DIR
   AgilentMD1_LIBRARY
   AgilentMD1_BINARY_DIR

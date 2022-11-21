@@ -104,9 +104,9 @@ UNSET(DeckLinkSDK_PATH)
 FIND_FILE(_header_found
     ${__include_file}
     PATHS ${DECKLINK_SDK_ROOT}
-          $ENV{DECKLINK_SDK_DIR} 
-          $ENV{BLACKMAGIC_SDK_DIR} 
-          $ENV{DECKLINK_DIR} 
+          $ENV{DECKLINK_SDK_DIR}
+          $ENV{BLACKMAGIC_SDK_DIR}
+          $ENV{DECKLINK_DIR}
           $ENV{BLACKMAGIC_DIR}
           # Plus specific paths to check
           "../../VASSTTools/BlackmagicDeckLinkSDK-11.2"
@@ -151,17 +151,17 @@ IF(NOT TARGET DeckLinkSDK)
                               IMPORTED_LOCATION "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/bin/${BUILD_ARCHITECTURE}/dvp.dll"
                               INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/include"
                             )
-      
-      set_target_properties(DeckLinkSDK 
-                            PROPERTIES 
+
+      set_target_properties(DeckLinkSDK
+                            PROPERTIES
                               INTERFACE_INCLUDE_DIRECTORIES
                                 "${DeckLinkSDK_PATH}/${_platform}/include;${DeckLinkSDK_PATH}/${_platform}/DirectShow/include"
                             )
       SET(DeckLinkSDK_LIBS DeckLinkSDK NVIDIA_GPUDirect)
     ENDIF()
   ELSE()
-    set_target_properties(DeckLinkSDK 
-                          PROPERTIES 
+    set_target_properties(DeckLinkSDK
+                          PROPERTIES
                             INTERFACE_INCLUDE_DIRECTORIES
                               "${DeckLinkSDK_PATH}/${_platform}/include"
                           )
@@ -172,14 +172,14 @@ IF(NOT TARGET DeckLinkSDK)
                               IMPORTED_LOCATION "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/${BUILD_ARCHITECTURE}/libdvp.so"
                               INTERFACE_INCLUDE_DIRECTORIES "${DeckLinkSDK_PATH}/${_platform}/NVIDIA_GPUDirect/include"
                             )
-      set_target_properties(DeckLinkSDK 
+      set_target_properties(DeckLinkSDK
                             PROPERTIES
-                              IMPORTED_LINK_INTERFACE_LIBRARIES 
+                              IMPORTED_LINK_INTERFACE_LIBRARIES
                                 NVIDIA_GPUDirect
                             )
       SET(DeckLinkSDK_LIBS DeckLinkSDK NVIDIA_GPUDirect)
     ELSE()
-      set_target_properties(DeckLinkSDK 
+      set_target_properties(DeckLinkSDK
                             PROPERTIES
                             )
       SET(DeckLinkSDK_LIBS DeckLinkSDK CoreFoundation)

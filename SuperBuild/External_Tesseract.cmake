@@ -55,7 +55,7 @@ IF(tessdata_DIR)
   IF(NOT EXISTS ${tessdata_DIR})
     MESSAGE(FATAL_ERROR "Folder specified by tessdata_DIR does not exist.")
   ENDIF()
-  
+
   SET(PLUS_tessdata_src_DIR ${tessdata_DIR} CACHE INTERNAL "Path to store tesseract language data contents.")
 ELSE()
   SET (PLUS_tessdata_src_DIR ${tesseract_ROOT_DIR}/tessdata CACHE INTERNAL "Path to store tesseract language data contents.")
@@ -84,7 +84,7 @@ ENDIF()
 # tesseract
 IF(tesseract_DIR)
   FIND_PACKAGE(tesseract REQUIRED NO_MODULE)
-  
+
   SET (PLUS_tesseract_DIR ${tesseract_DIR} CACHE INTERNAL "Path to store tesseract binaries")
 ELSE()
   SetGitRepositoryTag(

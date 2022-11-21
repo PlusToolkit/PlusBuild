@@ -1,4 +1,4 @@
-# Find the Azure Kinect SDK 
+# Find the Azure Kinect SDK
 # This module defines
 # K4A_FOUND - Azure Kinect SDK has been found on this system
 # K4A_INCLUDE_DIR - Azure Kinect SDK headers directory
@@ -66,7 +66,7 @@ ELSEIF(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 ENDIF()
 
 INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(K4A DEFAULT_MSG 
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(K4A DEFAULT_MSG
   K4A_INCLUDE_DIR
   K4A_LIBRARY_DIR
   K4A_BINARY_DIR
