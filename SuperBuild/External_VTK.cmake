@@ -78,7 +78,7 @@ ELSE()
 
   SetGitRepositoryTag(
     VTK
-    "${GIT_PROTOCOL}://github.com/kitware/vtk.git"
+    "https://github.com/kitware/vtk.git"
     ${PLUSBUILD_EXTERNAL_VTK_VERSION}
     )
 

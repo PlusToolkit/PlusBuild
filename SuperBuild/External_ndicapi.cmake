@@ -10,7 +10,7 @@ IF(ndicapi_DIR)
 ELSE()
   SetGitRepositoryTag(
     ndicapi
-    "${GIT_PROTOCOL}://github.com/PlusToolkit/ndicapi.git"
+    "https://github.com/PlusToolkit/ndicapi.git"
     "master"
     )
 

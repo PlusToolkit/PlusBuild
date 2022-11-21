@@ -16,7 +16,7 @@ ELSE()
 
   SetGitRepositoryTag(
     ClariusOEM
-    "${GIT_PROTOCOL}://github.com/clariusdev/oem.git"
+    "https://github.com/clariusdev/oem.git"
     "v9.3.0"
     )
 

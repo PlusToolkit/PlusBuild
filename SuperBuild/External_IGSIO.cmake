@@ -11,7 +11,7 @@ ELSE()
 
   SetGitRepositoryTag(
     IGSIO
-    "${GIT_PROTOCOL}://github.com/IGSIO/IGSIO.git"
+    "https://github.com/IGSIO/IGSIO.git"
     "master"
     )
 

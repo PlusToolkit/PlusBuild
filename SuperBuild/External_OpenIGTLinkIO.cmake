@@ -12,7 +12,7 @@ ELSE()
   # OpenIGTLinkIO has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     OpenIGTLinkIO
-    "${GIT_PROTOCOL}://github.com/IGSIO/OpenIGTLinkIO.git"
+    "https://github.com/IGSIO/OpenIGTLinkIO.git"
     "master"
     )
 

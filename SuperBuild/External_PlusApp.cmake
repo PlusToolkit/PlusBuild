@@ -9,7 +9,7 @@ IF(BUILDNAME)
 ENDIF()
 
 IF(NOT DEFINED(PLUSAPP_GIT_REPOSITORY))
-  SET(PLUSAPP_GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusApp.git" CACHE STRING "Set PlusApp desired git url")
+  SET(PLUSAPP_GIT_REPOSITORY "https://github.com/PlusToolkit/PlusApp.git" CACHE STRING "Set PlusApp desired git url")
 ENDIF()
 IF(NOT DEFINED(PLUSAPP_GIT_REVISION))
   SET(PLUSAPP_GIT_REVISION "master" CACHE STRING "Set PlusApp desired git hash (master means latest)")
