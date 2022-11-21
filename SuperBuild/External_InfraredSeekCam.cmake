@@ -11,7 +11,7 @@ ELSE()
   # SeekCameraLib has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     SeekCameraLib
-    "${GIT_PROTOCOL}://github.com/medtec4susdev/libseek-thermal.git"
+    "https://github.com/medtec4susdev/libseek-thermal.git"
     master
     )
 

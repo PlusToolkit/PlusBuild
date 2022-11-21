@@ -8,7 +8,7 @@ SET(tesseract_ROOT_DIR ${CMAKE_BINARY_DIR})
 # leptonica
 SetGitRepositoryTag(
   leptonica
-  "${GIT_PROTOCOL}://github.com/PlusToolkit/leptonica.git"
+  "https://github.com/PlusToolkit/leptonica.git"
   "master"
   )
 
@@ -47,7 +47,7 @@ ENDIF()
 # tessdata
 SetGitRepositoryTag(
   tessdata
-  "${GIT_PROTOCOL}://github.com/PlusToolkit/tessdata.git"
+  "https://github.com/PlusToolkit/tessdata.git"
   "master"
   )
 
@@ -89,7 +89,7 @@ IF(tesseract_DIR)
 ELSE()
   SetGitRepositoryTag(
     tesseract
-    "${GIT_PROTOCOL}://github.com/PlusToolkit/tesseract-ocr-cmake.git"
+    "https://github.com/PlusToolkit/tesseract-ocr-cmake.git"
     "21855d0568a9253dede4e223aae71c0249b90438"
     )
 

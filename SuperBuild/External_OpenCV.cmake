@@ -75,7 +75,7 @@ ELSE()
   # No OpenCV is specified, so download and build
   SetGitRepositoryTag(
     OpenCV
-    "${GIT_PROTOCOL}://github.com/opencv/opencv.git"
+    "https://github.com/opencv/opencv.git"
     ${PLUSBUILD_OpenCV_VERSION}
     )
 

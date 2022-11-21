@@ -24,7 +24,7 @@ ELSE()
   # ITK has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     itk
-    "${GIT_PROTOCOL}://github.com/InsightSoftwareConsortium/ITK"
+    "https://github.com/InsightSoftwareConsortium/ITK"
     ${PLUS_ITK_VERSION_STRING}
     )
 

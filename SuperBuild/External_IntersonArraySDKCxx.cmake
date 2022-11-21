@@ -32,7 +32,7 @@ ELSE()
   # IntersonArraySDKCxx has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     IntersonArraySDKCxx
-    "${GIT_PROTOCOL}://github.com/KitwareMedical/IntersonArraySDKCxx.git"
+    "https://github.com/KitwareMedical/IntersonArraySDKCxx.git"
     "master"
     )
 

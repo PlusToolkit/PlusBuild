@@ -3,7 +3,7 @@
 
 SetGitRepositoryTag(
   PlusModelCatalog
-  "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusModelCatalog.git"
+  "https://github.com/PlusToolkit/PlusModelCatalog.git"
   "master"
   )
 
