@@ -5,13 +5,17 @@ PROJECT(PlusBuild)
 # Configure the build to work (although with limited functionalities) if only
 # src directory of the repository is available
 
-# Cache C++ standard to allow setting externally
-SET(_minimum_cxx_standard "11")
-SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard")
-IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
-  MESSAGE(FATAL_ERROR "CMAKE_CXX_STANDARD must be equal or larger than ${_minimum_cxx_standard}")
-ENDIF()
-SET(CMAKE_CXX_STANDARD_REQUIRED ON CACHE STRING "C++ standard required")
+#-----------------------------------------------------------------------------
+# Setting C++ Standard
+#-----------------------------------------------------------------------------
+set(_msg "Setting C++ standard")
+message(STATUS "${_msg}")
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 11)
+endif()
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+message(STATUS "${_msg} - C++${CMAKE_CXX_STANDARD}")
 
 IF (PLUS_USE_CLARIUS_OEM)
   # ClariusOEM device uses C++/WinRT interface for managing Bluetooth LE connection to the probe, this requires C++ 17
@@ -44,18 +48,6 @@ INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/CMake/PlusBuildMacros.cmake)
 
 OPTION(PLUSBUILD_OFFLINE_BUILD "Build Plus without an internet connection. All libraries must be downloaded and updated manually." OFF)
 MARK_AS_ADVANCED(PLUSBUILD_OFFLINE_BUILD)
-
-# Disallow certain versions of Visual Studio
-IF(MSVC)
-  # Use generator to determine name
-  IF(${CMAKE_GENERATOR} MATCHES "Visual Studio 9")
-    MESSAGE(FATAL_ERROR "Visual Studio 2008 is not supported. You can download Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
-  ELSEIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 10")
-    MESSAGE("Visual Studio 2010 is supported, but should only be used if you're compiling for the StealthLink device.\nIf StealthLink support is not needed, please consider using Visual Studio 2013, 2015, 2017, or 2019 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.\nNot all device options are available for Visual Studio 2010.")
-  ELSEIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 11")
-    MESSAGE("Visual Studio 2012 is not recommended. You should download Visual Studio 2013, 2015, 2017, or 2019 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
-  ENDIF()
-ENDIF()
 
 # Macro to set the Git repository and tag, and display a message
 MACRO(SetGitRepositoryTag project_name git_repository git_tag)
@@ -260,7 +252,7 @@ OPTION(PLUS_USE_ANDOR_CAMERA "Provide support for the Andor cameras capture stre
 
 # ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
-IF (PLUS_USE_OPTITRACK) 
+IF (PLUS_USE_OPTITRACK)
   IF(NOT BUILD_ARCHITECTURE MATCHES "x64")
     SET(MOTIVE_VERSION_DEFAULT "1.10.3")
   ELSE()
@@ -316,7 +308,7 @@ OPTION(PLUS_USE_LEAPMOTION "Provide support for the LeapMotion hand tracker" OFF
 IF(PLUS_USE_LEAPMOTION)
   OPTION(PLUS_TEST_LEAPMOTION "Enable testing of LeapMotion device" OFF)
   FIND_PACKAGE(LeapSDK 4.0 REQUIRED
-    PATHS 
+    PATHS
     ../VASSTTools/LeapMotion/LeapSDK/lib/cmake/LeapSDK # Convenience for members of the VASST lab
     )
 ENDIF()
@@ -364,6 +356,23 @@ SET(PLUSAPP_PACKAGE_EDITION "" CACHE STRING "Specifies a name that refers to the
 #-----------------------------------------------------------------------------
 # Warnings for incompatible build options
 #-----------------------------------------------------------------------------
+if(MSVC)
+  # See https://cmake.org/cmake/help/latest/variable/MSVC_VERSION.html
+  # and https://en.wikipedia.org/wiki/Microsoft_Visual_Studio#Version_history
+  # 1600      = VS 10.0 (v100 toolset) (Visual Studio 2010)
+  # 1700      = VS 11.0 (v110 toolset) (Visual Studio 2012)
+  # 1800      = VS 12.0 (v120 toolset) (Visual Studio 2013)
+  # 1900      = VS 14.0 (v140 toolset) (Visual Studio 2015)
+  # 1910-1919 = VS 15.0 (v141 toolset)
+  # 1920-1929 = VS 16.0 (v142 toolset)
+  # 1930-1939 = VS 17.0 (v143 toolset)
+  if(PLUS_USE_STEALTHLINK)
+    if(NOT MSVC_VERSION MATCHES "^(1800|1600)$")
+      message(FATAL_ERROR "SteathLink compatibility requires Visual Studio 2013 or 2010.")
+    endif()
+  endif()
+endif()
+
 IF(PLUS_USE_Ascension3DG AND PLUS_USE_Ascension3DGm)
   MESSAGE(FATAL_ERROR "PLUS_USE_Ascension3DG and PLUS_USE_Ascension3DGm options cannot be enabled at the same time. See more details at https://www.assembla.com/spaces/plus/tickets/851")
 ENDIF()
@@ -409,7 +418,7 @@ ENDIF()
 INCLUDE(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 SET(ep_base "${CMAKE_BINARY_DIR}")
-SET(ep_common_args -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} -DCMAKE_CXX_STANDARD_REQUIRED:BOOL=ON)
+SET(ep_common_args -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} -DCMAKE_CXX_STANDARD_REQUIRED:BOOL=${CMAKE_CXX_STANDARD_REQUIRED})
 
 IF(UNIX AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
   SET(ADDITIONAL_CXX_FLAGS "-fPIC")
@@ -486,9 +495,16 @@ ENDIF()
 
 INCLUDE(SuperBuild/External_VTK.cmake)
 
-SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use. ITK 5 is reccommended")
+SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use.")
 MARK_AS_ADVANCED(PLUS_ITK_VERSION)
 set_property(CACHE PLUS_ITK_VERSION PROPERTY STRINGS "5" "4")
+IF(PLUS_USE_STEALTHLINK AND PLUS_ITK_VERSION VERSION_GREATER "4")
+  MESSAGE("The StealthLink device only supports up to Visual Studio 2013, therefore it must use ITK 4. Changing ITK version to 4.")
+  SET(PLUS_ITK_VERSION 4 CACHE STRING "Set version of ITK to use." FORCE)
+ELSEIF(PLUS_ITK_VERSION MATCHES "4")
+  MESSAGE("Only the StealthLink device is still supported to use ITK 4. Changing ITK version to 5.")
+  SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use." FORCE)
+ENDIF()
 INCLUDE(SuperBuild/External_ITK.cmake)
 
 IF(PLUSBUILD_USE_OpenIGTLink)
@@ -554,7 +570,7 @@ ENDIF()
 IF (PLUS_USE_ANDOR_CAMERA AND NOT PLUSBUILD_USE_OpenCV)
   MESSAGE("PLUSE_USE_ANDOR_CAMERA requires openCV option enabled, enabling.")
   SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
-ENDIF()	
+ENDIF()
 #--- END ANDOR dependency on opencv
 
 # OpenCV dependency, MUST COME AFTER VTK external inclusion
