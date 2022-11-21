@@ -35,7 +35,7 @@ ELSE()
 
   SetGitRepositoryTag(
     OvrvisionPro
-    "${GIT_PROTOCOL}://github.com/PLUSToolkit/OvrvisionProCMake.git"
+    "https://github.com/PLUSToolkit/OvrvisionProCMake.git"
     "master"
     )
 

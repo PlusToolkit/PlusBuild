@@ -11,7 +11,7 @@ ELSE()
   # aruco has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     aruco
-    "${GIT_PROTOCOL}://github.com/PlusToolkit/aruco.git"
+    "https://github.com/PlusToolkit/aruco.git"
     "master"
     )
 

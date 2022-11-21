@@ -418,7 +418,7 @@ IF(BUILDNAME)
 ENDIF(BUILDNAME)
 
 IF(NOT DEFINED(PLUSLIB_GIT_REPOSITORY))
-  SET(PLUSLIB_GIT_REPOSITORY "${GIT_PROTOCOL}://github.com/PlusToolkit/PlusLib.git" CACHE STRING "Set PlusLib desired git url")
+  SET(PLUSLIB_GIT_REPOSITORY "https://github.com/PlusToolkit/PlusLib.git" CACHE STRING "Set PlusLib desired git url")
 ENDIF()
 IF(NOT DEFINED(PLUSLIB_GIT_REVISION))
   SET(PLUSLIB_GIT_REVISION "master" CACHE STRING "Set PlusLib desired git hash (master means latest)")

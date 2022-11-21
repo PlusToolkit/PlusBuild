@@ -15,7 +15,7 @@ ELSE()
   # OpenIGTLink has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     OpenIGTLink
-    "${GIT_PROTOCOL}://github.com/openigtlink/OpenIGTLink.git"
+    "https://github.com/openigtlink/OpenIGTLink.git"
     "master"
     )
 

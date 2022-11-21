@@ -21,7 +21,7 @@ ELSE()
   # OpenVR has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     OpenVR
-    "${GIT_PROTOCOL}://github.com/ValveSoftware/openvr.git"
+    "https://github.com/ValveSoftware/openvr.git"
     "master"
     )
 

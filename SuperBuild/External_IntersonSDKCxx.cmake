@@ -19,7 +19,7 @@ ELSE()
   # IntersonSDKCxx has not been built yet, so download and build it as an external project
   SetGitRepositoryTag(
     IntersonSDKCxx
-    "${GIT_PROTOCOL}://github.com/KitwareMedical/IntersonSDKCxx.git"
+    "https://github.com/KitwareMedical/IntersonSDKCxx.git"
     "819d620052be7e9b232e12d8946793c15cfbf5a3"
     )
 
