@@ -1,111 +1,120 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file Copyright.txt or https://cmake.org/licensing for details.
 
-#[=======================================================================[.rst:
-FindVcvars
-----------
 
-Finds a "vcvars" batch script.
-
-The module can be used when configuring a project or when running
-in cmake -P script mode.
-
-These variables can be used to choose which "vcvars" batch script is looked up.
-
-.. variable:: Vcvars_MSVC_ARCH
-
-  Possible values are `32` or `64`
-
-  If not explicitly set in the calling scope, the variable is initialized
-  based on the value of :variable:`CMAKE_SIZEOF_VOID_P` in configuration mode, and
-  to 64 in script mode.
-
-.. variable:: Vcvars_MSVC_VERSION
-
-  Possible values corresponds to :variable:`MSVC_VERSION`.
-
-  If not explicitly set in the calling scope, :variable:`Vcvars_MSVC_VERSION` is
-  initialized using :variable:`MSVC_VERSION` variable if it is defined, otherwise
-  the variable :variable:`Vcvars_MSVC_VERSION` is initialized based on the most
-  recent version of Visual Studio installed on the system.
-
-This will define the following variables:
-
-.. variable:: Vcvars_BATCH_FILE
-
-  Path to ``vcvars32.bat``, ``vcvarsamd64.bat`` or ``vcvars64.bat``.
-
-.. variable:: Vcvars_LAUNCHER
-
-  Path to a generated wrapper script allowing to execute program after
-  setting environment defined by `Vcvars_BATCH_FILE`.
-
-  It can be used within :module:`ExternalProject` steps
-  specifying command like this::
-
-    set(cmd_wrapper)
-    if(MSVC)
-      find_package(Vcvars REQUIRED)
-      set(cmd_wrapper ${Vcvars_LAUNCHER})
-    endif()
-
-    ExternalProject_Add(AwesomeProject
-      [...]
-      BUILD_COMMAND ${cmd_wrapper} <command> arg1 arg2 [...]
-      [...]
-      )
-
-This module also defines the following functions
-
-
-.. command:: Vcvars_GetVisualStudioPaths
-
-  The ``Vcvars_GetVisualStudioPaths()`` function returns a list of all
-  possible Visual Studio registry paths associated with a given ``<msvc_version>``
-  and ``<msvc_arch>``::
-
-    Vcvars_GetVisualStudioPaths(<msvc_version> <msvc_arch> <output_var>)
-
-  The options are:
-
-  ``<msvc_version>``
-    Specify the Visual Studio compiler version. See :variable:`MSVC_VERSION`
-    for possible values.
-
-  ``<msvc_arch>``
-    Specify the Visual Studio architecture. Possible values are `32` or `64`.
-
-  ``<output_var>``
-    The name of the variable to be set with the list of registry paths.
-
-
-.. command:: Vcvars_ConvertMsvcVersionToVsVersion
-
-  The ``Vcvars_ConvertMsvcVersionToVsVersion()`` function converts a
-  :variable:`MSVC_VERSION` of the form ``NNNN`` to a Visual Studio version
-  of the form ``XX.Y`::
-
-    Vcvars_ConvertMsvcVersionToVsVersion(<msvc_version> <output_var>)
-
-  The options are:
-
-  ``<msvc_version>``
-    Specify the Visual Studio compiler version. See :variable:`MSVC_VERSION`
-    for possible values.
-
-  ``<output_var>``
-    The name of the variable to be set with the Visual Studio version.
-
-#]=======================================================================]
+#.rst:
+#FindVcvars
+#----------
+#
+#Finds a "vcvars" batch script.
+#
+#The module can be used when configuring a project or when running
+#in cmake -P script mode.
+#
+#These variables can be used to choose which "vcvars" batch script is looked up.
+#
+#.. variable:: Vcvars_MSVC_ARCH
+#
+#  Possible values are `32` or `64`
+#
+#  If not explicitly set in the calling scope, the variable is initialized
+#  based on the value of :variable:`CMAKE_SIZEOF_VOID_P` in configuration mode, and
+#  to 64 in script mode.
+#
+#.. variable:: Vcvars_MSVC_VERSION
+#
+#  Possible values corresponds to :variable:`MSVC_VERSION`.
+#
+#  If not explicitly set in the calling scope, :variable:`Vcvars_MSVC_VERSION` is
+#  initialized using :variable:`MSVC_VERSION` variable if it is defined, otherwise
+#  the variable :variable:`Vcvars_MSVC_VERSION` is initialized based on the most
+#  recent version of Visual Studio installed on the system.
+#
+#This will define the following variables:
+#
+#.. variable:: Vcvars_BATCH_FILE
+#
+#  Path to ``vcvars32.bat``, ``vcvarsamd64.bat`` or ``vcvars64.bat``.
+#
+#.. variable:: Vcvars_WRAPPER_BATCH_FILE
+#
+#  Path to a generated wrapper script allowing to execute program after
+#  setting environment defined by `Vcvars_BATCH_FILE`.
+#
+#  It can be used within :module:`ExternalProject` steps
+#  specifying command like this::
+#
+#    set(cmd_wrapper)
+#    if(MSVC)
+#      find_package(Vcvars REQUIRED)
+#      set(cmd_wrapper ${Vcvars_WRAPPER_BATCH_FILE})
+#    endif()
+#
+#    ExternalProject_Add(AwesomeProject
+#      [...]
+#      BUILD_COMMAND ${cmd_wrapper} <command> arg1 arg2 [...]
+#      [...]
+#      )
+#
+#This module also defines the following functions
+#
+#
+#.. command:: Vcvars_GetVisualStudioPaths
+#
+#  The ``Vcvars_GetVisualStudioPaths()`` function returns a list of all
+#  possible Visual Studio registry paths associated with a given ``<msvc_version>``
+#  and ``<msvc_arch>``::
+#
+#    Vcvars_GetVisualStudioPaths(<msvc_version> <msvc_arch> <output_var>)
+#
+#  The options are:
+#
+#  ``<msvc_version>``
+#    Specify the Visual Studio compiler version. See :variable:`MSVC_VERSION`
+#    for possible values.
+#
+#  ``<msvc_arch>``
+#    Specify the Visual Studio architecture. Possible values are `32` or `64`.
+#
+#  ``<output_var>``
+#    The name of the variable to be set with the list of registry paths.
+#
+#
+#.. command:: Vcvars_ConvertMsvcVersionToVsVersion
+#
+#  The ``Vcvars_ConvertMsvcVersionToVsVersion()`` function converts a
+#  :variable:`MSVC_VERSION` of the form ``NNNN`` to a Visual Studio version
+#  of the form ``XX.Y`::
+#
+#    Vcvars_ConvertMsvcVersionToVsVersion(<msvc_version> <output_var>)
+#
+#  The options are:
+#
+#  ``<msvc_version>``
+#    Specify the Visual Studio compiler version. See :variable:`MSVC_VERSION`
+#    for possible values.
+#
+#  ``<output_var>``
+#    The name of the variable to be set with the Visual Studio version.
+#
+#
 
 cmake_minimum_required(VERSION 3.5)
-
-# TODO Support lookup of "Microsoft Visual C++ Compiler for Python 2.7 (x86, amd64)"
 
 # Global variables used only in this script (unset at the end)
 set(_Vcvars_MSVC_ARCH_REGEX "^(32|64)$")
 set(_Vcvars_MSVC_VERSION_REGEX "^[0-9][0-9][0-9][0-9]$")
-set(_Vcvars_SUPPORTED_MSVC_VERSIONS 1914 1913 1912 1911 1910 1900 1800 1700 1600 1500 1400)
+set(_Vcvars_SUPPORTED_MSVC_VERSIONS
+  1939 1938 1937 1936 1935 1934 1933 1932 1931 1930 # VS 2022
+  1929 1928 1927 1926 1925 1924 1923 1922 1921 1920 # VS 2019
+  1916 1915 1914 1913 1912 1911 1910 # VS 2017
+  1900 # VS 2015
+  1800 # VS 2013
+  1700 # VS 2012
+  1600 # VS 2010
+  1500 # VS 2008
+  1400 # VS 2005
+  )
 
 function(_vcvars_message)
   if(NOT Vcvars_FIND_QUIETLY)
@@ -118,18 +127,12 @@ function(Vcvars_ConvertMsvcVersionToVsVersion msvc_version output_var)
     message(FATAL_ERROR "msvc_version is expected to match `${_Vcvars_MSVC_VERSION_REGEX}`")
   endif()
   # See https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B#Internal_version_numbering
-  if(msvc_version EQUAL 1915)     # VS 2017
-    set(vs_version "15.8")
-  elseif(msvc_version EQUAL 1914) # VS 2017
-    set(vs_version "15.7")
-  elseif(msvc_version EQUAL 1913) # VS 2017
-    set(vs_version "15.6")
-  elseif(msvc_version EQUAL 1912) # VS 2017
-    set(vs_version "15.5")
-  elseif(msvc_version EQUAL 1911) # VS 2017
-    set(vs_version "15.3")
-  elseif(msvc_version EQUAL 1910) # VS 2017
-    set(vs_version "15.0")
+  if((msvc_version GREATER_EQUAL 1930) AND (msvc_version LESS 1940))     # VS 2022
+    set(vs_version "17")
+  elseif((msvc_version GREATER_EQUAL 1920) AND (msvc_version LESS 1930)) # VS 2019
+    set(vs_version "16")
+  elseif((msvc_version GREATER_EQUAL 1910) AND (msvc_version LESS 1920)) # VS 2017
+    set(vs_version "15")
   elseif(msvc_version EQUAL 1900) # VS 2015
     set(vs_version "14.0")
   elseif(msvc_version EQUAL 1800) # VS 2013
@@ -243,11 +246,11 @@ endif()
 if(NOT DEFINED Vcvars_BATCH_FILE)
   set(Vcvars_BATCH_FILE "Vcvars_BATCH_FILE-NOTFOUND")
 endif()
-if(NOT DEFINED Vcvars_LAUNCHER)
-  set(Vcvars_LAUNCHER "Vcvars_LAUNCHER-NOTFOUND")
+if(NOT DEFINED Vcvars_WRAPPER_BATCH_FILE)
+  set(Vcvars_WRAPPER_BATCH_FILE "Vcvars_WRAPPER_BATCH_FILE-NOTFOUND")
 endif()
 
-# check Vcvars_MSVC_ARCH is propertly set
+# check Vcvars_MSVC_ARCH is properly set
 if(NOT Vcvars_MSVC_ARCH MATCHES ${_Vcvars_MSVC_ARCH_REGEX})
   message(FATAL_ERROR "Vcvars_MSVC_ARCH [${Vcvars_MSVC_ARCH}] is expected to match `${_Vcvars_MSVC_ARCH_REGEX}`")
 endif()
@@ -300,7 +303,7 @@ else()
 endif()
 
 # configure wrapper script
-set(Vcvars_LAUNCHER)
+set(Vcvars_WRAPPER_BATCH_FILE)
 if(Vcvars_BATCH_FILE)
 
   set(_in "${CMAKE_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/Vcvars_wrapper.bat.in")
@@ -311,7 +314,7 @@ if(Vcvars_BATCH_FILE)
 ")
   configure_file(${_in} ${_out} @ONLY)
 
-  set(Vcvars_LAUNCHER ${_out})
+  set(Vcvars_WRAPPER_BATCH_FILE ${_out})
   unset(_in)
   unset(_out)
 endif()
@@ -325,9 +328,9 @@ find_package_handle_standard_args(Vcvars
   FOUND_VAR Vcvars_FOUND
   REQUIRED_VARS
     Vcvars_BATCH_FILE
-    Vcvars_LAUNCHER
     Vcvars_MSVC_VERSION
     Vcvars_MSVC_ARCH
+    Vcvars_WRAPPER_BATCH_FILE
   FAIL_MESSAGE
     "Failed to find vcvars scripts for Vcvars_MSVC_VERSION [${Vcvars_MSVC_VERSION}] and Vcvars_MSVC_ARCH [${Vcvars_MSVC_ARCH}]"
   )
