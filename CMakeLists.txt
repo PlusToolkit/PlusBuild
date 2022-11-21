@@ -5,13 +5,20 @@ PROJECT(PlusBuild)
 # Configure the build to work (although with limited functionalities) if only
 # src directory of the repository is available
 
-# Cache C++ standard to allow setting externally
-SET(_minimum_cxx_standard "11")
-SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard")
-IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
-  MESSAGE(FATAL_ERROR "CMAKE_CXX_STANDARD must be equal or larger than ${_minimum_cxx_standard}")
-ENDIF()
-SET(CMAKE_CXX_STANDARD_REQUIRED ON CACHE STRING "C++ standard required")
+#-----------------------------------------------------------------------------
+# Setting C++ Standard
+#-----------------------------------------------------------------------------
+set(_msg "Setting C++ standard")
+message(STATUS "${_msg}")
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+message(STATUS "${_msg} - C++${CMAKE_CXX_STANDARD}")
+if(NOT CMAKE_CXX_STANDARD MATCHES "^(14|17|20)$")
+  message(FATAL_ERROR "CMAKE_CXX_STANDARD must be set to 14, 17 or 20")
+endif()
 
 IF (PLUS_USE_CLARIUS_OEM)
   # ClariusOEM device uses C++/WinRT interface for managing Bluetooth LE connection to the probe, this requires C++ 17
@@ -45,17 +52,18 @@ INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/CMake/PlusBuildMacros.cmake)
 OPTION(PLUSBUILD_OFFLINE_BUILD "Build Plus without an internet connection. All libraries must be downloaded and updated manually." OFF)
 MARK_AS_ADVANCED(PLUSBUILD_OFFLINE_BUILD)
 
-# Disallow certain versions of Visual Studio
-IF(MSVC)
-  # Use generator to determine name
-  IF(${CMAKE_GENERATOR} MATCHES "Visual Studio 9")
-    MESSAGE(FATAL_ERROR "Visual Studio 2008 is not supported. You can download Visual Studio 2013, 2015, or 2017 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
-  ELSEIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 10")
-    MESSAGE("Visual Studio 2010 is supported, but should only be used if you're compiling for the StealthLink device.\nIf StealthLink support is not needed, please consider using Visual Studio 2013, 2015, 2017, or 2019 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.\nNot all device options are available for Visual Studio 2010.")
-  ELSEIF(${CMAKE_GENERATOR} MATCHES "Visual Studio 11")
-    MESSAGE("Visual Studio 2012 is not recommended. You should download Visual Studio 2013, 2015, 2017, or 2019 Community from https://www.visualstudio.com/downloads/download-visual-studio-vs.")
-  ENDIF()
-ENDIF()
+if(MSVC)
+  # See https://cmake.org/cmake/help/latest/variable/MSVC_VERSION.html
+  # and https://en.wikipedia.org/wiki/Microsoft_Visual_Studio#Version_history
+  # 1910-1919 = VS 15.0 (v141 toolset) 1914 = VS 15.7
+  # 1920-1929 = VS 16.0 (v142 toolset)
+  # 1930-1939 = VS 17.0 (v143 toolset)
+  # VS 15.7 was announced to officially conform with the C++ standard of C++11, C++14 and C++17
+  # https://devblogs.microsoft.com/cppblog/announcing-msvc-conforms-to-the-c-standard/
+  if(NOT MSVC_VERSION VERSION_GREATER_EQUAL 1914)
+    message(FATAL_ERROR "Microsoft Visual C/C++ toolset 141 (VS 15.7) or newer is required !")
+  endif()
+endif()
 
 # Macro to set the Git repository and tag, and display a message
 MACRO(SetGitRepositoryTag project_name git_repository git_tag)
@@ -397,7 +405,7 @@ ENDIF()
 INCLUDE(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 SET(ep_base "${CMAKE_BINARY_DIR}")
-SET(ep_common_args -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} -DCMAKE_CXX_STANDARD_REQUIRED:BOOL=ON)
+SET(ep_common_args -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} -DCMAKE_CXX_STANDARD_REQUIRED:BOOL=${CMAKE_CXX_STANDARD_REQUIRED})
 
 IF(UNIX AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
   SET(ADDITIONAL_CXX_FLAGS "-fPIC")

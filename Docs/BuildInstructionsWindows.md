@@ -8,14 +8,17 @@ Install one of the following software packages. Note that other packages or vers
 Required:
 
 - **C++ compiler**
-  - [VS2013 Community Edition Update 5: works](https://www.visualstudio.com/en-us/news/releasenotes/vs2013-community-vs)
-  - [VS2015 Community Edition Update 3: works](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2015-version-history)
-  - VS2017 Community Edition: confirmed working with Qt 5.7 msvc2015 and msvc2015_64
+  - [Visual Studio](https://visualstudio.microsoft.com/downloads/): any edition can be used (including the free Community edition), when configuring the installer:
+    - Enable `Desktop development with C++` and in installation details
+    - Enable the `MSVC v143 - VS2022 C++ x64...` (Visual Studio 2022 v143 toolset with 64-bit support) component - in some distributions, this option is not enabled by default.
+    - Enable the latest Windows10 SDK component - without this CMake might not find a compiler during configuration step.
 - [**CMake** 3.10 or later](https://cmake.org/download)
 - [**Git** (msysgit)](http://msysgit.github.io). Cygwin git is not recommended.
 - **Qt framework** - download binaries for your specific configuration:
   - Building stable branch: Qt 4.8 and Qt 5.5, 5.7 are tested, download from http://www.qt.io/download/ or https://sourceforge.net/projects/qt64ng/files/qt/
-  - Building master branch: Qt 5.5+ is supported. Download from [Qt website](http://www.qt.io/download). Make sure the Visual Studio version (e.g. 2013) and configuration (e.g. x64) you use is selected during installation.
+  - Building master branch: Qt 5.15.x is supported.
+  - [Qt5](https://www.qt.io/download-open-source): Download Qt universal installer and install Qt 5.15.2 component: `MSVC2019 64-bit`. Installing Sources and Qt Debug Information
+  Files are recommended for debugging (they allow stepping into Qt files with the debugger in debug-mode builds).
 - **Device SDKs**: The SDK of some devices are not publicly available. These SDKs has to be obtained from the device manufacturer.
   - Developers at Queen, UBC, Robarts, and other collaborators: Request access to the PLTools repository from <a href="https://github.com/PerkLab">PerkLab</a>, which contains the SDKs for BK, NDI, etc. and clone the repository in the same directory where PlusBuild folder is located. During the build process, required SDK files will be loaded automatically from the PLTools directory. Example: C:\Users\Joe\devel\PLTools and C:\Users\Joe\devel\PlusBuild.
 
