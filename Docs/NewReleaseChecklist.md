@@ -75,8 +75,6 @@ Double-check that all main features of Plus work before releasing stable build. 
 - [ ] Grayscale image acquisition using webcam - MMF
 - [ ] Color image acquisition using webcam - MMF
 - [ ] Image acquisition using ImagingControls
-- [ ] Tracking using StealthLink
-  - Make sure to test image retrieve using OpenIGTLinkRemote
 - [ ] Tracking using OpticalMarkerTracking
 - [ ] Tracking using OptiTrack
 - [ ] Replay of tracked video from saved data source

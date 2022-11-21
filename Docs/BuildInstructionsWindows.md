@@ -1,4 +1,4 @@
-The build process is regularly tested and officially supported for 32-bit and 64-bit builds on Visual Studio 2013 and 2015. Support for Visual Studio 2010 is enabled only to support the StealthLink device. If you do not need this device, please move to a more recent version of Visual Studio (2015 recommended).
+The build process is regularly tested and officially supported for 32-bit and 64-bit builds on Visual Studio 2013 and 2015.
 
 Prerequisites
 =============
@@ -8,8 +8,6 @@ Install one of the following software packages. Note that other packages or vers
 Required:
 
 - **C++ compiler**
-  - VS2010 SP1: works, tested nightly on the dashboard, required by StealthLink2 SDK
-    - [VS2010 SP1 Compiler update required](https://www.microsoft.com/en-ca/download/details.aspx?id=4422)
   - [VS2013 Community Edition Update 5: works](https://www.visualstudio.com/en-us/news/releasenotes/vs2013-community-vs)
   - [VS2015 Community Edition Update 3: works](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2015-version-history)
   - VS2017 Community Edition: confirmed working with Qt 5.7 msvc2015 and msvc2015_64
