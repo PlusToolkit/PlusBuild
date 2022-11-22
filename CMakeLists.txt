@@ -11,7 +11,7 @@ PROJECT(PlusBuild)
 set(_msg "Setting C++ standard")
 message(STATUS "${_msg}")
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 11)
+  set(CMAKE_CXX_STANDARD 14)
 endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -349,6 +349,10 @@ SET(PLUSAPP_PACKAGE_EDITION "" CACHE STRING "Specifies a name that refers to the
 #-----------------------------------------------------------------------------
 # Warnings for incompatible build options
 #-----------------------------------------------------------------------------
+if(NOT PLUS_USE_STEALTHLINK AND NOT CMAKE_CXX_STANDARD MATCHES "^(14|17|20)$")
+  message(FATAL_ERROR "CMAKE_CXX_STANDARD must be set to 14, 17 or 20")
+endif()
+
 if(MSVC)
   # See https://cmake.org/cmake/help/latest/variable/MSVC_VERSION.html
   # and https://en.wikipedia.org/wiki/Microsoft_Visual_Studio#Version_history
@@ -356,12 +360,18 @@ if(MSVC)
   # 1700      = VS 11.0 (v110 toolset) (Visual Studio 2012)
   # 1800      = VS 12.0 (v120 toolset) (Visual Studio 2013)
   # 1900      = VS 14.0 (v140 toolset) (Visual Studio 2015)
-  # 1910-1919 = VS 15.0 (v141 toolset)
+  # 1910-1919 = VS 15.0 (v141 toolset) 1914 = VS 15.7
   # 1920-1929 = VS 16.0 (v142 toolset)
   # 1930-1939 = VS 17.0 (v143 toolset)
+  # VS 15.7 was announced to officially conform with the C++ standard of C++11, C++14 and C++17
+  # https://devblogs.microsoft.com/cppblog/announcing-msvc-conforms-to-the-c-standard/
   if(PLUS_USE_STEALTHLINK)
     if(NOT MSVC_VERSION MATCHES "^(1800|1600)$")
       message(FATAL_ERROR "SteathLink compatibility requires Visual Studio 2013 or 2010.")
+    endif()
+  else()
+    if(NOT MSVC_VERSION VERSION_GREATER_EQUAL 1914)
+      message(FATAL_ERROR "Microsoft Visual C/C++ toolset 141 (VS 15.7) or newer is required!")
     endif()
   endif()
 endif()

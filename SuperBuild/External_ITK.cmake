@@ -36,7 +36,8 @@ ELSE()
   ENDIF()
 
   IF(UNIX AND NOT APPLE)
-    SET(itk_common_cxx_flags "${ep_common_cxx_flags} -std=c++11")
+
+    SET(itk_common_cxx_flags "${ep_common_cxx_flags} -std=c++${CMAKE_CXX_STANDARD}")
   ELSEIF(MSVC)
     SET(itk_common_cxx_flags "${itk_common_cxx_flags} /MP ")
   ENDIF()
