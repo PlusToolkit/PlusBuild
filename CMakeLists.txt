@@ -227,7 +227,6 @@ IF(PLUS_USE_BKPROFOCUS_CAMERALINK AND (NOT PLUS_USE_BKPROFOCUS_VIDEO))
 ENDIF()
 
 OPTION(PLUS_USE_ICCAPTURING_VIDEO "Provide support for the IC framegrabber device" OFF)
-OPTION(PLUS_USE_VFW_VIDEO "Provide support for the Video-for-Windows video digitizer (legacy, use Microsoft Media Foundation instead)" OFF)
 OPTION(PLUS_USE_MMF_VIDEO "Provide support for the Microsoft Media Foundation video digitizers (requires installation of Windows Platform SDK 7.1 or later)" OFF)
 IF(PLUS_USE_MMF_VIDEO)
   OPTION(PLUS_TEST_MMF_VIDEO "Enable testing of acquisition from MMF video device (webcam). Enable this only if an MMF device is connected to this computer." OFF)
@@ -260,7 +259,7 @@ OPTION(PLUS_USE_ANDOR_CAMERA "Provide support for the Andor cameras capture stre
 
 # ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
-IF (PLUS_USE_OPTITRACK) 
+IF (PLUS_USE_OPTITRACK)
   IF(NOT BUILD_ARCHITECTURE MATCHES "x64")
     SET(MOTIVE_VERSION_DEFAULT "1.10.3")
   ELSE()
@@ -316,7 +315,7 @@ OPTION(PLUS_USE_LEAPMOTION "Provide support for the LeapMotion hand tracker" OFF
 IF(PLUS_USE_LEAPMOTION)
   OPTION(PLUS_TEST_LEAPMOTION "Enable testing of LeapMotion device" OFF)
   FIND_PACKAGE(LeapSDK 4.0 REQUIRED
-    PATHS 
+    PATHS
     ../VASSTTools/LeapMotion/LeapSDK/lib/cmake/LeapSDK # Convenience for members of the VASST lab
     )
 ENDIF()
@@ -554,7 +553,7 @@ ENDIF()
 IF (PLUS_USE_ANDOR_CAMERA AND NOT PLUSBUILD_USE_OpenCV)
   MESSAGE("PLUSE_USE_ANDOR_CAMERA requires openCV option enabled, enabling.")
   SET(PLUSBUILD_USE_OpenCV ON CACHE BOOL "Use OpenCV for optical marker tracking and other features." FORCE)
-ENDIF()	
+ENDIF()
 #--- END ANDOR dependency on opencv
 
 # OpenCV dependency, MUST COME AFTER VTK external inclusion
