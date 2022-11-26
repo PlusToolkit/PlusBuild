@@ -22,7 +22,7 @@ IF(VTK_DIR)
 
   # No target necessary, VTK is provided
   SET(VTK_BUILD_DEPENDENCY_TARGET CACHE INTERNAL "The name of the target to list as a dependency to ensure build order correctness.")
-  
+
   SET(PLUSBUILD_VTK_VERSION ${VTK_VERSION})
   SET(PLUSBUILD_VTK_VERSION_MAJOR ${VTK_VERSION_MAJOR})
   SET(PLUSBUILD_VTK_VERSION_MINOR ${VTK_VERSION_MINOR})
@@ -50,13 +50,13 @@ ELSE()
     LIST(APPEND VTK_VERSION_SPECIFIC_ARGS -DCMAKE_CXX_MP_FLAG:BOOL=ON)
   ENDIF()
 
-  SET(PLUSBUILD_EXTERNAL_VTK_VERSION "v8.2.0" CACHE STRING "User-selected VTK version to build Plus against")
+  SET(PLUSBUILD_EXTERNAL_VTK_VERSION "v9.1.0" CACHE STRING "User-selected VTK version to build Plus against")
   SET(_vtk_versions "v8.2.0" "v9.0.0" "v9.0.1" "v9.1.0")
   set_property( CACHE PLUSBUILD_EXTERNAL_VTK_VERSION PROPERTY STRINGS "" ${_vtk_versions} )
 
   IF(PLUSBUILD_EXTERNAL_VTK_VERSION STREQUAL "")
-    SET(PLUSBUILD_EXTERNAL_VTK_VERSION "v8.2.0" CACHE STRING "User-selected VTK version to build Plus against" FORCE)
-    SET(PLUSBUILD_VTK_VERSION 8.2.0 CACHE INTERNAL "Internal CMake version for VTK.")
+    SET(PLUSBUILD_EXTERNAL_VTK_VERSION "v9.1.0" CACHE STRING "User-selected VTK version to build Plus against" FORCE)
+    SET(PLUSBUILD_VTK_VERSION 9.1.0 CACHE INTERNAL "Internal CMake version for VTK.")
   ELSE()
     STRING(FIND ${PLUSBUILD_EXTERNAL_VTK_VERSION} "." _is_tag)
     IF(_is_tag EQUAL -1)
@@ -91,7 +91,7 @@ ELSE()
   IF (PLUSBUILD_INSTALL_VTK)
     SET (PLUS_VTK_DIR "${PLUS_VTK_INSTALL_DIR}/lib/cmake/vtk-${PLUSBUILD_VTK_VERSION_MAJOR}.${PLUSBUILD_VTK_VERSION_MINOR}")
   ELSE()
-    SET (VTK_INSTALL_COMMAND 
+    SET (VTK_INSTALL_COMMAND
       INSTALL_COMMAND ""
       )
   ENDIF()
