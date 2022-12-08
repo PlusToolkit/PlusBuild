@@ -1,4 +1,4 @@
-SET(PLUSBUILD_OpenCV_VERSION "3.4.7" CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])")
+SET(PLUSBUILD_OpenCV_VERSION "4.5.5" CACHE STRING "Set OpenCV version (version: [major].[minor].[patch])")
 
 IF(OpenCV_DIR)
   FIND_PACKAGE(OpenCV ${PLUSBUILD_OpenCV_VERSION} REQUIRED NO_MODULE)
