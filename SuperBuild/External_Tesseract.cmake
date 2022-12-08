@@ -90,7 +90,7 @@ ELSE()
   SetGitRepositoryTag(
     tesseract
     "https://github.com/PlusToolkit/tesseract-ocr-cmake.git"
-    "21855d0568a9253dede4e223aae71c0249b90438"
+    "master"
     )
 
   SET (PLUS_tesseract_src_DIR ${tesseract_ROOT_DIR}/tesseract CACHE INTERNAL "Path to store tesseract contents.")
