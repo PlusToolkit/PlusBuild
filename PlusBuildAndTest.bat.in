@@ -8,14 +8,14 @@ REM  -C continuous
 
 @REM Run PlusBuild tests
 cd /d "${CMAKE_CURRENT_BINARY_DIR}"
-call BuildAndTest.bat %1
+call BuildAndTest.bat %*
 
 @REM Run PlusLib tests
 cd /d "${PLUSBUILD_BIN_DIR_WIN}\PlusLib-bin"
-call BuildAndTest.bat %1
+call BuildAndTest.bat %*
 
 @REM Run PlusApp tests
 cd /d "${PLUSBUILD_BIN_DIR_WIN}\PlusApp-bin"
-call BuildAndTest.bat %1
+call BuildAndTest.bat %*
 
 cd /d "${PLUSBUILD_BIN_DIR_WIN}"
