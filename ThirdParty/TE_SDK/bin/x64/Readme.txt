@@ -1,0 +1,1 @@
+FM 20230108: Duplicados ficheros  i3system_imgproc_impl* y i3system_USB_DLL_V2_2* en  i3system_imgproc* y i3system_USB_DLL* para evitar problema de compilación. Averiguar por qué se piden estos nombre y no los originales.

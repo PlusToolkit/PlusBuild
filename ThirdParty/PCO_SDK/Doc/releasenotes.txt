@@ -1,0 +1,391 @@
+-------------------------------------------------------------------
+ P C O  AG    -    TECHNICAL  INFORMATION  DOCUMENT
+-------------------------------------------------------------------
+
+README FOR SOFTWARE/VERSION:  
+SDK Release 1.26
+
+FOR PCO PRODUCT/VERSION:
+pco.camera (pco.dimax, pco.edge, etc.)
+
+DESCRIPTION:
+
+This packages includes an setup, which installs the SDK-files
+in your system in the standard directory.
+
+
+CONTENTS:
+
+Archive File Name: SW_PCOSDKWIN_126.exe
+
+Files Included                      Ext.           Size      Date       Time  Version
+
+bin:
+ADDBUFFER_CAMRECORDER               EXE          108032      28.01.2020 13:09
+ADDBUFFER_CAMRUN                    EXE          107520      28.01.2020 13:09
+ADDBUFFEREXT_CAMRUN                 EXE          108032      28.01.2020 13:09
+CSHARPDEMO                          EXE           73728      28.01.2020 13:08 1.0.7332.23656
+GETIMAGE_CAMRECORDER                EXE          107008      28.01.2020 13:09
+GETIMAGE_CAMRUN                     EXE          107008      28.01.2020 13:09
+PCOTEST_CVDLG                       EXE         1884672      28.01.2020 12:53 1.0.0.1
+SC2_CLSER_CONTROL                   EXE          225280      10.10.2014 07:45 1.1.0.22
+SC2_DEMO                            EXE         2969600      28.01.2020 12:44 1.0.0.76
+VBDEMO2_NET                         EXE           61440      28.01.2020 12:48 1.0.7332.23053
+PCO_CDLG                            DLL         2784312      18.09.2020 08:58 1.30.0.611
+PCO_CONV                            DLL          529464      18.09.2020 08:58 1.30.0.1801
+PCO_CRYPTDLL                        DLL          350264      07.04.2020 11:53
+PCO_EDGE_GS_CALC                    DLL          142336      20.07.2016 13:51 1.1.0.18
+SC2_CAM                             DLL          482872      30.09.2020 07:59 1.26.0.41
+SC2_CL_ME4                          DLL          335184      15.09.2020 08:44 1.5.0.310
+SC2_CL_MTX                          DLL          529800      07.11.2019 10:52 1.5.0.16
+SC2_CL_NAT                          DLL          265608      07.11.2019 10:52 1.2.0.32
+SC2_CL_SER                          DLL          202632      07.11.2019 10:52 1.1.0.38
+SC2_CLHS                            DLL          352824      15.09.2020 08:44 1.3.0.112
+SC2_DLG                             DLL         3601464      30.09.2020 08:00 1.26.0.29
+TEST                                TIF         3008702      15.12.2010 09:35
+PCO_SCMOS_GL                        HAP         2232553      15.11.2011 15:27
+RELEASENOTES                        TXT      this file!                 
+
+bin64:
+ADDBUFFER_CAMRECORDER               EXE          126976      28.01.2020 13:09
+ADDBUFFER_CAMRUN                    EXE          126976      28.01.2020 13:09
+ADDBUFFEREXT_CAMRUN                 EXE          126976      28.01.2020 13:09
+CSHARPDEMO                          EXE           69632      28.01.2020 13:08 1.0.7332.23656
+GETIMAGE_CAMRECORDER                EXE          126464      28.01.2020 13:09
+GETIMAGE_CAMRUN                     EXE          125440      28.01.2020 13:09
+PCOTEST_CVDLG                       EXE         2664960      28.01.2020 12:53 1.0.0.1
+SC2_CLSER_CONTROL                   EXE         2540936      07.11.2019 10:52 1.1.0.28
+SC2_DEMO                            EXE         4306944      28.01.2020 12:44 1.0.0.76
+VBDEMO2_NET                         EXE           60928      04.10.2017 15:00 1.0.6486.27016
+PCO_CDLG                            DLL         5065784      18.09.2020 08:58 1.30.0.611
+PCO_CONV                            DLL         1299512      18.09.2020 08:58 1.30.0.1801
+PCO_CRYPTDLL                        DLL          456248      07.04.2020 11:31
+PCO_EDGE_GS_CALC                    DLL          165376      20.07.2016 13:51 1.1.0.18
+SC2_CAM                             DLL          522808      30.09.2020 07:59 1.26.0.41
+SC2_CL_ME4                          DLL          358736      15.09.2020 08:44 1.5.0.310
+SC2_CL_MTX                          DLL          499080      09.10.2019 11:53 1.5.0.16
+SC2_CL_NAT                          DLL          278920      09.10.2019 11:54 1.2.0.32
+SC2_CL_SER                          DLL          228232      09.10.2019 11:55 1.1.0.38
+SC2_CLHS                            DLL          397368      15.09.2020 08:44 1.3.0.112
+SC2_DLG                             DLL         2952760      30.09.2020 08:00 1.26.0.29
+TEST                                TIF         3008702      15.12.2010 09:35
+PCO_SCMOS_GL_X64                    HAP         2269957      15.11.2011 15:27
+
+Doc:
+MA_PCOSDK_125                       PDF        14661823      10.12.2019 11:58
+MA_SDKCNVWIN_120                    PDF          217591      10.12.2019 11:58
+
+include:
+PCO_CONVDLGEXPORT                     H            4633      17.04.2015 08:00
+PCO_CONVEXPORT                        H            9232      07.05.2020 14:36
+PCO_CONVSTRUCTURES                    H           11107      10.08.2020 15:41
+PCO_EDGE_GS_CALC_EXPORT               H           18938      17.02.2014 14:19
+PCO_ERR                               H           41870      30.09.2020 07:40
+PCO_ERRT                              H           13287      15.04.2019 15:01
+PCO_ERRTEXT                           H           30644      30.09.2020 07:41
+PCO_STRUCTURES                        H            2542      12.06.2015 13:39
+SC2_CAMEXPORT                         H          135516      20.10.2020 10:30
+SC2_COMMON                            H            6938      17.03.2020 11:23
+SC2_DEFS                              H           68646      09.09.2020 10:41
+SC2_DIALOGEXPORT                      H           10782      28.08.2018 13:14
+SC2_SDKADDENDUM                       H           13951      12.03.2019 16:14
+SC2_SDKSTRUCTURES                     H           60956      01.10.2020 11:44
+
+
+lib:
+PCO_CDLG                            LIB            3632      14.09.2020 14:44
+PCO_CONV                            LIB            6904      14.09.2020 14:43
+PCO_CRYPTDLL                        LIB            2324      07.04.2020 11:53
+PCO_EDGE_GS_CALC                    LIB            7868      20.07.2016 13:51
+SC2_CAM                             LIB           56998      09.09.2020 11:01
+SC2_DLG                             LIB            3174      09.09.2020 11:02
+
+lib64:
+PCO_CDLG                            LIB            3162      14.09.2020 14:44
+PCO_CONV                            LIB            6142      14.09.2020 14:43
+PCO_CRYPTDLL                        LIB            2316      07.04.2020 11:31
+PCO_EDGE_GS_CALC                    LIB            7426      20.07.2016 13:51
+SC2_CAM                             LIB           52398      09.09.2020 11:01
+SC2_DLG                             LIB            3076      09.09.2020 11:02
+
+root:
+FIND_NAT                            EXE          152968      07.11.2019 11:52 1.2.0.22
+
+sample\C#:
+APP                              CONFIG              69      09.01.2017 14:31
+APP                                 ICO           10990      30.09.2008 14:36
+ASSEMBLYINFO                         CS             576      10.01.2017 10:39
+CSHARPDEMO                       CSPROJ            6613      09.01.2017 14:31
+CSHARPDEMO.EXE                 MANIFEST             647      26.03.2014 16:47
+CSHARPDEMO                          SLN            1289      09.01.2017 14:31
+FORM1                                CS           44615      28.01.2020 14:06
+FORM1                              RESX           22606      30.09.2011 11:49
+PCO_CONVERTSTRUCTURES                CS            6352      07.01.2014 16:48
+PCO_CONVERTWRAPPER                   CS            6690      07.01.2014 15:49
+PCO_GETERRORTEXTCLASS                CS           37254      22.05.2019 15:31
+
+sample\console\AddBufferExt_CamRun:
+ADDBUFFEREXT_CAMRUN                 CPP            7743      12.01.2017 17:34
+ADDBUFFEREXT_CAMRUN             VCXPROJ           10120      28.01.2020 14:08
+ADDBUFFEREXT_CAMRUN.VCXPROJ     FILTERS            1264      12.01.2016 12:05
+ADDBUFFEREXT_CAMRUN.VCXPROJ        USER            1498      12.01.2017 09:43
+STDAFX                              CPP             298      09.12.2008 17:28
+STDAFX                                H             366      01.02.2016 10:31
+TARGETVER                             H             765      09.12.2008 17:28
+
+sample\console\AddBuffer_CamRecorder:
+ADDBUFFER_CAMRECORDER               CPP            8132      11.01.2017 13:00
+ADDBUFFER_CAMRECORDER           VCXPROJ           10124      28.01.2020 14:08
+ADDBUFFER_CAMRECORDER.VCXPROJ   FILTERS            1266      12.01.2016 11:43
+ADDBUFFER_CAMRECORDER.VCXPROJ      USER            1498      12.01.2017 09:43
+STDAFX                              CPP             298      09.12.2008 17:28
+STDAFX                                H             366      01.02.2016 13:49
+TARGETVER                             H             765      09.12.2008 17:28
+
+sample\console\AddBuffer_CamRun:
+ADDBUFFER_CAMRUN                    CPP            7141      11.01.2017 13:44
+ADDBUFFER_CAMRUN                VCXPROJ           10114      28.01.2020 14:08
+ADDBUFFER_CAMRUN.VCXPROJ        FILTERS            1261      11.01.2016 17:52
+ADDBUFFER_CAMRUN.VCXPROJ           USER            1498      12.01.2017 09:43
+STDAFX                              CPP             298      09.12.2008 17:28
+STDAFX                                H             366      01.02.2016 10:32
+TARGETVER                             H             765      09.12.2008 17:28
+
+sample\console\GetImage_CamRecorder:
+GETIMAGE_CAMRECORDER                CPP            5973      07.12.2016 10:54
+GETIMAGE_CAMRECORDER            VCXPROJ           10102      28.01.2020 14:08
+GETIMAGE_CAMRECORDER.VCXPROJ    FILTERS            1265      11.01.2016 17:18
+GETIMAGE_CAMRECORDER.VCXPROJ       USER            1498      12.01.2017 09:43
+STDAFX                              CPP             298      09.12.2008 17:28
+STDAFX                                H             366      01.02.2016 10:28
+TARGETVER                             H             765      09.12.2008 17:28
+
+sample\console\GetImage_CamRun:
+GETIMAGE_CAMRUN                     CPP            5307      06.12.2016 16:53
+GETIMAGE_CAMRUN                 VCXPROJ           10065      28.01.2020 14:08
+GETIMAGE_CAMRUN.VCXPROJ         FILTERS            1260      11.01.2016 11:52
+GETIMAGE_CAMRUN.VCXPROJ            USER            1498      12.01.2017 09:43
+STDAFX                              CPP             298      09.12.2008 17:28
+STDAFX                                H             366      01.02.2016 10:24
+TARGETVER                             H             765      09.12.2008 17:28
+
+sample\console:
+FILE12                              CPP           25175      12.01.2016 12:19
+FILE12                                H            2142      11.01.2016 16:40
+SDK_SIMPLE                          SLN            4529      12.01.2016 12:58
+
+sample\SC2_Demo\res:
+SC2_DEMO                            ICO           10990      30.09.2008 16:26
+SC2_DEMO                       MANIFEST             738      13.12.2010 12:20
+SC2_DEMO                            RC2             400      22.03.2006 16:38
+TOOLBAR                             BMP             478      28.03.2006 14:56
+
+sample\SC2_Demo:
+CHILDVIEW                           CPP            2428      09.06.2008 08:59
+CHILDVIEW                             H            1418      28.03.2006 16:54
+MAINFRM                             CPP            7028      19.03.2019 14:45
+MAINFRM                               H            2374      01.09.2010 16:26
+README                              TXT            3893      22.03.2006 16:38
+RESOURCE                              H            1053      19.08.2010 10:03
+SC2_CLASS                           CPP           30082      19.03.2019 14:45
+SC2_CLASS                             H            2337      24.03.2014 12:48
+SC2_DEMO                            CPP            3328      20.05.2010 16:56
+SC2_DEMO                              H            1404      28.03.2006 16:54
+SC2_DEMO                             RC            9308      19.08.2010 10:04
+SC2_DEMO                            SLN            1315      10.01.2017 11:35
+SC2_DEMO                        VCXPROJ           15495      28.01.2020 13:43
+SC2_DEMO.VCXPROJ                   USER            1576      28.01.2020 13:43
+STDAFX                              CPP             212      28.03.2006 16:54
+STDAFX                                H            1031      31.08.2010 16:18
+TARGETVER                             H            1432      31.08.2010 17:03
+
+sample\Test_cvDlg\res:
+TEST_CVDLG                          ICO            1078      20.05.2010 16:56
+TEST_CVDLG                     MANIFEST             740      13.12.2010 17:31
+TEST_CVDLG                          RC2             452      13.03.2009 10:12
+TEST_CVDLG32                   MANIFEST             744      14.12.2010 18:20
+TOOLBAR                             BMP             598      09.12.2005 11:44
+
+sample\Test_cvDlg:
+CHILDVIEW                           CPP            2479      14.12.2010 16:11
+CHILDVIEW                             H             785      15.12.2010 10:33
+FILE12                              CPP           29429      31.03.2015 08:49
+FILE12                                H            3760      07.12.2010 13:06
+MAINFRM                             CPP           11621      07.03.2011 12:09
+MAINFRM                               H            1852      14.12.2010 16:17
+PCO_CDLG                              H            1507      14.12.2010 16:00
+PCO_CRYPTDLL                        LIB            2324      28.01.2019 12:19
+PCO_CRYPTDLL64                      LIB            2316      28.01.2019 12:19
+README                              TXT            6013      16.04.2009 16:27
+RESOURCE                              H             919      14.12.2010 16:07
+STDAFX                              CPP             205      13.03.2009 10:12
+STDAFX                                H            3302      14.12.2010 16:08
+TEST_CVDLG                          CPP            3830      14.12.2010 16:17
+TEST_CVDLG                            H             626      14.12.2010 16:17
+TEST_CVDLG                           RC            9958      14.12.2010 16:04
+TEST_CVDLG                          SLN            1319      18.01.2016 11:21
+TEST_CVDLG                      VCXPROJ           14100      28.01.2020 13:53
+TEST_CVDLG.VCXPROJ                 USER            1498      12.01.2017 09:44
+
+sample\vb demo2.net:
+ASSEMBLYINFO                         VB             980      10.01.2017 10:36
+DECLARES                             VB           10522      27.03.2014 10:27
+MODDECLARATIONS                      VB            4375      04.12.2012 11:02
+PCO_CAMERA.DESIGNER                  VB            9084      10.01.2017 09:14
+PCO_CAMERA                         RESX           22805      02.10.2008 10:45
+PCO_CAMERA                           VB           10007      10.01.2017 10:32
+PCOAPICALL                           VB          105772      10.01.2017 10:18
+VBDEMO2.NET                         SLN            1296      09.01.2017 15:09
+VBDEMO2.NET                      VBPROJ            6639      04.10.2017 15:52
+VBDEMO2_NET                         ICO           10990      30.09.2008 16:26
+
+sample:
+PCO_PROPERTIES                    PROPS             857      07.11.2018 08:51
+PCO_PROPERTIES64                  PROPS             861      07.11.2018 08:51
+
+CREATE_PCO_VS_PROPS                 EXE         1685504      12.01.2017 13:56
+CREATE_PROPS                        BAT             192      12.01.2017 17:21
+
+
+Installation Instructions:
+
+Copy the SW_PCOSDKWIN_126.zip to a distinct directory (e.g. PCOSDK). 
+
+1.  Select above directory ( e.g. 'PCOSDK').
+2.  Unzip the files to a directory of your choice: e.g. c:\pcosdk\include
+3.  Start 'setup.exe'.
+4.  Follow the steps in the setup dialog.
+VERSION HISTORY:
+
+Version 1.26
+- tbd.
+
+Version 1.25
+- bugfixes
+
+Version 1.24
+- Added pco.dicam function calls
+- bugfixes
+
+Version 1.22
+- Added Lens Control functionality
+- bugfixes
+
+Version 1.21
+- New manual
+- New Matlab adaptor
+- bugfixes
+
+Version 1.20:
+- Added CLHS
+- bugfixes
+
+Version 1.19:
+- bugfixes
+
+Version 1.18:
+- Added PCO_GetCoolingSetpoints
+- Added HWIO timing settings, LED settings, CMOS line time settings
+- Added ini-flags for Hotpixel Correction and filter setting
+- hmm, and yes: some bugfixes (again)
+
+Version 1.17:
+- Added Soft-ROI functionality
+- Changed edit behavior in Delay/Exposure edit control
+- Bugfixes
+
+Version 1.16:
+- Added PCO_G(S)etAcquireModeEx
+- bugfixes
+
+Version 1.15:
+- Added color set to structures
+- Added PCO_(S)GetColorSettings
+
+Version 1.14:
+- Added power save mode functions
+- bugfixes
+
+Version 1.13:
+- added pco.edge
+- enhanced dimax functionality
+
+Version 1.11
+- enhanced dimax settings/options
+- bugfixes
+
+Version 1.10
+- dimax/gige added (not released)
+
+Version 1.09
+- Prepared for GigE and pco.dimax
+- bugfixes
+
+Version 1.08
+- Added modulate mode
+- bugfixes and some improvements in logging
+- Added Delphi and VB sample
+
+Version 1.07
+- Dll dependencies will be shown in the log-file to fix errors faster.
+- fixed error in number of image calculation
+
+Version 1.06
+- added Modulate Mode
+- bugfixes
+
+Version 1.05
+- bugfixes
+
+Version 1.04
+- added Noisefilter Mode
+- added Record Stop Event functionality
+
+Version 1.03
+- various bugfixes
+- added PCO_OpenCameraEx
+- added PCO_AddBufferEx
+- added PCO_GetImageEx
+
+Version 1.02
+- added CamLink interfaces
+- added some new calls
+- PCO_AllocateBuffer can handle external allocated buffers, now.
+
+Version 1.01.514
+- Fixed wrong function decoration for PCO_G(S)etBitAlignment.
+
+Version 101
+- new release
+
+Version 100
+- new release
+
+KNOWN BUGS:
+
+Installation problems:
+
+If you run into problems during the installation you could delete the 
+following directory and its contents (if existent):
+C:\program files\installshield installation information\{4A30B691-D148-4C22-81FF-9ADDA6CF9AC6}
+'C:\program files\' depends on your sytem and might be different.
+
+ PCO AG
+ DONAUPARK 11
+ 93309 KELHEIM / GERMANY
+ PHONE +49 (9441) 20050
+ FAX   +49 (9441) 200520
+ info@pco.de, support@pco.de
+ http://www.pco.de
+-------------------------------------------------------------------
+ DISCLAIMER
+ THE ORIGIN OF THIS INFORMATION MAY BE INTERNAL OR EXTERNAL TO PCO.
+ PCO MAKES EVERY EFFORT WITHIN ITS MEANS TO VERIFY THIS INFORMATION.
+ HOWEVER, THE INFORMATION PROVIDED IN THIS DOCUMENT IS FOR YOUR
+ INFORMATION ONLY. PCO MAKES NO EXPLICIT OR IMPLIED CLAIMS TO THE
+ VALIDITY OF THIS INFORMATION.
+-------------------------------------------------------------------
+ Any trademarks referenced in this document are the property of
+ their respective owners.
+-------------------------------------------------------------------
+

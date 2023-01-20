@@ -1,0 +1,7 @@
+This is SDK for Thermal Expert.
+
+In order to use this SDK, add path to dll files, include i3system_TE.h and link i3system_TE.lib in your project (i3system_imgproc is optional).
+
+To see APIs functionalities, see Documentation folder.
+
+Example code is included in i3SdkSampleApp folder. It is developed and tested in Visual Studio 2010.
