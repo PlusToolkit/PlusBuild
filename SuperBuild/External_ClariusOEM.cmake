@@ -16,12 +16,12 @@ ELSE()
 
   SetGitRepositoryTag(
     ClariusOEM
-    "https://github.com/clariusdev/oem.git"
-    "v9.3.0"
+    "https://github.com/clariusdev/solum.git"
+    "v10.1.1"
     )
 
   SET(ClariusOEM_OUTER_SRC_DIR "${CMAKE_BINARY_DIR}/ClariusOEM")
-  SET(ClariusOEM_DIR "${ClariusOEM_OUTER_SRC_DIR}/src" CACHE PATH "Path to Clarius OEM SDK")
+  SET(ClariusOEM_DIR "${ClariusOEM_OUTER_SRC_DIR}/desktop/src" CACHE PATH "Path to Clarius Solum SDK")
   SET(ClariusOEM_PREFIX_DIR "${CMAKE_BINARY_DIR}/ClariusOEM-prefix")
 
   ExternalProject_Add(ClariusOEM
@@ -42,8 +42,8 @@ ELSE()
 
   # download zipped lib/dll files
 
-  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/oem/releases/download/v9.3.0/clarius-oem-v930-windows.zip")
-  SET(CLARIUS_OEM_PACKAGE_SHA256 "65d08864ec24c16c83290ca82b82f5f36889e7b4b0b4b9e8c7479a7d5aa15505")
+  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/solum/releases/download/v10.1.1/solum-10.1.1-windows.zip")
+  SET(CLARIUS_OEM_PACKAGE_SHA256 "3d5f365ad1894d4d0ea226258e5b6440e9d338f191f521fb96c27dca3610f94b")
 
   ExternalProject_Add(ClariusOEM-Libs
     ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}

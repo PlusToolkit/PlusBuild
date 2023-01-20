@@ -1,15 +1,15 @@
 ###############################################################################
-# Find Clarius OEM SDK
+# Find Clarius SOLUM SDK
 #
 #     find_package(ClariusOEM)
 #
 # Variables defined by this module:
 #
-#  ClariusOEM_DIR                  Location of the Clarius OEM SDK
-#  ClariusOEM_INCLUDE_DIR          The location(s) of Clarius OEM SDK headers
-#  ClariusOEM_LIBRARY_PATH         Path to library needed to use Clarius OEM SDK
-#  ClariusOEM_BINARY_PATH          Path to binary needed to use Clarius OEM SDK
-#  ClariusOEM_FOUND                True if Clarius OEM SDK was found
+#  ClariusOEM_DIR                  Location of the Clarius SOLUM SDK
+#  ClariusOEM_INCLUDE_DIR          The location(s) of Clarius SOLUM SDK headers
+#  ClariusOEM_LIBRARY_PATH         Path to library needed to use Clarius SOLUM SDK
+#  ClariusOEM_BINARY_PATH          Path to binary needed to use Clarius SOLUM SDK
+#  ClariusOEM_FOUND                True if Clarius SOLUM SDK was found
 
 # if ClariusOEM_DIR is unset, attempt to locate the SDK files
 IF(NOT DEFINED ClariusOEM_DIR)
@@ -17,43 +17,43 @@ IF(NOT DEFINED ClariusOEM_DIR)
   # path hints
   IF(WIN32)
     SET(ClariusOEM_PATH_HINTS
-      "../oem/src"
-      "../../oem/src"
+      "../solum/desktop/src/"
+      "../../solum/desktop/src/"
       )
   ELSE()
-    MESSAGE(FATAL_ERROR "Clarius OEM SDK is currently only supported on Windows")
+    MESSAGE(FATAL_ERROR "Clarius SOLUM SDK is currently only supported on Windows")
   ENDIF()
 
-  # find path to Clarius OEM SDK dir
-  FIND_PATH(_oem_root include/oem/oem.h
+  # find path to Clarius SOLUM SDK dir
+  FIND_PATH(_oem_root include/solum/solum.h
     PATHS ${ClariusOEM_PATH_HINTS}
-    DOC "Clarius OEM SDK dir"
+    DOC "Clarius SOLUM SDK dir"
     )
 
-  SET(ClariusOEM_DIR ${_oem_root} CACHE PATH "Path to Clarius OEM SDK")
+  SET(ClariusOEM_DIR ${_oem_root} CACHE PATH "Path to Clarius SOLUM SDK")
 
 ENDIF()
 
 
 IF(ClariusOEM_DIR)
-
-  # set path to Clarius OEM SDK include directory
-  SET(ClariusOEM_INCLUDE_DIRS ${ClariusOEM_DIR}/include/oem CACHE PATH "Clarius OEM SDK include directories")
+  # set path to Clarius SOLUM SDK include directory
+  SET(ClariusOEM_INCLUDE_DIRS ${ClariusOEM_DIR}/include/solum CACHE PATH "Clarius SOLUM SDK include directories")
   MARK_AS_ADVANCED(ClariusOEM_INCLUDE_DIRS)
+  message(${ClariusOEM_INCLUDE_DIRS})
 
-  # find Clarius OEM SDK library file
+  # find Clarius SOLUM SDK library file
   FIND_LIBRARY(ClariusOEM_LIBRARY_PATH
-    NAMES oem${CMAKE_STATIC_LIBRARY_SUFFIX}
+    NAMES solum${CMAKE_STATIC_LIBRARY_SUFFIX}
     PATHS "${ClariusOEM_DIR}/lib" NO_DEFAULT_PATH
-    DOC "Clarius OEM SDK library"
+    DOC "Clarius SOLUM SDK library"
     )
   MARK_AS_ADVANCED(ClariusOEM_LIBRARY_PATH)
 
-  # find Clarius OEM SDK binary file
+  # find Clarius SOLUM SDK binary file
   FIND_FILE(ClariusOEM_BINARY_PATH
-    NAMES oem${CMAKE_SHARED_LIBRARY_SUFFIX}
+    NAMES solum${CMAKE_SHARED_LIBRARY_SUFFIX}
     PATHS "${ClariusOEM_DIR}/lib" NO_DEFAULT_PATH
-    DOC "Clarius OEM SDK binary"
+    DOC "Clarius SOLUM SDK binary"
     )
   MARK_AS_ADVANCED(ClariusOEM_BINARY_PATH)
 
