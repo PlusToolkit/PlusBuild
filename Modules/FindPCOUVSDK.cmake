@@ -12,9 +12,10 @@
 #  PCOUVSDK_BINARY_DIR           Binaries needed to use UV SDK
 
 SET(PCOUV_SDK_PATH_HINTS
-  "D:/dev/PlusBuild/ThirdParty/PCO_SDK"
+  "../ThirdParty/PCO_SDK"
+  "../Plus-bin/PCO_SDK"
+  "$ENV{APPDATA}/PCO Digital Camera Toolbox/pco.sdk"
   )
-
 
 find_path(PCOUV_SDK_DIR include/SC2_CamExport.h
   PATHS ${PCOUV_SDK_PATH_HINTS}

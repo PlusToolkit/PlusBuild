@@ -12,7 +12,9 @@
 #  TEEV2SDK_BINARY_DIR           Binaries needed to use EV2 SDK
 
 SET(TEEV2_SDK_PATH_HINTS
-  "D:/dev/PlusBuild/ThirdParty/TE_SDK"
+  "../ThirdParty/TE_SDK"
+  "../Plus-bin/TE_SDK"
+  
   )
 
 
@@ -78,7 +80,7 @@ if (TEEV2_SDK_DIR)
 
   set(TEEV2_BIN_FILE ${TEEV2_SDK_BINARY} "/" ${SDK_FILENAME})
 
-  set(TEEV2_SDK_VERSION "2.2")
+  set(TEEV2_SDK_VERSION "1.0")
 
 endif()
 
