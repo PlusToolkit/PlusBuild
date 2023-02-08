@@ -27,8 +27,6 @@ if (PCOUV_SDK_DIR)
 
   # Libraries
   SET(PLATFORM_SUFFIX "")
-  SET(BIN_FILENAME "")
-  SET(FILENAME "")
   SET(LIB_FILENAME "SC2_Cam.lib")
   SET(SDK_FILENAME "SC2_Cam.dll")
 
