@@ -1,7 +1,7 @@
 ###############################################################################
 # Find DAQ USB3-FRM13-B SDK
 #
-#     find_package(DAQUSB3FRM13BSDK)
+#     find_package(DAQVIDEOSOURCESDK) (DAQUSB3FRM13BSDK)
 #
 # Variables defined by this module:
 #
