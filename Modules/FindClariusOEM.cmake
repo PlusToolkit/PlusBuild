@@ -39,7 +39,6 @@ IF(ClariusOEM_DIR)
   # set path to Clarius SOLUM SDK include directory
   SET(ClariusOEM_INCLUDE_DIRS ${ClariusOEM_DIR}/include/solum CACHE PATH "Clarius SOLUM SDK include directories")
   MARK_AS_ADVANCED(ClariusOEM_INCLUDE_DIRS)
-  message(${ClariusOEM_INCLUDE_DIRS})
 
   # find Clarius SOLUM SDK library file
   FIND_LIBRARY(ClariusOEM_LIBRARY_PATH
