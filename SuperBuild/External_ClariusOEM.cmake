@@ -17,7 +17,7 @@ ELSE()
   SetGitRepositoryTag(
     ClariusOEM
     "https://github.com/clariusdev/solum.git"
-    "v10.2.2"
+    "v10.3.0"
     )
 
   SET(ClariusOEM_OUTER_SRC_DIR "${CMAKE_BINARY_DIR}/ClariusOEM")
@@ -42,8 +42,8 @@ ELSE()
 
   # download zipped lib/dll files
 
-  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/solum/releases/download/v10.2.2/solum-10.2.2-windows.zip")
-  SET(CLARIUS_OEM_PACKAGE_SHA256 "93eff96fde4a1eb3cee710bb13544980986444d78340527e17004508d4e568ad")
+  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/solum/releases/download/v10.3.0/solum-10.3.0-windows.zip")
+  SET(CLARIUS_OEM_PACKAGE_SHA256 "4e9b74d00849ee7de686cc75c646e001ef9808de812d0ef69e173a77b43e3bab")
 
   ExternalProject_Add(ClariusOEM-Libs
     ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}
