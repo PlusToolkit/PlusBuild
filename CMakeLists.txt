@@ -231,7 +231,6 @@ IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
   ENDIF()
 ENDIF()
 
-message(${BUILD_ARCHITECTURE})
 # ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
 IF (PLUS_USE_OPTITRACK) 
