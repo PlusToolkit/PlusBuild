@@ -16,9 +16,9 @@ SET( STEALTHLINK_PATH_HINTS
   )
 
 IF (WIN32)
-  IF(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 10" )
+  IF(NOT ${MSVC10})
     MESSAGE(FATAL_ERROR "error: StealthLink can only be built using Visual Studio 2010")
-  ENDIF(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 10" )  
+  ENDIF(NOT ${MSVC10})
   IF (CMAKE_CL_64)
     SET( PLATFORM_SUFFIX "/windows/x64/Release")
     SET( PLATFORM_SUFFIXD "/windows/x64/Debug")
