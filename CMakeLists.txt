@@ -235,6 +235,13 @@ OPTION(PLUS_USE_INFRARED_TEQ1_CAM "Provide support for capturing an Infrared The
 OPTION(PLUS_USE_INFRARED_TEEV2_CAM "Provide support for capturing an Infrared Therma Expert EV2 Camera capture stream" OFF)
 OPTION(PLUS_USE_ULTRAVIOLET_PCOUV_CAM "Provide support for capturing an PCO Ultraviolet Camera capture stream" OFF)
 OPTION(PLUS_USE_DAQVIDEOSOURCE "Provide support for capturing an CameraLink Camera using DAQ System USB3-FRM13-B Grabber" OFF)
+OPTION(PLUS_USE_DAQMMFCOMBINED_VIDEO "Provide support for capturing an CameraLink Camera using DAQ System USB3-FRM13-B Grabber and MMF Camera" OFF)
+
+IF(PLUS_USE_DAQMMFCOMBINED_VIDEO)
+	SET (PLUS_USE_DAQVIDEOSOURCE ON CACHE BOOL "Provide support for the DAQ System USB3-FRM13-B + MMF combined device" FORCE)
+	SET (PLUS_USE_MMF_VIDEO ON CACHE BOOL "Provide support for the DAQ System USB3-FRM13-B + MMF combined device" FORCE)
+ENDIF()
+
 OPTION(PLUS_USE_PHILIPS_3D_ULTRASOUND "Provide support for the Philips ie33 3D ultrasound probe" OFF)
 IF(PLUS_USE_PHILIPS_3D_ULTRASOUND)
   OPTION(PLUS_TEST_PHILIPS_3D_ULTRASOUND "Enable testing of acquisition from Philips 3D ultrasound systems. Enable this only if a Philips device is accessible from this computer. " OFF)
