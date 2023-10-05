@@ -8,8 +8,8 @@
 
 IF(WIN32)
   SET(CLARIUS_PATH_HINTS
-    "../PLTools/Clarius/cast-10/windows"
-    "../../PLTools/Clarius/cast-10/windows"
+    "../PLTools/Clarius/cast/windows"
+    "../../PLTools/Clarius/cast/windows"
     )
 ELSE()
   MESSAGE(FATAL_ERROR "Clarius is currently only supported on Windows")
