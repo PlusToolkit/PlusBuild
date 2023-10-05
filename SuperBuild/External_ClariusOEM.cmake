@@ -21,7 +21,7 @@ ELSE()
     )
 
   SET(ClariusOEM_OUTER_SRC_DIR "${CMAKE_BINARY_DIR}/ClariusOEM")
-  SET(ClariusOEM_DIR "${ClariusOEM_OUTER_SRC_DIR}/desktop/src" CACHE PATH "Path to Clarius Solum SDK")
+  SET(ClariusOEM_DIR "${ClariusOEM_OUTER_SRC_DIR}" CACHE PATH "Path to Clarius Solum SDK")
   SET(ClariusOEM_PREFIX_DIR "${CMAKE_BINARY_DIR}/ClariusOEM-prefix")
 
   ExternalProject_Add(ClariusOEM

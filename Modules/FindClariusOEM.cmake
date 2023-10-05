@@ -17,8 +17,7 @@ IF(NOT DEFINED ClariusOEM_DIR)
   # path hints
   IF(WIN32)
     SET(ClariusOEM_PATH_HINTS
-      "../solum/desktop/src/"
-      "../../solum/desktop/src/"
+      "."
       )
   ELSE()
     MESSAGE(FATAL_ERROR "Clarius SOLUM SDK is currently only supported on Windows")
