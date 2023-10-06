@@ -1,4 +1,4 @@
-IF(ClariusOEM_DIR AND NOT DEFINED SUPERBUILD_ClariusOEM)
+IF(ClariusOEM_DIR)
 
   FIND_PACKAGE(ClariusOEM REQUIRED)
 
@@ -7,27 +7,24 @@ IF(ClariusOEM_DIR AND NOT DEFINED SUPERBUILD_ClariusOEM)
   # Copy libraries to CMAKE_RUNTIME_OUTPUT_DIRECTORY
   PlusCopyLibrariesToDirectory(${CMAKE_RUNTIME_OUTPUT_DIRECTORY} ${ClariusOEM_BINARY_PATH})
 
+  SET(Plus_ClariusOEM_DIR ${ClariusOEM_DIR} CACHE PATH "Path to Clarius Solum SDK")
 ELSE()
 
   # git clone of OEM interface
-
-  SET(SUPERBUILD_ClariusOEM ON CACHE BOOL "Should ClariusOEM be downloaded using ExternalProject")
-  MARK_AS_ADVANCED(SUPERBUILD_ClariusOEM)
-
   SetGitRepositoryTag(
     ClariusOEM
     "https://github.com/Sunderlandkyl/solum.git"
     "6210b7675c70e4e2cfc08c429d0ad0239cd3257c"
     )
 
-  SET(ClariusOEM_OUTER_SRC_DIR "${CMAKE_BINARY_DIR}/ClariusOEM")
-  SET(ClariusOEM_DIR "${ClariusOEM_OUTER_SRC_DIR}" CACHE PATH "Path to Clarius Solum SDK")
-  SET(ClariusOEM_PREFIX_DIR "${CMAKE_BINARY_DIR}/ClariusOEM-prefix")
+  SET(Plus_ClariusOEM_OUTER_SRC_DIR "${CMAKE_BINARY_DIR}/ClariusOEM")
+  SET(Plus_ClariusOEM_DIR "${Plus_ClariusOEM_OUTER_SRC_DIR}" CACHE PATH "Path to Clarius Solum SDK")
+  SET(Plus_ClariusOEM_PREFIX_DIR "${CMAKE_BINARY_DIR}/ClariusOEM-prefix")
 
   ExternalProject_Add(ClariusOEM
     ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}
-    PREFIX ${ClariusOEM_PREFIX_DIR}
-    SOURCE_DIR ${ClariusOEM_OUTER_SRC_DIR}
+    PREFIX ${Plus_ClariusOEM_PREFIX_DIR}
+    SOURCE_DIR ${Plus_ClariusOEM_OUTER_SRC_DIR}
     #--Download step--------------
     GIT_REPOSITORY ${ClariusOEM_GIT_REPOSITORY}
     GIT_TAG ${ClariusOEM_GIT_TAG}
@@ -47,8 +44,8 @@ ELSE()
 
   ExternalProject_Add(ClariusOEM-Libs
     ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}
-    PREFIX ${ClariusOEM_PREFIX_DIR}
-    SOURCE_DIR ${ClariusOEM_DIR}/lib
+    PREFIX ${Plus_ClariusOEM_PREFIX_DIR}
+    SOURCE_DIR ${Plus_ClariusOEM_DIR}/lib
     #--Download step--------------
     URL ${CLARIUS_OEM_PACKAGE_URL}
     URL_HASH SHA256=${CLARIUS_OEM_PACKAGE_SHA256}
