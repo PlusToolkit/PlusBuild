@@ -13,8 +13,8 @@ ELSE()
   # git clone of OEM interface
   SetGitRepositoryTag(
     ClariusOEM
-    "https://github.com/Sunderlandkyl/solum.git"
-    "6210b7675c70e4e2cfc08c429d0ad0239cd3257c"
+    "https://github.com/clariusdev/solum.git"
+    "c2103924f16750672f20f8106a5123d3f2ba2b1e"
     )
 
   SET(Plus_ClariusOEM_OUTER_SRC_DIR "${CMAKE_BINARY_DIR}/ClariusOEM")
