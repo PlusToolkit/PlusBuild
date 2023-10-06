@@ -16,8 +16,8 @@ ELSE()
 
   SetGitRepositoryTag(
     ClariusOEM
-    "https://github.com/clariusdev/solum.git"
-    "v11.0.0"
+    "https://github.com/Sunderlandkyl/solum.git"
+    "6210b7675c70e4e2cfc08c429d0ad0239cd3257c"
     )
 
   SET(ClariusOEM_OUTER_SRC_DIR "${CMAKE_BINARY_DIR}/ClariusOEM")
