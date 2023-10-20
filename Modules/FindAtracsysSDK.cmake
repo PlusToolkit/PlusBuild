@@ -41,7 +41,7 @@ IF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "stk")
     IF(DEFINED ENV{AtracsysSDK_HOME})
       set(AtracsysSDK_INSTALL_PATH $ENV{AtracsysSDK_HOME})
       # Add Linux spryTrack to path hints
-      LIST(APPEND AtracsysSDK_PATH_HINTS "${AtracsysSDK_INSTALL_PATH}")	  
+      LIST(APPEND AtracsysSDK_PATH_HINTS "${AtracsysSDK_INSTALL_PATH}")
     ENDIF()
   endif ()
 ELSEIF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "ftk")
@@ -49,9 +49,9 @@ ELSEIF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "ftk")
   if (WIN32)
   	# Windows 64 bit fusionTrack path hints
     SET(AtracsysSDK_PATH_HINTS
-      "../PLTools/Atracsys/windows/ftk64"
-      "../../PLTools/Atracsys/windows/ftk64"
-      "../trunk/PLTools/Atracsys/windows/ftk64"
+      "../PLTools/Atracsys/windows/ftk64/cmake"
+      "../../PLTools/Atracsys/windows/ftk64/cmake"
+      "../trunk/PLTools/Atracsys/windows/ftk64/cmake"
       )
     # On Windows, we look for the installation folder in the registry
     get_filename_component(
@@ -88,7 +88,8 @@ IF(AtracsysSDK_INSTALL_PATH)
   set(Atracsys_DIR "${AtracsysSDK_INSTALL_PATH}/cmake/Atracsys")
 ENDIF()
 
-find_package(Atracsys REQUIRED COMPONENTS SDK)
+find_package(Atracsys REQUIRED COMPONENTS SDK HINTS ${AtracsysSDK_PATH_HINTS})
+
 set(AtracsysSDK_FOUND True)
 set(AtracsysSDK_VERSION "${Atracsys_VERSION}")
 set(AtracsysSDK_INCLUDE_DIR "${AtracsysSDK_INCLUDE_DIRS}")
