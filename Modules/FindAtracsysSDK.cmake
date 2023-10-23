@@ -16,9 +16,9 @@ IF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "stk")
   if (WIN32)
     # Windows 64 bit spryTrack path hints
     SET(AtracsysSDK_PATH_HINTS
-    "../PLTools/Atracsys/windows/stk64"
-    "../../PLTools/Atracsys/windows/stk64"
-    "../trunk/PLTools/Atracsys/windows/stk64"
+    "../PLTools/Atracsys/windows/stk64/cmake"
+    "../../PLTools/Atracsys/windows/stk64/cmake"
+    "../trunk/PLTools/Atracsys/windows/stk64/cmake"
     )
     # On Windows, we look for the installation folder in the registry
     get_filename_component(
