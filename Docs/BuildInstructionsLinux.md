@@ -1,3 +1,22 @@
+Ubuntu 22.04 LTS
+================
+
+PlusBuild project contains a CMake project that builds the Plus library, applications, and all their dependencies.
+These commands install all prerequisites and builds Plus using default settings:
+
+```
+sudo apt update && sudo apt install git build-essential cmake \
+    qtbase5-dev qt5-qmake qtmultimedia5-dev qttools5-dev libqt5xmlpatterns5-dev \
+    qtbase5-private-dev libqt5x11extras5-dev libxt-dev qtdeclarative5-dev libqt5webenginewidgets5 qml-module-qtquick\*
+
+git clone https://github.com/PlusToolkit/PlusBuild.git
+mkdir PlusBuild-bin
+cd PlusBuild-bin
+cmake ../PlusBuild
+
+make
+```
+
 Ubuntu 20.04 LTS
 ================
 
