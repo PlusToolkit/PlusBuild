@@ -10,9 +10,10 @@
 #  FLIRSPINNAKERSDK_INCLUDE_DIR          The location(s) of SDK headers
 #  FLIRSPINNAKERSDK_LIBRARY_DIR          Libraries needed to use SDK
 #  FLIRSPINNAKERSDK_BINARY_DIR           Binaries needed to use SDK
+#  "$ENV{PROGRAMFILES}/FLIR Systems/Spinnaker"
 
 SET(FLIRSPINNAKER_SDK_PATH_HINTS
-  "$ENV{PROGRAMFILES}/FLIR Systems/Spinnaker"
+  "C:/Program Files/FLIR Systems/Spinnaker"
   )
 
 find_path(FLIRSPINNAKER_SDK_DIR include/Spinnaker.h

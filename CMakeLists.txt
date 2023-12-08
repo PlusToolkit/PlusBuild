@@ -685,7 +685,7 @@ ENDIF()
 IF(PLUS_USE_FLIRSPINNAKER_CAM)
   FIND_PACKAGE(FLIRSPINNAKER_SDK)
   IF(NOT FLIRSPINNAKER_SDK_FOUND)
-    MESSAGE(FATAL_ERROR "This project requires FLIR SPINNAKER SDK for supporting the FLIR camera device. One of the components is missing. Please verify configuration or turn off PLUS_USE_FLIR_SPINNAKER_CAM.")
+    MESSAGE(FATAL_ERROR "This project requires FLIR SPINNAKER SDK for supporting the FLIR camera device. One of the components is missing. Please verify configuration or turn off PLUS_USE_FLIRSPINNAKER_CAM.")
   ENDIF()
 ENDIF()
 
