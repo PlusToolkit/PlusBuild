@@ -236,6 +236,7 @@ OPTION(PLUS_USE_INFRARED_TEEV2_CAM "Provide support for capturing an Infrared Th
 OPTION(PLUS_USE_ULTRAVIOLET_PCOUV_CAM "Provide support for capturing an PCO Ultraviolet Camera capture stream" OFF)
 OPTION(PLUS_USE_DAQVIDEOSOURCE "Provide support for capturing an CameraLink Camera using DAQ System USB3-FRM13-B Grabber" OFF)
 OPTION(PLUS_USE_DAQMMFCOMBINED_VIDEO "Provide support for capturing an CameraLink Camera using DAQ System USB3-FRM13-B Grabber and MMF Camera" OFF)
+OPTION(PLUS_USE_FLIRSPINNAKER_CAM "Provide support for capturing an FLIR Spinnaker capture stream" OFF)
 
 IF(PLUS_USE_DAQMMFCOMBINED_VIDEO)
 	SET (PLUS_USE_DAQVIDEOSOURCE ON CACHE BOOL "Provide support for the DAQ System USB3-FRM13-B + MMF combined device" FORCE)
@@ -678,6 +679,13 @@ IF(PLUS_USE_DAQVIDEOSOURCE)
   FIND_PACKAGE(DAQVIDEOSOURCESDK)
   IF(NOT DAQVIDEOSOURCESDK_FOUND)
     MESSAGE(FATAL_ERROR "This project requires DAQ System USB3-FRM13-B SDK for supporting the CameraLink device. One of the components is missing. Please verify configuration or turn off PLUS_USE_DAQVIDEOSOURCE.")
+  ENDIF()
+ENDIF()
+
+IF(PLUS_USE_FLIRSPINNAKER_CAM)
+  FIND_PACKAGE(FLIRSPINNAKER_SDK)
+  IF(NOT FLIRSPINNAKER_SDK_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires FLIR SPINNAKER SDK for supporting the FLIR camera device. One of the components is missing. Please verify configuration or turn off PLUS_USE_FLIR_SPINNAKER_CAM.")
   ENDIF()
 ENDIF()
 
