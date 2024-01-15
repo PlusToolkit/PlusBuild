@@ -10,42 +10,19 @@ IF(ClariusOEM_DIR)
   SET(Plus_ClariusOEM_DIR ${ClariusOEM_DIR} CACHE PATH "Path to Clarius Solum SDK")
 ELSE()
 
-  # git clone of OEM interface
-  SetGitRepositoryTag(
-    ClariusOEM
-    "https://github.com/clariusdev/solum.git"
-    "f0676851c4c31d7c90954084bc522927376cc5bf"
-    )
-
   SET(Plus_ClariusOEM_OUTER_SRC_DIR "${CMAKE_BINARY_DIR}/ClariusOEM")
   SET(Plus_ClariusOEM_DIR "${Plus_ClariusOEM_OUTER_SRC_DIR}" CACHE PATH "Path to Clarius Solum SDK")
   SET(Plus_ClariusOEM_PREFIX_DIR "${CMAKE_BINARY_DIR}/ClariusOEM-prefix")
 
+  # download zipped header/lib/dll files
+
+  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/solum/releases/download/v11.1.0/solum-11.1.0-windows.x64.zip")
+  SET(CLARIUS_OEM_PACKAGE_SHA256 "e7cc07312fdfd9ab90dfee0ed5f09e1e150f97aefad5486aa739f8763484a5ca")
+
   ExternalProject_Add(ClariusOEM
     ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}
     PREFIX ${Plus_ClariusOEM_PREFIX_DIR}
-    SOURCE_DIR ${Plus_ClariusOEM_OUTER_SRC_DIR}
-    #--Download step--------------
-    GIT_REPOSITORY ${ClariusOEM_GIT_REPOSITORY}
-    GIT_TAG ${ClariusOEM_GIT_TAG}
-    #--Configure step-------------
-    CONFIGURE_COMMAND ""
-    #--Build step-----------------
-    BUILD_COMMAND ""
-    #--Install step---------------
-    INSTALL_COMMAND ""
-    DEPENDS ""
-    )
-
-  # download zipped lib/dll files
-
-  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/solum/releases/download/v11.0.0/solum-11.0.0-windows.x64.zip")
-  SET(CLARIUS_OEM_PACKAGE_SHA256 "69959162d3ff9930a7fc7352b46b1072586be8155a1243343017c6e9cd1933fe")
-
-  ExternalProject_Add(ClariusOEM-Libs
-    ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}
-    PREFIX ${Plus_ClariusOEM_PREFIX_DIR}
-    SOURCE_DIR ${Plus_ClariusOEM_DIR}/lib
+    SOURCE_DIR ${Plus_ClariusOEM_DIR}
     #--Download step--------------
     URL ${CLARIUS_OEM_PACKAGE_URL}
     URL_HASH SHA256=${CLARIUS_OEM_PACKAGE_SHA256}
