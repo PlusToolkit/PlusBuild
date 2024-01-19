@@ -6,7 +6,7 @@ These commands install all prerequisites and builds Plus using default settings:
 
 ```
 sudo apt update && sudo apt install git build-essential cmake \
-    qtbase5-dev qt5-qmake qtmultimedia5-dev qttools5-dev libqt5xmlpatterns5-dev \
+    qtbase5-dev qt5-qmake qtmultimedia5-dev qttools5-dev libglvnd-dev libqt5xmlpatterns5-dev \
     qtbase5-private-dev libqt5x11extras5-dev libxt-dev qtdeclarative5-dev libqt5webenginewidgets5 qml-module-qtquick\*
 
 git clone https://github.com/PlusToolkit/PlusBuild.git
