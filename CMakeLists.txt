@@ -696,9 +696,9 @@ IF(PLUS_USE_ATRACSYS)
   IF(ATRACSYS_DEVICE_TYPE STREQUAL "SET_DEVICE_TYPE")
     MESSAGE(FATAL_ERROR "Please choose an Atracsys device type to build support for. Options are stk (spryTrack), ftk (fusionTrack), or ftksim (fusionTrack simulator).")
   ENDIF()
-  FIND_PACKAGE(Atracsys)
-  IF(NOT ATRACSYS_SDK_FOUND)
-    MESSAGE(FATAL_ERROR "This project requires the Atracsys sTk Passive Tracking SDK to support the use of Atacsys optical trackers. One of the components is missing. Please verify configuration or turn off PLUS_USE_ATRACSYS")
+  FIND_PACKAGE(AtracsysSDK)
+  IF(NOT AtracsysSDK_FOUND)
+    MESSAGE(FATAL_ERROR "This project requires the appropriate Atracsys SDK to support the use of Atracsys optical trackers. One of the components is missing. Please verify configuration or turn off PLUS_USE_ATRACSYS.")
   ENDIF()
 ENDIF()
 
@@ -947,6 +947,10 @@ ENDIF()
 
 IF(PLUS_USE_STEAMVR AND NOT OpenVR_DIR)
   LIST(APPEND PlusLib_DEPENDENCIES OpenVR)
+ENDIF()
+
+IF(PLUS_USE_CLARIUS_OEM AND NOT ClariusOEM_DIR)
+  LIST(APPEND PlusLib_DEPENDENCIES ClariusOEM)
 ENDIF()
 
 SET(PlusApp_DEPENDENCIES PlusLib)

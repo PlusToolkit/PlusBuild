@@ -17,8 +17,7 @@ IF(NOT DEFINED ClariusOEM_DIR)
   # path hints
   IF(WIN32)
     SET(ClariusOEM_PATH_HINTS
-      "../solum/desktop/src/"
-      "../../solum/desktop/src/"
+      "."
       )
   ELSE()
     MESSAGE(FATAL_ERROR "Clarius SOLUM SDK is currently only supported on Windows")
@@ -43,7 +42,7 @@ IF(ClariusOEM_DIR)
   # find Clarius SOLUM SDK library file
   FIND_LIBRARY(ClariusOEM_LIBRARY_PATH
     NAMES solum${CMAKE_STATIC_LIBRARY_SUFFIX}
-    PATHS "${ClariusOEM_DIR}/lib" NO_DEFAULT_PATH
+    PATHS "${ClariusOEM_DIR}" NO_DEFAULT_PATH
     DOC "Clarius SOLUM SDK library"
     )
   MARK_AS_ADVANCED(ClariusOEM_LIBRARY_PATH)
@@ -51,7 +50,7 @@ IF(ClariusOEM_DIR)
   # find Clarius SOLUM SDK binary file
   FIND_FILE(ClariusOEM_BINARY_PATH
     NAMES solum${CMAKE_SHARED_LIBRARY_SUFFIX}
-    PATHS "${ClariusOEM_DIR}/lib" NO_DEFAULT_PATH
+    PATHS "${ClariusOEM_DIR}" NO_DEFAULT_PATH
     DOC "Clarius SOLUM SDK binary"
     )
   MARK_AS_ADVANCED(ClariusOEM_BINARY_PATH)
