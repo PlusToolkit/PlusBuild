@@ -258,7 +258,16 @@ IF (PLUS_USE_OPTITRACK)
   IF (TEMP_OS_ARCH MATCHES "x86" AND MOTIVE_VERSION VERSION_GREATER "2.1.0")
     MESSAGE(FATAL_ERROR "MOTIVE_VERSION cannot be greater than 2.1.0 for 32-bit builds")
   ENDIF()
-  set_property(CACHE MOTIVE_VERSION PROPERTY STRINGS "1.10.3" "2.2.0" "2.3.2" "3.0.3")
+  set_property(CACHE MOTIVE_VERSION PROPERTY STRINGS "1.10.3" "2.2.0" "2.3.2" "3.1.2")
+
+  IF (MOTIVE_VERSION VERSION_GREATER_EQUAL "3.1.0")
+    SET(_minimum_cxx_standard "17")
+    IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
+      MESSAGE("The C++17 standard is required for OptiTrack 3.1.X, updating CMAKE_CXX_STANDARD to 17")
+      SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
+    ENDIF()
+  ENDIF()
+
 ENDIF()
 
 OPTION(PLUS_USE_OPTIMET_CONOPROBE "Provide support for the Optimet ConoProbe" OFF)
