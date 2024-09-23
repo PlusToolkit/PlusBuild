@@ -72,10 +72,12 @@ ELSEIF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "ftk")
       )
     # On Linux, the AtracsysSDK_HOME variable must be defined.
     IF(DEFINED ENV{AtracsysSDK_HOME})
-      set(AtracsysSDK_INSTALL_PATH ${AtracsysSDK_HOME})
+      set(AtracsysSDK_INSTALL_PATH $ENV{AtracsysSDK_HOME})
       # Add Linux fusionTrack to path hints
       LIST(APPEND AtracsysSDK_PATH_HINTS "${AtracsysSDK_INSTALL_PATH}")
     ENDIF()
+    SET(CMAKE_IMPORT_LIBRARY_PREFIX "lib")
+    SET(CMAKE_IMPORT_LIBRARY_SUFFIX ".so")
   endif ()
 ELSEIF(PLUS_USE_ATRACSYS_DEVICE_TYPE STREQUAL "ftksim")
   # use simulator SDK
