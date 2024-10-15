@@ -11,9 +11,10 @@
 #  SPECIMSDK_LIBRARY_DIR          Libraries needed to use SDK
 #  SPECIMSDK_BINARY_DIR           Binaries needed to use SDK
 #  "$ENV{ProgramFiles\(x86\)}/Specim/SDKs/Lumo_Sensor_SDK"
+#  "C:/Program Files (x86)/Specim/SDKs/Lumo_Sensor_SDK"
 
 SET(SPECIM_SDK_PATH_HINTS
-  "C:/Program Files (x86)/Specim/SDKs/Lumo_Sensor_SDK"
+  "$ENV{ProgramFiles\(x86\)}/Specim/SDKs/Lumo_Sensor_SDK"
   )
 
 find_path(SPECIM_SDK_DIR include/SI_sensor.h
