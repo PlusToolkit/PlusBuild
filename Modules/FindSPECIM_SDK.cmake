@@ -55,6 +55,15 @@ if (SPECIM_SDK_DIR)
             PATH_SUFFIXES ${PLATFORM_SUFFIX})
 
  
+   set(SPECIM_SDK_DLLS 
+    ${SPECIM_SDK_BINARY}/${SDK_FILENAME}
+    ${SPECIM_SDK_BINARY}/grab014.dll
+    ${SPECIM_SDK_BINARY}/PvBase64.dll
+    ${SPECIM_SDK_BINARY}/PvStream64.dll
+    ${SPECIM_SDK_BINARY}/tbb.dll
+    ${SPECIM_SDK_BINARY}/PvDevice64.dll
+    ${SPECIM_SDK_BINARY}/tbbmalloc.dll)
+	
   mark_as_advanced(SPECIM_SDK_LIBRARY)
   mark_as_advanced(SPECIM_SDK_BINARY)
 
