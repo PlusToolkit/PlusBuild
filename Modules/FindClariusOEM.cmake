@@ -24,7 +24,7 @@ IF(NOT DEFINED ClariusOEM_DIR)
   ENDIF()
 
   # find path to Clarius SOLUM SDK dir
-  FIND_PATH(_oem_root include/solum/solum.h
+  FIND_PATH(_oem_root solum/solum.h
     PATHS ${ClariusOEM_PATH_HINTS}
     DOC "Clarius SOLUM SDK dir"
     )
@@ -36,7 +36,7 @@ ENDIF()
 
 IF(ClariusOEM_DIR)
   # set path to Clarius SOLUM SDK include directory
-  SET(ClariusOEM_INCLUDE_DIRS ${ClariusOEM_DIR}/include/solum CACHE PATH "Clarius SOLUM SDK include directories")
+  SET(ClariusOEM_INCLUDE_DIRS ${ClariusOEM_DIR}/solum CACHE PATH "Clarius SOLUM SDK include directories")
   MARK_AS_ADVANCED(ClariusOEM_INCLUDE_DIRS)
 
   # find Clarius SOLUM SDK library file
