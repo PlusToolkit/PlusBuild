@@ -1,3 +1,31 @@
+Ubuntu 24.04 LTS
+================
+
+PlusBuild project contains a CMake project that builds the Plus library, applications, and all their dependencies.
+These commands install all prerequisites and builds Plus using default settings:
+
+**Hint:** You can accelerate the compilation process by using parallel jobs; simply pass `-j <number_of_processes>` to the `make` command.
+
+```
+sudo apt update && sudo apt install git git-lfs gcc-11 g++-11 build-essential cmake \
+    qtbase5-dev qt5-qmake qtmultimedia5-dev qttools5-dev libglvnd-dev libqt5xmlpatterns5-dev \
+    qtbase5-private-dev libqt5x11extras5-dev libxt-dev qtdeclarative5-dev libqt5webenginewidgets5 qml-module-qtquick\*
+
+git clone https://github.com/PlusToolkit/PlusBuild.git
+mkdir PlusBuild-bin
+cd PlusBuild-bin
+
+export CC=/usr/bin/gcc-11
+export CXX=/usr/bin/g++-11
+export CPP=$CXX
+export LD=$CXX
+export QT_SELECT=qt5
+
+cmake ../PlusBuild -DCMAKE_BUILD_TYPE=Release
+
+make CC=$CC CXX=$CXX CPP=$CPP LD=$LD 
+```
+
 Ubuntu 22.04 LTS
 ================
 
