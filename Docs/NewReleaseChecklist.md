@@ -58,13 +58,6 @@ Double-check that all main features of Plus work before releasing stable build. 
     - [ ] PlusApp
     - [ ] PlusLib
   - Failing or unstable tests: ___
-- Plus runs on Ultrasonix (Windows XP Embedded):
-  - Slicer version: Slicer ___.___
-  - Ultrasound exam software version: Sonix ___.___
-  - Ultrasound probe: Ultrasonix ___
-  - [ ] Live image is displayed in Slicer
-  - [ ] Start/stop recording works in Slicer using PlusRemote
-  - [ ] Scout scan and live volume reconstruction works in Slicer using PlusRemote
 - [ ] Tracking using NDI Polaris
 - [ ] Tracking using NDI Aurora
 - [ ] Tracking using PhidgetSpatial
@@ -75,8 +68,6 @@ Double-check that all main features of Plus work before releasing stable build. 
 - [ ] Grayscale image acquisition using webcam - MMF
 - [ ] Color image acquisition using webcam - MMF
 - [ ] Image acquisition using ImagingControls
-- [ ] Tracking using StealthLink
-  - Make sure to test image retrieve using OpenIGTLinkRemote
 - [ ] Tracking using OpticalMarkerTracking
 - [ ] Tracking using OptiTrack
 - [ ] Replay of tracked video from saved data source
@@ -108,6 +99,8 @@ Double-check that all main features of Plus work before releasing stable build. 
 - Philips3D: we don't have the hardware
 - USDigital encoders: we don't have the hardware
 - WinProbe: we don't have the hardware
+- Ultrasonix: we don't have the hardware
+- StealthLink: we don't have the hardware
 
 ## Finalize release
 
