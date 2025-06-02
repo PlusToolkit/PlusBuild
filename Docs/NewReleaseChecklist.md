@@ -64,7 +64,6 @@ Double-check that all main features of Plus work before releasing stable build. 
 - [ ] Ultrasound imaging using Interson
 - [ ] Ultrasound imaging using Telemed
 - [ ] Image acquisition using Epiphan
-- [ ] Image acquisition using webcam - Video for Windows
 - [ ] Grayscale image acquisition using webcam - MMF
 - [ ] Color image acquisition using webcam - MMF
 - [ ] Image acquisition using ImagingControls
