@@ -56,6 +56,7 @@ ENDIF()
 LIST(APPEND MicronTracker_PATH_HINTS
   "c:/Program Files (x86)/Claron Technology/MicronTracker"
   "c:/Program Files/Claron Technology/MicronTracker"
+  "c:/ProgramData/ClaroNav/MicronTracker 4/Dist64MT4"
   )
 
   IF(CMAKE_HOST_WIN32 AND CMAKE_CL_64)
