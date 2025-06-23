@@ -15,6 +15,8 @@ MARK_AS_ADVANCED(PLUSBUILD_PREFER_MicronTracker_36)
 # otherwise try to find MTC_3.7 and fall back to MTC_3.6.
 IF(PLUSBUILD_PREFER_MicronTracker_36)
   SET(MicronTracker_PATH_HINTS
+    ../PLTools/‎Claron/MTC_4.1.2.41606_x64_win
+    ../../PLTools/‎Claron/MTC_4.1.2.41606_x64_win
     ../Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
     ../../PLTools/Claron/MTC_3.6.5.4_x86_win/MicronTracker
