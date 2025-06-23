@@ -520,6 +520,15 @@ ELSEIF(NOT PLUS_USE_STEALTHLINK AND PLUS_ITK_VERSION MATCHES "4")
   MESSAGE("Only the StealthLink device is still supported to use ITK 4. Changing ITK version to 5.")
   SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use." FORCE)
 ENDIF()
+
+IF (PLUS_ITK_VERSION GREATER_EQUAL 5)
+  SET(_minimum_cxx_standard "17")
+  IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
+    MESSAGE("The C++17 standard is required for ITK 5.4.2, updating CMAKE_CXX_STANDARD to 17")
+    SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
+  ENDIF()
+ENDIF()
+
 INCLUDE(SuperBuild/External_ITK.cmake)
 
 IF(PLUSBUILD_USE_OpenIGTLink)
