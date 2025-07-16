@@ -248,27 +248,6 @@ OPTION(PLUS_USE_ANDOR_CAMERA "Provide support for the Andor cameras capture stre
 
 # ---------- Tracking Hardware ------------
 OPTION(PLUS_USE_OPTITRACK "Provide support for the OptiTrack tracking system" OFF)
-IF (PLUS_USE_OPTITRACK)
-  IF(NOT BUILD_ARCHITECTURE MATCHES "x64")
-    SET(MOTIVE_VERSION_DEFAULT "1.10.3")
-  ELSE()
-    SET(MOTIVE_VERSION_DEFAULT "3.3.2")
-  ENDIF()
-  SET(MOTIVE_VERSION ${MOTIVE_VERSION_DEFAULT} CACHE STRING "Choose the motive API version.")
-  IF (TEMP_OS_ARCH MATCHES "x86" AND MOTIVE_VERSION VERSION_GREATER "2.1.0")
-    MESSAGE(FATAL_ERROR "MOTIVE_VERSION cannot be greater than 2.1.0 for 32-bit builds")
-  ENDIF()
-  set_property(CACHE MOTIVE_VERSION PROPERTY STRINGS "1.10.3" "2.2.0" "2.3.2" "3.1.2", "3.3.2")
-
-  IF (MOTIVE_VERSION VERSION_GREATER_EQUAL "3.1.0")
-    SET(_minimum_cxx_standard "17")
-    IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
-      MESSAGE("The C++17 standard is required for OptiTrack 3.1.X, updating CMAKE_CXX_STANDARD to 17")
-      SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
-    ENDIF()
-  ENDIF()
-
-ENDIF()
 
 OPTION(PLUS_USE_OPTIMET_CONOPROBE "Provide support for the Optimet ConoProbe" OFF)
 
@@ -541,6 +520,64 @@ IF(PLUSBUILD_USE_OpenIGTLink)
   ENDIF()
   INCLUDE(SuperBuild/External_OpenIGTLinkIO.cmake)
 ENDIF()
+
+IF (PLUS_USE_OPTITRACK)
+  IF(NOT BUILD_ARCHITECTURE MATCHES "x64")
+    SET(MOTIVE_VERSION_DEFAULT "1.10.3")
+  ELSE()
+    SET(MOTIVE_VERSION_DEFAULT "3.3.2")
+  ENDIF()
+  SET(MOTIVE_VERSION ${MOTIVE_VERSION_DEFAULT} CACHE STRING "Choose the motive API version.")
+  IF (TEMP_OS_ARCH MATCHES "x86" AND MOTIVE_VERSION VERSION_GREATER "2.1.0")
+    MESSAGE(FATAL_ERROR "MOTIVE_VERSION cannot be greater than 2.1.0 for 32-bit builds")
+  ENDIF()
+  set_property(CACHE MOTIVE_VERSION PROPERTY STRINGS "1.10.3" "2.2.0" "2.3.2" "3.1.2", "3.3.2")
+
+  IF (MOTIVE_VERSION VERSION_GREATER_EQUAL "3.1.0")
+    SET(_minimum_cxx_standard "17")
+    IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
+      MESSAGE("The C++17 standard is required for OptiTrack 3.1.X, updating CMAKE_CXX_STANDARD to 17")
+      SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
+    ENDIF()
+  ENDIF()
+
+  IF (MOTIVE_VERSION VERSION_GREATER_EQUAL "3.3.2")
+    # After Motive 3.3.2, the API is too large to keep in PLTools.
+    # Download from the PlusLibData PlusDataStore instead
+    set(MOTIVE_API_URL "")
+    set(MOTIVE_API_SHA256 "")
+    IF (MOTIVE_VERSION VERSION_EQUAL "3.3.2")
+      set(MOTIVE_3_3_2_URL "https://github.com/PlusToolkit/PlusLibData/releases/download/SHA256/880a943111ac8836ad266aff78808c5d34d5fa5475e443339215667dbb3fd496")
+      set(MOTIVE_3_3_2_SHA256 "880a943111ac8836ad266aff78808c5d34d5fa5475e443339215667dbb3fd496")
+      set(MOTIVE_API_URL ${MOTIVE_3_3_2_URL})
+      set(MOTIVE_API_SHA256 ${MOTIVE_3_3_2_SHA256})
+    ELSE()
+      MESSAGE(FATAL_ERROR "Motive API version ${MOTIVE_VERSION} is not supported.")
+    ENDIF()
+
+    set(MOTIVE_API_ZIP "${CMAKE_BINARY_DIR}/MotiveAPI.zip")
+    set(MOTIVE_API_UNZIP "${CMAKE_BINARY_DIR}/MotiveAPI")
+
+    # Always verify the SHA of the zip
+    set(DOWNLOAD_NEEDED TRUE)
+    if(EXISTS "${MOTIVE_API_ZIP}")
+      file(SHA256 "${MOTIVE_API_ZIP}" ACTUAL_HASH)
+      if(ACTUAL_HASH STREQUAL "${MOTIVE_API_SHA256}")
+        set(DOWNLOAD_NEEDED FALSE)
+      else()
+        message(STATUS "MotiveAPI.zip SHA256 mismatch – re-downloading")
+        file(REMOVE "${MOTIVE_API_ZIP}")
+      endif()
+    endif()
+
+    if(DOWNLOAD_NEEDED)
+      file(DOWNLOAD "${MOTIVE_API_URL}" "${MOTIVE_API_ZIP}" SHOW_PROGRESS EXPECTED_HASH SHA256=${MOTIVE_API_SHA256})
+      file(REMOVE_RECURSE "${MOTIVE_API_UNZIP}")
+      file(ARCHIVE_EXTRACT INPUT "${MOTIVE_API_ZIP}" DESTINATION "${MOTIVE_API_UNZIP}")
+    endif()
+  ENDIF()
+ENDIF()
+
 
 IF(PLUS_USE_NDI)
   INCLUDE(SuperBuild/External_ndicapi.cmake)

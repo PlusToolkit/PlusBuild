@@ -15,6 +15,7 @@ set(MotiveAPI_PATH_HINTS
   "../PLTools/OptiTrack/MotiveAPI-${MOTIVE_VERSION}"
   "../../PLTools/OptiTrack/MotiveAPI-${MOTIVE_VERSION}"
   "../trunk/PLTools/OptiTrack/MotiveAPI-${MOTIVE_VERSION}"
+  "${CMAKE_CURRENT_BINARY_DIR}/MotiveAPI"
   "${CMAKE_CURRENT_BINARY_DIR}/PLTools/OptiTrack/MotiveAPI-${MOTIVE_VERSION}"
   "$ENV{PROGRAMFILES}/OptiTrack/Motive"
   "$ENV{PROGRAMW6432}/OptiTrack/Motive"
