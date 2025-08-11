@@ -33,7 +33,7 @@ ELSE()
   SetGitRepositoryTag(
     IntersonArraySDKCxx
     "https://github.com/KitwareMedical/IntersonArraySDKCxx.git"
-    "master"
+    "9440a508b07212b06eae0f6de0b7468bd0418b2b"
     )
 
   SET (PLUS_IntersonArraySDKCxx_SRC_DIR "${CMAKE_BINARY_DIR}/IntersonArraySDKCxx")

@@ -22,7 +22,7 @@ ELSE()
   SetGitRepositoryTag(
     OpenVR
     "https://github.com/ValveSoftware/openvr.git"
-    "master"
+    "ebd425331229365dc3ec42d1bb8b2cc3c2332f81"
     )
 
   SET (PLUS_OpenVR_SRC_DIR "${CMAKE_BINARY_DIR}/OpenVR")

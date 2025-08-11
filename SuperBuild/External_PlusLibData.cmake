@@ -4,7 +4,7 @@ IF(NOT DEFINED(PLUSBUILD_PLUSLIBDATA_GIT_REPOSITORY))
   SET(PLUSBUILD_PLUSLIBDATA_GIT_REPOSITORY "https://github.com/PlusToolkit/PlusLibData.git" CACHE STRING "Set PlusLibData desired git url.")
 ENDIF()
 IF(NOT DEFINED(PLUSBUILD_PLUSLIBDATA_GIT_REVISION))
-  SET(PLUSBUILD_PLUSLIBDATA_GIT_REVISION "master" CACHE STRING "Set PlusLibData desired git hash (master means latest).")
+  SET(PLUSBUILD_PLUSLIBDATA_GIT_REVISION "51dcbb76d9f29fad94cf80788a7a0b7c704fb5dc" CACHE STRING "Set PlusLibData desired git hash (master means latest).")
 ENDIF()
 
 SET (PLUS_PLUSLIBDATA_DIR ${CMAKE_BINARY_DIR}/PlusLibData CACHE INTERNAL "Path to store PlusLib contents.")

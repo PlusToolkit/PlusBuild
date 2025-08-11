@@ -13,7 +13,7 @@ ELSE()
   SetGitRepositoryTag(
     OpenIGTLinkIO
     "https://github.com/IGSIO/OpenIGTLinkIO.git"
-    "master"
+    "d7f6aef826d934577a39b48d9485bc0848f27cb8"
     )
 
   SET(PLUSBUILD_ADDITIONAL_SDK_ARGS)

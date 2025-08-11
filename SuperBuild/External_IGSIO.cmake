@@ -12,7 +12,7 @@ ELSE()
   SetGitRepositoryTag(
     IGSIO
     "https://github.com/IGSIO/IGSIO.git"
-    "master"
+    "4f3605eb1928c9926be4e476c8608c0754f35873"
     )
 
   SET(PLUSBUILD_ADDITIONAL_SDK_ARGS)

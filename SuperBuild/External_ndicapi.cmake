@@ -11,7 +11,7 @@ ELSE()
   SetGitRepositoryTag(
     ndicapi
     "https://github.com/PlusToolkit/ndicapi.git"
-    "master"
+    "a8eadfccfd376321180849e452bb6dc340a6028e"
     )
 
   # --------------------------------------------------------------------------

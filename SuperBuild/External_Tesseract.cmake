@@ -9,7 +9,7 @@ SET(tesseract_ROOT_DIR ${CMAKE_BINARY_DIR})
 SetGitRepositoryTag(
   leptonica
   "https://github.com/PlusToolkit/leptonica.git"
-  "master"
+  "6f16e0aa6da3187f4a2c544491411a7af2f6204e"
   )
 
 IF(leptonica_DIR)
