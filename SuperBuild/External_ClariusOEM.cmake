@@ -16,8 +16,8 @@ ELSE()
 
   # download zipped header/lib/dll files
 
-  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/solum/releases/download/v12.0.2/solum-12.0.2-windows.x86_64.zip")
-  SET(CLARIUS_OEM_PACKAGE_SHA256 "07f6e77f48aa7b1667eb9c3048b775260c62d82e39730c298452a484b95c5cc4")
+  SET(CLARIUS_OEM_PACKAGE_URL "https://github.com/clariusdev/solum/releases/download/v12.2.4/solum-12.2.4-windows.x86_64.zip")
+  SET(CLARIUS_OEM_PACKAGE_SHA256 "c6061fa1f9de145c1179e7d6a8f28c3b918a8dd8ac83d3d2dd1b1c4bd8cef62a")
 
   ExternalProject_Add(ClariusOEM
     ${PLUSBUILD_EXTERNAL_PROJECT_CUSTOM_COMMANDS}
