@@ -77,9 +77,12 @@ endmacro()
 # although version numbers listed on that page don't necessarily match the directory
 # used by the installer.
 set(_winsdk_win10vers
-	10.0.22000.0
-	10.0.20348.0
-	10.0.19041.0
+	10.0.28000.0 # Windows 11 26H1
+	10.0.26100.0 # Windows 11 24H2
+	10.0.22621.0 # Windows 11 22H2
+	10.0.22000.0 # Windows 11 21H2 (initial release)
+	10.0.20348.0 # Windows Server 2022
+	10.0.19041.0 # Win10 2004 "20H1"
 	10.0.18362.0 # Win10 1903 "19H1"
 	10.0.17763.0 # Win10 1809 "October 2018 Update"
 	10.0.17134.0 # Redstone 4 aka Win10 1803 "April 2018 Update"
