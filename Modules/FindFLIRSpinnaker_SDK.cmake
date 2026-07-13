@@ -1,0 +1,71 @@
+###############################################################################
+# Find FLIR SYSTEMS SPINNAKER SDK
+#
+#     find_package(FLIRSPINNAKERSDK)
+#
+# Variables defined by this module:
+#
+#  FLIRSPINNAKERSDK_FOUND                True if SDK found
+#  FLIRSPINNAKERSDK_VERSION              The version of SDK
+#  FLIRSPINNAKERSDK_INCLUDE_DIR          The location(s) of SDK headers
+#  FLIRSPINNAKERSDK_LIBRARY_DIR          Libraries needed to use SDK
+#  FLIRSPINNAKERSDK_BINARY_DIR           Binaries needed to use SDK
+#  "$ENV{PROGRAMFILES}/FLIR Systems/Spinnaker"
+
+SET(FLIRSPINNAKER_SDK_PATH_HINTS
+  "C:/Program Files/FLIR Systems/Spinnaker"
+  )
+
+find_path(FLIRSPINNAKER_SDK_DIR include/Spinnaker.h
+  PATHS ${FLIRSPINNAKER_SDK_PATH_HINTS}
+  DOC "FLIR SYSTEMS Spinnaker SDK directory")
+
+if (FLIRSPINNAKER_SDK_DIR)
+  # Include directories
+  set(FLIRSPINNAKER_SDK_INCLUDE_DIR ${FLIRSPINNAKER_SDK_DIR}/include)
+  mark_as_advanced(FLIRSPINNAKER_SDK_INCLUDE_DIR)
+
+
+  # Libraries
+  SET(PLATFORM_SUFFIX "")
+  SET(LIB_FILENAME "Spinnaker_v140.lib")
+  SET(SDK_FILENAME "Spinnaker_v140.dll")
+
+  IF (CMAKE_HOST_WIN32 AND CMAKE_CL_64 )
+    SET(PLATFORM_LIB_SUFFIX "lib64/vs2015")
+    SET(PLATFORM_BIN_SUFFIX "bin64/vs2015")
+  ENDIF (CMAKE_HOST_WIN32 AND CMAKE_CL_64 )
+
+  IF (CMAKE_HOST_WIN32 AND NOT CMAKE_CL_64 )
+    SET(PLATFORM_LIB_SUFFIX "lib/vs2015")
+    SET(PLATFORM_BIN_SUFFIX "bin/vs2015")
+  ENDIF (CMAKE_HOST_WIN32 AND NOT CMAKE_CL_64 )
+
+
+
+  find_library(FLIRSPINNAKER_SDK_LIBRARY
+            NAMES ${LIB_FILENAME}
+            PATHS "${FLIRSPINNAKER_SDK_DIR}/${PLATFORM_LIB_SUFFIX}/" NO_DEFAULT_PATH
+            PATH_SUFFIXES ${PLATFORM_SUFFIX})
+
+  find_path(FLIRSPINNAKER_SDK_BINARY
+            NAMES ${SDK_FILENAME}
+            PATHS "${FLIRSPINNAKER_SDK_DIR}/${PLATFORM_BIN_SUFFIX}/" NO_DEFAULT_PATH
+            PATH_SUFFIXES ${PLATFORM_SUFFIX})
+
+ 
+  mark_as_advanced(FLIRSPINNAKER_SDK_LIBRARY)
+  mark_as_advanced(FLIRSPINNAKER_SDK_BINARY)
+
+  set(FLIRSPINNAKER_BIN_FILE ${FLIRSPINNAKER_SDK_BINARY} "/" ${SDK_FILENAME})
+
+  set(FLIRSPINNAKER_SDK_VERSION "1.0")
+
+endif()
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(FLIRSPINNAKER_SDK
+  FOUND_VAR FLIRSPINNAKER_SDK_FOUND
+  REQUIRED_VARS FLIRSPINNAKER_SDK_DIR FLIRSPINNAKER_SDK_LIBRARY FLIRSPINNAKER_SDK_INCLUDE_DIR
+  VERSION_VAR FLIRSPINNAKER_SDK_VERSION
+)
