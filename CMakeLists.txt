@@ -18,10 +18,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 message(STATUS "${_msg} - C++${CMAKE_CXX_STANDARD}")
 
 IF (PLUS_USE_CLARIUS_OEM)
-  # ClariusOEM device uses C++/WinRT interface for managing Bluetooth LE connection to the probe, this requires C++ 17
-  SET(_minimum_cxx_standard "17")
+  # ClariusOEM device uses the C++/WinRT interface for managing the Bluetooth LE
+  # connection to the probe. WinRT's coroutine headers only pick up the standard
+  # <coroutine> header under C++20; under C++17 (without the legacy /await TS flag)
+  # they fall back to <experimental/coroutine>, which newer MSVC STL versions
+  # (e.g. VS2026) turn into a hard compile error. C++20 is required to avoid this.
+  SET(_minimum_cxx_standard "20")
   IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
-    MESSAGE("The C++17 standard is required for the Clarius OEM device, updating CMAKE_CXX_STANDARD to 17")
+    MESSAGE("The C++20 standard is required for the Clarius OEM device, updating CMAKE_CXX_STANDARD to 20")
     SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
   ENDIF()
 ENDIF()
