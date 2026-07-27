@@ -52,8 +52,8 @@ MARK_AS_ADVANCED(PLUSBUILD_OFFLINE_BUILD)
 # Macro to set the Git repository and tag, and display a message
 MACRO(SetGitRepositoryTag project_name git_repository git_tag)
   SET(${project_name}_GIT_REPOSITORY ${git_repository})
-  SET(${project_name}_GIT_TAG ${git_tag})
-  MESSAGE(STATUS "${project_name} repository: ${git_repository} (${git_tag})")
+  SET(${project_name}_GIT_TAG ${git_tag} CACHE STRING "${project_name} repository")
+  MESSAGE(STATUS "${project_name} repository: ${git_repository} (${${project_name}_GIT_TAG})")
 ENDMACRO(SetGitRepositoryTag)
 
 IF (PLUSBUILD_OFFLINE_BUILD)
