@@ -411,6 +411,26 @@ ENDIF()
 #-----------------------------------------------------------------------------
 INCLUDE(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
+# The ITK version sets the minimum C++ standard, so resolve it before ep_common_args below
+SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use.")
+MARK_AS_ADVANCED(PLUS_ITK_VERSION)
+set_property(CACHE PLUS_ITK_VERSION PROPERTY STRINGS "5" "4")
+IF(PLUS_USE_STEALTHLINK AND PLUS_ITK_VERSION VERSION_GREATER "4")
+  MESSAGE("The StealthLink device only supports up to Visual Studio 2013, therefore it must use ITK 4. Changing ITK version to 4.")
+  SET(PLUS_ITK_VERSION 4 CACHE STRING "Set version of ITK to use." FORCE)
+ELSEIF(NOT PLUS_USE_STEALTHLINK AND PLUS_ITK_VERSION MATCHES "4")
+  MESSAGE("Only the StealthLink device is still supported to use ITK 4. Changing ITK version to 5.")
+  SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use." FORCE)
+ENDIF()
+
+IF (PLUS_ITK_VERSION GREATER_EQUAL 5)
+  SET(_minimum_cxx_standard "17")
+  IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
+    MESSAGE("The C++17 standard is required for ITK 5.4.2, updating CMAKE_CXX_STANDARD to 17")
+    SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
+  ENDIF()
+ENDIF()
+
 SET(ep_base "${CMAKE_BINARY_DIR}")
 SET(ep_common_args -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} -DCMAKE_CXX_STANDARD_REQUIRED:BOOL=${CMAKE_CXX_STANDARD_REQUIRED})
 
@@ -488,25 +508,6 @@ IF(PLUSBUILD_BUILD_PLUSAPP OR PLUSBUILD_BUILD_PLUSLIB_WIDGETS)
 ENDIF()
 
 INCLUDE(SuperBuild/External_VTK.cmake)
-
-SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use.")
-MARK_AS_ADVANCED(PLUS_ITK_VERSION)
-set_property(CACHE PLUS_ITK_VERSION PROPERTY STRINGS "5" "4")
-IF(PLUS_USE_STEALTHLINK AND PLUS_ITK_VERSION VERSION_GREATER "4")
-  MESSAGE("The StealthLink device only supports up to Visual Studio 2013, therefore it must use ITK 4. Changing ITK version to 4.")
-  SET(PLUS_ITK_VERSION 4 CACHE STRING "Set version of ITK to use." FORCE)
-ELSEIF(NOT PLUS_USE_STEALTHLINK AND PLUS_ITK_VERSION MATCHES "4")
-  MESSAGE("Only the StealthLink device is still supported to use ITK 4. Changing ITK version to 5.")
-  SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use." FORCE)
-ENDIF()
-
-IF (PLUS_ITK_VERSION GREATER_EQUAL 5)
-  SET(_minimum_cxx_standard "17")
-  IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
-    MESSAGE("The C++17 standard is required for ITK 5.4.2, updating CMAKE_CXX_STANDARD to 17")
-    SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
-  ENDIF()
-ENDIF()
 
 INCLUDE(SuperBuild/External_ITK.cmake)
 
