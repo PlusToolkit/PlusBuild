@@ -35,9 +35,9 @@ ELSE()
     LIST(APPEND PLUS_ITK_OPTIONAL_ARGS -DITK_USE_SYSTEM_PNG:BOOL=ON)
   ENDIF()
 
+  SET(itk_common_cxx_flags "${ep_common_cxx_flags}")
   IF(UNIX AND NOT APPLE)
-
-    SET(itk_common_cxx_flags "${ep_common_cxx_flags} -std=c++${CMAKE_CXX_STANDARD}")
+    SET(itk_common_cxx_flags "${itk_common_cxx_flags} -std=c++${CMAKE_CXX_STANDARD}")
   ELSEIF(MSVC)
     SET(itk_common_cxx_flags "${itk_common_cxx_flags} /MP ")
   ENDIF()

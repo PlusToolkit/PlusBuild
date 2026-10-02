@@ -40,7 +40,9 @@ IF (WIN32)
   SET( PLATFORM_SUFFIXD "${PLATFORM_SUFFIX}/Debug")
   SET( PLATFORM_SUFFIX "${PLATFORM_SUFFIX}/Release")
 
-ELSEIF(UNIX AND NOT APPLE)
+ELSEIF(APPLE)
+  MESSAGE(FATAL_ERROR "Error: the StealthLink SDK is only distributed for Windows and Linux, there is no macOS build to link against.")
+ELSEIF(UNIX)
   SET( PLATFORM_SUFFIX "/linux/debian_5_0_AMD64")
 ENDIF()
 

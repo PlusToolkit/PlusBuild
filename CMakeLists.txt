@@ -367,6 +367,19 @@ if(MSVC)
   endif()
 endif()
 
+IF(PLUS_USE_STEALTHLINK)
+  IF(APPLE)
+    MESSAGE(FATAL_ERROR "The StealthLink SDK is only distributed for Windows and Linux, so PLUS_USE_STEALTHLINK cannot be enabled on macOS.")
+  ELSEIF(UNIX)
+    # The Linux StealthLink SDK requires the old libstdc++ ABI
+    IF(NOT CMAKE_CXX_FLAGS MATCHES "_GLIBCXX_USE_CXX11_ABI")
+      SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GLIBCXX_USE_CXX11_ABI=0"
+        CACHE STRING "Flags used by the CXX compiler during all build types." FORCE)
+      MESSAGE(STATUS "StealthLink: added -D_GLIBCXX_USE_CXX11_ABI=0 to CMAKE_CXX_FLAGS for the whole superbuild.")
+    ENDIF()
+  ENDIF()
+ENDIF()
+
 IF(PLUS_USE_Ascension3DG AND PLUS_USE_Ascension3DGm)
   MESSAGE(FATAL_ERROR "PLUS_USE_Ascension3DG and PLUS_USE_Ascension3DGm options cannot be enabled at the same time. See more details at https://www.assembla.com/spaces/plus/tickets/851")
 ENDIF()
@@ -411,6 +424,26 @@ ENDIF()
 #-----------------------------------------------------------------------------
 INCLUDE(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
+# The ITK version sets the minimum C++ standard, so resolve it before ep_common_args below
+SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use.")
+MARK_AS_ADVANCED(PLUS_ITK_VERSION)
+set_property(CACHE PLUS_ITK_VERSION PROPERTY STRINGS "5" "4")
+IF(PLUS_USE_STEALTHLINK AND MSVC AND PLUS_ITK_VERSION VERSION_GREATER "4")
+  MESSAGE("The StealthLink device only supports up to Visual Studio 2013, therefore it must use ITK 4. Changing ITK version to 4.")
+  SET(PLUS_ITK_VERSION 4 CACHE STRING "Set version of ITK to use." FORCE)
+ELSEIF(NOT (PLUS_USE_STEALTHLINK AND MSVC) AND PLUS_ITK_VERSION MATCHES "4")
+  MESSAGE("Only the StealthLink device is still supported to use ITK 4. Changing ITK version to 5.")
+  SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use." FORCE)
+ENDIF()
+
+IF (PLUS_ITK_VERSION GREATER_EQUAL 5)
+  SET(_minimum_cxx_standard "17")
+  IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
+    MESSAGE("The C++17 standard is required for ITK 5.4.2, updating CMAKE_CXX_STANDARD to 17")
+    SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
+  ENDIF()
+ENDIF()
+
 SET(ep_base "${CMAKE_BINARY_DIR}")
 SET(ep_common_args -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} -DCMAKE_CXX_STANDARD_REQUIRED:BOOL=${CMAKE_CXX_STANDARD_REQUIRED})
 
@@ -423,8 +456,8 @@ IF(NOT MSVC)
   LIST(APPEND ep_common_args -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE})
 ENDIF()
 
-SET(ep_common_c_flags "${CMAKE_C_FLAGS_INIT} ${ADDITIONAL_C_FLAGS}")
-SET(ep_common_cxx_flags "${CMAKE_CXX_FLAGS_INIT} ${ADDITIONAL_CXX_FLAGS}")
+SET(ep_common_c_flags "${CMAKE_C_FLAGS_INIT} ${CMAKE_C_FLAGS} ${ADDITIONAL_C_FLAGS}")
+SET(ep_common_cxx_flags "${CMAKE_CXX_FLAGS_INIT} ${CMAKE_CXX_FLAGS} ${ADDITIONAL_CXX_FLAGS}")
 
 # Compute -G arg for configuring external projects with the same CMake generator:
 IF(CMAKE_EXTRA_GENERATOR)
@@ -488,25 +521,6 @@ IF(PLUSBUILD_BUILD_PLUSAPP OR PLUSBUILD_BUILD_PLUSLIB_WIDGETS)
 ENDIF()
 
 INCLUDE(SuperBuild/External_VTK.cmake)
-
-SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use.")
-MARK_AS_ADVANCED(PLUS_ITK_VERSION)
-set_property(CACHE PLUS_ITK_VERSION PROPERTY STRINGS "5" "4")
-IF(PLUS_USE_STEALTHLINK AND PLUS_ITK_VERSION VERSION_GREATER "4")
-  MESSAGE("The StealthLink device only supports up to Visual Studio 2013, therefore it must use ITK 4. Changing ITK version to 4.")
-  SET(PLUS_ITK_VERSION 4 CACHE STRING "Set version of ITK to use." FORCE)
-ELSEIF(NOT PLUS_USE_STEALTHLINK AND PLUS_ITK_VERSION MATCHES "4")
-  MESSAGE("Only the StealthLink device is still supported to use ITK 4. Changing ITK version to 5.")
-  SET(PLUS_ITK_VERSION 5 CACHE STRING "Set version of ITK to use." FORCE)
-ENDIF()
-
-IF (PLUS_ITK_VERSION GREATER_EQUAL 5)
-  SET(_minimum_cxx_standard "17")
-  IF("${CMAKE_CXX_STANDARD}" LESS "${_minimum_cxx_standard}")
-    MESSAGE("The C++17 standard is required for ITK 5.4.2, updating CMAKE_CXX_STANDARD to 17")
-    SET(CMAKE_CXX_STANDARD "${_minimum_cxx_standard}" CACHE STRING "C++ standard" FORCE)
-  ENDIF()
-ENDIF()
 
 INCLUDE(SuperBuild/External_ITK.cmake)
 
@@ -778,10 +792,6 @@ IF(PLUS_USE_STEALTHLINK)
   FIND_PACKAGE(STEALTHLINK)
   IF(NOT STEALTHLINK_FOUND)
     MESSAGE(FATAL_ERROR "This project requires Stealthlink2 SDK for supporting communication with Medtronic StealthStation. Please verify configuration or turn off PLUS_USE_STEALTHLINK.")
-  ENDIF()
-
-  IF(UNIX AND NOT APPLE)
-    MESSAGE(WARNING "StealthLink for linux API was built against the old cpp ABI. You must build Plus with -D_GLIBCXX_USE_CXX11_ABI=0 added to CXX_FLAGS.")
   ENDIF()
 ENDIF()
 
