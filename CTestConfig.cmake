@@ -5,7 +5,6 @@
 ##   enable_testing()
 ##   include(CTest)
 set(CTEST_PROJECT_NAME "PlusBuild")
-set(CTEST_BUILD_NAME "PlusBuild")
 set(CTEST_NIGHTLY_START_TIME "00:00:00 EST")
 
 set(CTEST_DROP_METHOD "https")
