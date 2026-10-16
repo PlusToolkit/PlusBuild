@@ -131,6 +131,7 @@ ELSE()
     #--Configure step-------------
     CMAKE_ARGS
       ${ep_common_args}
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5
       ${ep_qt_args}
       ${VTK_VERSION_SPECIFIC_ARGS}
       -DCMAKE_INSTALL_PREFIX:PATH=${PLUS_VTK_INSTALL_DIR}
